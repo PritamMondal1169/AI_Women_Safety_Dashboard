@@ -1,0 +1,107 @@
+2026-03-28 23:35:22.275 | INFO     | utils.logger:setup_logging:107 — Logging initialised | level=DEBUG | dir=C:\Users\HP\OneDrive\Desktop\women-safety-product\logs | rotation=10 MB | retention=7 days
+2026-03-28 23:35:22.280 | INFO     | __main__:run:331 — ================================================================
+2026-03-28 23:35:22.280 | INFO     | __main__:run:332 —   Women Safety Product — Production Pipeline (Days 1–5)
+2026-03-28 23:35:22.280 | INFO     | __main__:run:333 — ================================================================
+2026-03-28 23:35:22.280 | INFO     | __main__:run:334 — ============================================================
+  Women Safety Product — Active Configuration
+============================================================
+  PROJECT_ROOT                        C:\Users\HP\OneDrive\Desktop\women-safety-product
+  CAMERA_SOURCE                       0
+  CAMERA_WIDTH                        640
+  CAMERA_HEIGHT                       480
+  CAMERA_FPS                          30
+  CAMERA_RECONNECT_DELAY              3
+  CAMERA_MAX_RECONNECT                10
+  MODEL_PATH                          models/yolov8n-pose.pt
+  MODEL_CONFIDENCE                    0.55
+  MODEL_IOU                           0.5
+  MODEL_DEVICE                        cuda
+  MODEL_IMGSZ                         640
+  EXPORT_ONNX                         False
+  TRACKER_CONFIG                      botsort.yaml
+  TRACKER_PERSIST                     True
+  THREAT_MODEL_PATH                   models/threat_xgb.json
+  THREAT_LOW                          0.22
+  THREAT_MEDIUM                       0.44
+  THREAT_HIGH                         0.62
+  THREAT_SUSTAINED_FRAMES             8
+  THREAT_MIN_GROUP_SIZE               2
+  ENABLE_INTERACTION_ANALYSIS         True
+  INTERACTION_DISTANCE_THRESHOLD      0.25
+  INTERACTION_BOOST_MAX               0.25
+  ALERT_EMAIL_ENABLED                 False
+  ALERT_EMAIL_SMTP                    smtp.gmail.com
+  ALERT_EMAIL_PORT                    587
+  ALERT_EMAIL_SENDER                  your@gmail.com
+  ALERT_EMAIL_PASSWORD                ***
+  ALERT_EMAIL_RECEIVER                emergency@example.com
+  ALERT_SOUND_ENABLED                 True
+  ALERT_COOLDOWN                      60
+  LOCATION_GOOGLE_API_KEY             ***
+  LOCATION_IP_FALLBACK                True
+  DASHBOARD_PORT                      8501
+  DASHBOARD_REFRESH_MS                100
+  LOG_MAX_ROWS                        200
+  LOG_LEVEL                           DEBUG
+  LOG_DIR                             logs
+  LOG_ROTATION                        10 MB
+  LOG_RETENTION                       7 days
+============================================================
+2026-03-28 23:35:22.282 | INFO     | __main__:run:372 — Initialising camera (source=0)…
+2026-03-28 23:35:22.283 | INFO     | core.camera:__init__:78 — Camera created | source=0 | 640x480 @ 30fps
+2026-03-28 23:35:22.284 | DEBUG    | core.camera:_open:156 — Opening camera source: 0
+2026-03-28 23:36:26.876 | INFO     | core.camera:_open:174 — Camera opened | actual 640x480 @ 30.0fps
+2026-03-28 23:36:26.877 | DEBUG    | core.camera:_reader_loop:202 — Camera reader loop entered.
+2026-03-28 23:36:26.877 | INFO     | core.camera:start:101 — Camera reader thread started.
+2026-03-28 23:36:27.241 | INFO     | __main__:run:381 — Frame resolution: 640×480
+2026-03-28 23:36:27.242 | INFO     | __main__:run:387 — Initialising Detector (skip=0)…
+2026-03-28 23:36:27.242 | INFO     | core.detector:_load_model:107 — Loading YOLO model from: C:\Users\HP\OneDrive\Desktop\women-safety-product\models\yolov8n-pose.pt
+2026-03-28 23:36:27.404 | ERROR    | core.detector:_load_model:121 — Failed to load YOLO model from C:\Users\HP\OneDrive\Desktop\women-safety-product\models\yolov8n-pose.pt.
+Traceback (most recent call last):
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 623, in <module>
+    code = run(args)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 388, in run
+    detector = Detector(skip_frames=init_skip)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\core\detector.py", line 97, in __init__
+    self._load_model()
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\core\detector.py", line 112, in _load_model
+    self._model.predict(
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\.venv\lib\site-packages\ultralytics\engine\model.py", line 529, in predict
+    self.predictor.setup_model(model=self.model, verbose=is_cli)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\.venv\lib\site-packages\ultralytics\engine\predictor.py", line 401, in setup_model
+    device=select_device(self.args.device, verbose=verbose),
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\.venv\lib\site-packages\ultralytics\utils\torch_utils.py", line 230, in select_device
+    raise ValueError(
+ValueError: Invalid CUDA 'device=0' requested. Use 'device=cpu' or pass valid CUDA device(s) if available, i.e. 'device=0' or 'device=0,1,2,3' for Multi-GPU.
+
+torch.cuda.is_available(): False
+torch.cuda.device_count(): 0
+os.environ['CUDA_VISIBLE_DEVICES']: None
+See https://pytorch.org/get-started/locally/ for up-to-date torch install instructions if no CUDA devices are seen by torch.
+
+2026-03-28 23:36:27.491 | ERROR    | __main__:run:419 — Pipeline init failed. Aborting.
+Traceback (most recent call last):
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 623, in <module>
+    code = run(args)
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 388, in run
+    detector = Detector(skip_frames=init_skip)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\core\detector.py", line 97, in __init__
+    self._load_model()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\core\detector.py", line 112, in _load_model
+    self._model.predict(
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\.venv\lib\site-packages\ultralytics\engine\model.py", line 529, in predict
+    self.predictor.setup_model(model=self.model, verbose=is_cli)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\.venv\lib\site-packages\ultralytics\engine\predictor.py", line 401, in setup_model
+    device=select_device(self.args.device, verbose=verbose),
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\.venv\lib\site-packages\ultralytics\utils\torch_utils.py", line 230, in select_device
+    raise ValueError(
+ValueError: Invalid CUDA 'device=0' requested. Use 'device=cpu' or pass valid CUDA device(s) if available, i.e. 'device=0' or 'device=0,1,2,3' for Multi-GPU.
+
+torch.cuda.is_available(): False
+torch.cuda.device_count(): 0
+os.environ['CUDA_VISIBLE_DEVICES']: None
+See https://pytorch.org/get-started/locally/ for up-to-date torch install instructions if no CUDA devices are seen by torch.
+
+2026-03-28 23:36:27.500 | INFO     | core.camera:stop:106 — Camera stopping…
+2026-03-28 23:36:27.544 | DEBUG    | core.camera:_reader_loop:258 — Camera reader loop exited.
+2026-03-28 23:36:27.824 | INFO     | core.camera:stop:111 — Camera stopped. Total frames captured: 12

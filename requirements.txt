@@ -1,0 +1,33 @@
+# Women Safety Product — Python Dependencies
+# Install with: pip install -r requirements.txt
+# Tested on Python 3.10 / 3.11 / 3.12
+
+# Core CV + tracking
+ultralytics>=8.2.0          # YOLOv8 + BoT-SORT tracking + ONNX export
+opencv-python>=4.9.0        # video capture, frame processing, display
+
+# Numerical
+numpy>=1.26.0               # vectorised feature computation
+
+# ML — threat model
+xgboost>=2.0.3              # threat classifier training + inference
+
+# Data
+pandas>=2.2.0               # alert log, training CSV, dashboard tables
+scikit-learn>=1.4.0         # train/test split + evaluation metrics (training only)
+
+# Dashboard
+streamlit>=1.35.0           # live 4-tab monitoring UI
+
+# Alerts + network
+requests>=2.31.0            # IP geolocation (ip-api) + Google Maps API
+
+# Config + logging
+python-dotenv>=1.0.0        # .env loader
+loguru>=0.7.2               # structured rotating logs
+
+# ── Optional: ONNX acceleration ──────────────────────────────────
+# Uncomment to enable OnnxRuntime CPU inference + XGBoost ONNX export
+# onnxruntime>=1.18.0
+# onnxmltools>=1.12.0
+# skl2onnx>=0.5.0

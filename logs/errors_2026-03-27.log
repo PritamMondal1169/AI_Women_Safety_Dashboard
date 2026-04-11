@@ -1,0 +1,96 @@
+2026-03-27 11:18:25.264 | ERROR    | utils.location:_google:220 — Google geolocation error.
+Traceback (most recent call last):
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 623, in <module>
+    code = run(args)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 405, in run
+    location_fix = location_svc.get()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 119, in get
+    fix = self._fetch()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 166, in _fetch
+    fix = self._google()
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 191, in _google
+    r.raise_for_status()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\.venv\lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://www.googleapis.com/geolocation/v1/geolocate?key=%23+optional+Google+Maps+Geocoding+API+key
+2026-03-27 11:18:40.342 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:18:41.141 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:19:12.733 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:19:41.813 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:20:55.239 | ERROR    | utils.location:_google:220 — Google geolocation error.
+Traceback (most recent call last):
+  File "C:\Program Files\Python310\lib\threading.py", line 973, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Program Files\Python310\lib\threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "C:\Program Files\Python310\lib\threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 158, in _refresh_loop
+    fix = self._fetch()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 166, in _fetch
+    fix = self._google()
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 191, in _google
+    r.raise_for_status()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\.venv\lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://www.googleapis.com/geolocation/v1/geolocate?key=%23+optional+Google+Maps+Geocoding+API+key
+2026-03-27 11:21:30.228 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:21:30.932 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:21:33.360 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:21:34.329 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:21:48.234 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:22:10.616 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:23:26.552 | ERROR    | utils.location:_google:220 — Google geolocation error.
+Traceback (most recent call last):
+  File "C:\Program Files\Python310\lib\threading.py", line 973, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Program Files\Python310\lib\threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "C:\Program Files\Python310\lib\threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 158, in _refresh_loop
+    fix = self._fetch()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 166, in _fetch
+    fix = self._google()
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 191, in _google
+    r.raise_for_status()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\.venv\lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://www.googleapis.com/geolocation/v1/geolocate?key=%23+optional+Google+Maps+Geocoding+API+key
+2026-03-27 11:23:27.086 | ERROR    | utils.twilio_alerts:_make_call_one:283 — Call failed after 3 attempts to +916295687435
+2026-03-27 11:23:27.087 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:23:27.102 | ERROR    | utils.twilio_alerts:_send_sms_one:223 — SMS failed after 3 attempts to +916295687435
+2026-03-27 11:23:29.329 | ERROR    | utils.twilio_alerts:_send_sms_one:223 — SMS failed after 3 attempts to +916295687435
+2026-03-27 11:23:29.330 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:23:31.386 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:23:31.423 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:23:31.423 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:49:01.272 | ERROR    | utils.location:_fetch:180 — All location providers failed.
+2026-03-27 11:49:29.839 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:49:29.840 | ERROR    | utils.twilio_alerts:_send_sms_one:223 — SMS failed after 3 attempts to +916295687435
+2026-03-27 11:49:30.528 | ERROR    | utils.twilio_alerts:_send_sms_one:223 — SMS failed after 3 attempts to +916295687435
+2026-03-27 11:49:30.528 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:49:51.148 | ERROR    | utils.twilio_alerts:_send_sms_one:223 — SMS failed after 3 attempts to +916295687435
+2026-03-27 11:49:51.150 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:49:55.156 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:49:55.169 | ERROR    | utils.twilio_alerts:_make_call_one:283 — Call failed after 3 attempts to +916295687435
+2026-03-27 11:49:55.170 | ERROR    | utils.twilio_alerts:_send_sms_one:223 — SMS failed after 3 attempts to +916295687435
+2026-03-27 11:50:49.500 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:50:49.502 | ERROR    | utils.twilio_alerts:_send_sms_one:223 — SMS failed after 3 attempts to +916295687435
+2026-03-27 11:50:56.826 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:50:56.827 | ERROR    | utils.twilio_alerts:_send_sms_one:223 — SMS failed after 3 attempts to +916295687435
+2026-03-27 11:51:20.226 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:51:20.227 | ERROR    | utils.twilio_alerts:_send_sms_one:223 — SMS failed after 3 attempts to +916295687435
+2026-03-27 11:51:30.325 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:51:30.326 | ERROR    | utils.twilio_alerts:_send_sms_one:223 — SMS failed after 3 attempts to +916295687435
+2026-03-27 11:51:33.430 | ERROR    | utils.twilio_alerts:_send_sms_one:223 — SMS failed after 3 attempts to +916295687435
+2026-03-27 11:51:33.430 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:51:33.431 | ERROR    | utils.twilio_alerts:_make_call_one:283 — Call failed after 3 attempts to +916295687435
+2026-03-27 11:51:46.837 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:51:46.837 | ERROR    | utils.twilio_alerts:_make_call_one:283 — Call failed after 3 attempts to +916295687435
+2026-03-27 11:51:46.838 | ERROR    | utils.twilio_alerts:_send_sms_one:223 — SMS failed after 3 attempts to +916295687435
+2026-03-27 11:52:14.176 | ERROR    | utils.twilio_alerts:_send_sms_one:223 — SMS failed after 3 attempts to +916295687435
+2026-03-27 11:52:14.176 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-03-27 11:52:14.177 | ERROR    | utils.twilio_alerts:_make_call_one:283 — Call failed after 3 attempts to +916295687435
+2026-03-27 11:52:47.351 | ERROR    | __main__:_make_call_one:283 — Call failed after 3 attempts to +916295687435
+2026-03-27 11:53:08.980 | ERROR    | __main__:_make_call_one:283 — Call failed after 3 attempts to +916295687435

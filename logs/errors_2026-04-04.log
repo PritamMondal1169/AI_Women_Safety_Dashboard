@@ -1,0 +1,96 @@
+2026-04-04 02:50:22.625 | ERROR    | utils.location:_google:220 — Google geolocation error.
+Traceback (most recent call last):
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 623, in <module>
+    code = run(args)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 405, in run
+    location_fix = location_svc.get()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 119, in get
+    fix = self._fetch()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 166, in _fetch
+    fix = self._google()
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 191, in _google
+    r.raise_for_status()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\.venv\lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://www.googleapis.com/geolocation/v1/geolocate?key=%23+optional+Google+Maps+Geocoding+API+key
+2026-04-04 02:56:33.467 | ERROR    | utils.twilio_alerts:_init_client:101 — twilio package not installed. Run: pip install twilio
+2026-04-04 02:56:33.769 | ERROR    | utils.location:_google:220 — Google geolocation error.
+Traceback (most recent call last):
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 623, in <module>
+    code = run(args)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 405, in run
+    location_fix = location_svc.get()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 119, in get
+    fix = self._fetch()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 166, in _fetch
+    fix = self._google()
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 191, in _google
+    r.raise_for_status()
+  File "C:\Users\HP\AppData\Roaming\Python\Python310\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://www.googleapis.com/geolocation/v1/geolocate?key=%23+optional+Google+Maps+Geocoding+API+key
+2026-04-04 02:59:04.295 | ERROR    | utils.location:_google:220 — Google geolocation error.
+Traceback (most recent call last):
+  File "C:\Program Files\Python310\lib\threading.py", line 973, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Program Files\Python310\lib\threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "C:\Program Files\Python310\lib\threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 158, in _refresh_loop
+    fix = self._fetch()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 166, in _fetch
+    fix = self._google()
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 191, in _google
+    r.raise_for_status()
+  File "C:\Users\HP\AppData\Roaming\Python\Python310\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://www.googleapis.com/geolocation/v1/geolocate?key=%23+optional+Google+Maps+Geocoding+API+key
+2026-04-04 03:03:37.225 | ERROR    | utils.twilio_alerts:_init_client:101 — twilio package not installed. Run: pip install twilio
+2026-04-04 03:03:37.572 | ERROR    | utils.location:_google:220 — Google geolocation error.
+Traceback (most recent call last):
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 623, in <module>
+    code = run(args)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 405, in run
+    location_fix = location_svc.get()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 119, in get
+    fix = self._fetch()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 166, in _fetch
+    fix = self._google()
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 191, in _google
+    r.raise_for_status()
+  File "C:\Users\HP\AppData\Roaming\Python\Python310\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://www.googleapis.com/geolocation/v1/geolocate?key=%23+optional+Google+Maps+Geocoding+API+key
+2026-04-04 03:06:07.601 | ERROR    | utils.location:_google:220 — Google geolocation error.
+Traceback (most recent call last):
+  File "C:\Program Files\Python310\lib\threading.py", line 973, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Program Files\Python310\lib\threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "C:\Program Files\Python310\lib\threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 158, in _refresh_loop
+    fix = self._fetch()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 166, in _fetch
+    fix = self._google()
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 191, in _google
+    r.raise_for_status()
+  File "C:\Users\HP\AppData\Roaming\Python\Python310\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://www.googleapis.com/geolocation/v1/geolocate?key=%23+optional+Google+Maps+Geocoding+API+key
+2026-04-04 03:14:08.160 | ERROR    | utils.location:_google:220 — Google geolocation error.
+Traceback (most recent call last):
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 626, in <module>
+    code = run(args)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 408, in run
+    location_fix = location_svc.get()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 119, in get
+    fix = self._fetch()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 166, in _fetch
+    fix = self._google()
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 191, in _google
+    r.raise_for_status()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\.venv\lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://www.googleapis.com/geolocation/v1/geolocate?key=%23+optional+Google+Maps+Geocoding+API+key

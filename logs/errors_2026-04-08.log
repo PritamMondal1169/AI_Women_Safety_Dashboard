@@ -1,0 +1,99 @@
+2026-04-08 01:22:31.948 | ERROR    | __main__:_init_client:101 — twilio package not installed. Run: pip install twilio
+2026-04-08 01:24:52.442 | ERROR    | __main__:_send_sms_one:223 — SMS failed after 3 attempts to +916295687435
+2026-04-08 01:25:02.651 | ERROR    | __main__:_make_call_one:283 — Call failed after 3 attempts to +916295687435
+2026-04-08 11:25:49.992 | ERROR    | utils.location:_google:220 — Google geolocation error.
+Traceback (most recent call last):
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 626, in <module>
+    code = run(args)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 408, in run
+    location_fix = location_svc.get()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 119, in get
+    fix = self._fetch()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 166, in _fetch
+    fix = self._google()
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 191, in _google
+    r.raise_for_status()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\.venv\lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://www.googleapis.com/geolocation/v1/geolocate?key=%23+optional+Google+Maps+Geocoding+API+key
+2026-04-08 11:30:28.042 | ERROR    | core.detector:_load_model:134 — Failed to load YOLO model from C:\Users\HP\OneDrive\Desktop\women-safety-product\models\yolov8n-pose.engine.
+Traceback (most recent call last):
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\venv\lib\site-packages\ultralytics\nn\backends\tensorrt.py", line 37, in load_model
+    import tensorrt as trt
+ModuleNotFoundError: No module named 'tensorrt'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 626, in <module>
+    code = run(args)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 391, in run
+    detector = Detector(skip_frames=init_skip)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\core\detector.py", line 98, in __init__
+    self._load_model()
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\core\detector.py", line 124, in _load_model
+    self._model.predict(
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\venv\lib\site-packages\ultralytics\engine\model.py", line 529, in predict
+    self.predictor.setup_model(model=self.model, verbose=is_cli)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\venv\lib\site-packages\ultralytics\engine\predictor.py", line 399, in setup_model
+    self.model = AutoBackend(
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\venv\lib\site-packages\torch\utils\_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\venv\lib\site-packages\ultralytics\nn\autobackend.py", line 214, in __init__
+    self.backend = self._BACKEND_MAP[format](model, **backend_kwargs)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\venv\lib\site-packages\ultralytics\nn\backends\base.py", line 53, in __init__
+    self.load_model(weight)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\venv\lib\site-packages\ultralytics\nn\backends\tensorrt.py", line 41, in load_model
+    import tensorrt as trt
+ModuleNotFoundError: No module named 'tensorrt'
+2026-04-08 11:30:28.191 | ERROR    | __main__:run:422 — Pipeline init failed. Aborting.
+Traceback (most recent call last):
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\venv\lib\site-packages\ultralytics\nn\backends\tensorrt.py", line 37, in load_model
+    import tensorrt as trt
+ModuleNotFoundError: No module named 'tensorrt'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 626, in <module>
+    code = run(args)
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 391, in run
+    detector = Detector(skip_frames=init_skip)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\core\detector.py", line 98, in __init__
+    self._load_model()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\core\detector.py", line 124, in _load_model
+    self._model.predict(
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\venv\lib\site-packages\ultralytics\engine\model.py", line 529, in predict
+    self.predictor.setup_model(model=self.model, verbose=is_cli)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\venv\lib\site-packages\ultralytics\engine\predictor.py", line 399, in setup_model
+    self.model = AutoBackend(
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\venv\lib\site-packages\torch\utils\_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\venv\lib\site-packages\ultralytics\nn\autobackend.py", line 214, in __init__
+    self.backend = self._BACKEND_MAP[format](model, **backend_kwargs)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\venv\lib\site-packages\ultralytics\nn\backends\base.py", line 53, in __init__
+    self.load_model(weight)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\venv\lib\site-packages\ultralytics\nn\backends\tensorrt.py", line 41, in load_model
+    import tensorrt as trt
+ModuleNotFoundError: No module named 'tensorrt'
+2026-04-08 11:37:36.723 | ERROR    | utils.location:_google:220 — Google geolocation error.
+Traceback (most recent call last):
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 626, in <module>
+    code = run(args)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 408, in run
+    location_fix = location_svc.get()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 119, in get
+    fix = self._fetch()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 166, in _fetch
+    fix = self._google()
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 191, in _google
+    r.raise_for_status()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\venv\lib\site-packages\requests\models.py", line 1028, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://www.googleapis.com/geolocation/v1/geolocate?key=%23+optional+Google+Maps+Geocoding+API+key
+2026-04-08 11:58:53.417 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-04-08 11:58:54.401 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-04-08 15:11:00.839 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-04-08 15:11:00.991 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-04-08 15:11:31.107 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-04-08 15:11:41.265 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435

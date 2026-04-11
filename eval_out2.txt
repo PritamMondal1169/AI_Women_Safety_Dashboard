@@ -1,0 +1,54 @@
+﻿[0]	train-auc:0.99973	train-logloss:0.64483	val-auc:0.99981	val-logloss:0.64483
+[50]	train-auc:1.00000	train-logloss:0.04185	val-auc:1.00000	val-logloss:0.04167
+[100]	train-auc:1.00000	train-logloss:0.00425	val-auc:1.00000	val-logloss:0.00409
+[150]	train-auc:1.00000	train-logloss:0.00125	val-auc:1.00000	val-logloss:0.00111
+[200]	train-auc:1.00000	train-logloss:0.00094	val-auc:1.00000	val-logloss:0.00080
+[250]	train-auc:1.00000	train-logloss:0.00093	val-auc:1.00000	val-logloss:0.00079
+[300]	train-auc:1.00000	train-logloss:0.00092	val-auc:1.00000	val-logloss:0.00078
+[319]	train-auc:1.00000	train-logloss:0.00092	val-auc:1.00000	val-logloss:0.00078
+
+============================================================
+  XGBoost Threat Model ΓÇö Evaluation Report
+============================================================
+  Best round:    289
+  ROC-AUC:       1.0000  (1.0 = perfect)
+  Avg Precision: 1.0000  (1.0 = perfect)
+
+Classification Report (threshold=0.50):
+              precision    recall  f1-score   support
+
+        Safe     1.0000    1.0000    1.0000       750
+      Threat     1.0000    1.0000    1.0000       750
+
+    accuracy                         1.0000      1500
+   macro avg     1.0000    1.0000    1.0000      1500
+weighted avg     1.0000    1.0000    1.0000      1500
+
+Confusion Matrix:
+  TN=  750  FP=    0
+  FN=    0  TP=  750
+
+Feature Importance (gain):
+  velocity_toward_target                    262.4  ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê
+  speed_norm                                225.8  ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê
+  elbow_angle_score                         189.7  ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê
+  sustained_proximity_frames                172.5  ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê
+  shoulder_raise_score                      110.0  ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê
+  encirclement_score                         75.0  ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê
+  body_facing_score                          64.7  ΓûêΓûêΓûêΓûêΓûêΓûêΓûê
+  surrounding_count                          59.6  ΓûêΓûêΓûêΓûêΓûêΓûê
+  acceleration                               33.1  ΓûêΓûêΓûê
+  arm_toward_target                          29.3  ΓûêΓûêΓûê
+  track_age_s                                25.6  ΓûêΓûê
+  wrist_proximity_norm                       19.3  ΓûêΓûê
+  direction_change                           18.7  ΓûêΓûê
+  proximity_min                              14.8  Γûê
+  proximity_norm                              8.7  
+  pose_symmetry_score                         8.4  
+  isolation_score                             3.3  
+  pose_confidence                             0.9  
+============================================================
+
+Γ£à  Saved: C:\Users\HP\OneDrive\Desktop\women-safety-product\models\threat_xgb.json  (199 KB)
+   The ThreatEngine will load this automatically on next startup.
+

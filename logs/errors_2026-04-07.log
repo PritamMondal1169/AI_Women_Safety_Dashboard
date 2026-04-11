@@ -1,0 +1,21 @@
+2026-04-07 21:38:35.338 | ERROR    | utils.location:_google:220 — Google geolocation error.
+Traceback (most recent call last):
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 626, in <module>
+    code = run(args)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 408, in run
+    location_fix = location_svc.get()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 119, in get
+    fix = self._fetch()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 166, in _fetch
+    fix = self._google()
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\utils\location.py", line 191, in _google
+    r.raise_for_status()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\.venv\lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://www.googleapis.com/geolocation/v1/geolocate?key=%23+optional+Google+Maps+Geocoding+API+key
+2026-04-07 21:38:43.552 | ERROR    | utils.location:_fetch:180 — All location providers failed.
+2026-04-07 21:39:31.485 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-04-07 21:40:11.686 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-04-07 21:40:13.245 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-04-07 21:40:14.980 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
+2026-04-07 21:40:16.061 | ERROR    | utils.twilio_alerts:_send_whatsapp_one:368 — WhatsApp failed after 3 attempts to whatsapp:+916295687435
