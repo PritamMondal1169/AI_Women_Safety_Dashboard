@@ -45,6 +45,7 @@ if not _is_sqlite:
         "pool_pre_ping": True,
         "connect_args": {
             "command_timeout": 30, # seconds
+            "prepared_statement_cache_size": 0, # Required for Supabase Transaction Pooler
         }
     }
 else:
