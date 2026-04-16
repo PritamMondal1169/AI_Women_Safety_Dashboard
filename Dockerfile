@@ -19,16 +19,18 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install runtime dependencies for Postgres and OpenCV (libgl1 is the newer replacement for libgl1-mesa-glx)
+# Install runtime dependencies for Postgres and OpenCV
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq5 \
     libgl1 \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy installed packages from builder
-COPY --from=builder /root/.local /root/.local
-ENV PATH=/root/.local/bin:$PATH
+# Copy requirements and install directly in production image
+# This avoids the "not found" binary path issues from multi-stage builds
+COPY coordinator/requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
 # Copy application source
 COPY coordinator/ ./coordinator/
@@ -40,8 +42,9 @@ ENV DATABASE_URL=""
 ENV JWT_SECRET="change-me-in-production"
 ENV LOG_LEVEL="INFO"
 
-# Run with Gunicorn + Uvicorn workers for production performance
-CMD gunicorn coordinator.main:app \
-    --workers 4 \
+# Run with Gunicorn + Uvicorn workers
+# Using 'python -m gunicorn' is the most robust way to call the binary
+CMD python -m gunicorn coordinator.main:app \
+    --workers 1 \
     --worker-class uvicorn.workers.UvicornWorker \
     --bind 0.0.0.0:$PORT
