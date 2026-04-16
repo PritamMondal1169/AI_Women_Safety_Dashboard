@@ -64,13 +64,11 @@ class TwilioAlerter:
             log.info("Twilio disabled (TWILIO_ENABLED=false in .env)")
             return
 
-        if not alert_cfg.TWILIO_ACCOUNT_SID or \
-           alert_cfg.TWILIO_ACCOUNT_SID.startswith("ACxxx"):
+        if not alert_cfg.TWILIO_ACCOUNT_SID:
             log.warning("Twilio SID not configured. Set TWILIO_ACCOUNT_SID in .env")
             return
 
-        if not alert_cfg.TWILIO_AUTH_TOKEN or \
-           alert_cfg.TWILIO_AUTH_TOKEN == "your_auth_token_here":
+        if not alert_cfg.TWILIO_AUTH_TOKEN:
             log.warning("Twilio Auth Token not configured. Set TWILIO_AUTH_TOKEN in .env")
             return
 
@@ -117,24 +115,24 @@ class TwilioAlerter:
         location:     str,
         track_id:     int,
         snapshot_path: Optional[str] = None,
+        override_numbers: Optional[List[str]] = None,
     ) -> dict:
         """
         Fire all configured Twilio channels based on threat level.
-
         Returns a dict of {channel: True/False} indicating what fired.
-        All sends are asynchronous (daemon threads).
         """
         if not self.ready:
             return {}
 
         fired = {}
+        target_numbers = override_numbers if override_numbers else alert_cfg.to_numbers
 
         # SMS
         if alert_cfg.TWILIO_SMS_ENABLED and \
            threat_level in alert_cfg.sms_levels:
             threading.Thread(
                 target=self._send_sms_all,
-                args=(threat_level, threat_score, location, track_id, snapshot_path),
+                args=(threat_level, threat_score, location, track_id, snapshot_path, target_numbers),
                 daemon=True,
             ).start()
             fired["sms"] = True
@@ -144,20 +142,10 @@ class TwilioAlerter:
            threat_level in alert_cfg.call_levels:
             threading.Thread(
                 target=self._make_call_all,
-                args=(threat_level, threat_score, location, track_id),
+                args=(threat_level, threat_score, location, target_numbers),
                 daemon=True,
             ).start()
             fired["call"] = True
-
-        # WhatsApp
-        if alert_cfg.TWILIO_WHATSAPP_ENABLED and \
-           threat_level in alert_cfg.whatsapp_levels:
-            threading.Thread(
-                target=self._send_whatsapp_all,
-                args=(threat_level, threat_score, location, track_id, snapshot_path),
-                daemon=True,
-            ).start()
-            fired["whatsapp"] = True
 
         return fired
 
@@ -170,24 +158,12 @@ class TwilioAlerter:
         location:      str,
         track_id:      int,
         snapshot_path: Optional[str],
+        numbers:       List[str],
     ) -> None:
-        """Send SMS to all configured numbers."""
+        """Send SMS to all provided numbers."""
         body = self._sms_body(threat_level, threat_score, location, track_id)
-
-        # Check if we can send MMS (image) — only on US/Canada numbers
-        media_url = None
-        if snapshot_path:
-            snap = Path(snapshot_path)
-            if snap.exists():
-                # NOTE: For MMS, the image must be publicly accessible via URL.
-                # In a production deployment you would upload to S3/Cloudinary first.
-                # For now we send SMS only (text) and note snapshot was saved locally.
-                log.debug(
-                    "Snapshot saved locally at {p} (MMS requires public URL)", p=snap
-                )
-
-        for number in alert_cfg.to_numbers:
-            self._send_sms_one(number, body, media_url)
+        for number in numbers:
+            self._send_sms_one(number, body)
 
     def _send_sms_one(
         self,
@@ -249,11 +225,11 @@ class TwilioAlerter:
         threat_level: str,
         threat_score: float,
         location:     str,
-        track_id:     int,
+        numbers:      List[str],
     ) -> None:
-        """Place automated voice call to all configured numbers."""
+        """Place automated voice call to all provided numbers."""
         twiml = self._call_twiml(threat_level, threat_score, location)
-        for number in alert_cfg.to_numbers:
+        for number in numbers:
             self._make_call_one(number, twiml)
 
     def _make_call_one(self, to: str, twiml: str) -> bool:
@@ -431,8 +407,7 @@ class AfricasTalkingAlerter:
     def _init(self) -> None:
         if not alert_cfg.AFRICASTALKING_ENABLED:
             return
-        if not alert_cfg.AFRICASTALKING_API_KEY or \
-           alert_cfg.AFRICASTALKING_API_KEY == "your_api_key_here":
+        if not alert_cfg.AFRICASTALKING_API_KEY:
             log.warning("Africa's Talking API key not configured.")
             return
         try:
@@ -536,6 +511,7 @@ class MultiChannelAlerter:
         location:      str,
         track_id:      int,
         snapshot_path: Optional[str] = None,
+        **kwargs
     ) -> dict:
         """
         Fire all available channels based on threat level.
@@ -546,7 +522,8 @@ class MultiChannelAlerter:
         # Primary: Twilio
         if self.twilio.ready:
             twilio_fired = self.twilio.dispatch(
-                threat_level, threat_score, location, track_id, snapshot_path
+                threat_level, threat_score, location, track_id, snapshot_path,
+                override_numbers=kwargs.get("override_numbers")
             )
             fired.update(twilio_fired)
             for k in twilio_fired:

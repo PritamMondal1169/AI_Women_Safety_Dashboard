@@ -66,6 +66,8 @@ class ThreatResult:
     features:        Dict[str, float]
     sustained_frames: int
     interaction_type: str = "NEUTRAL"   # from InteractionAnalyzer
+    journey_id:      Optional[str] = None  # linked journey (if any)
+    blind_spot_score: float = 0.0          # blind-spot anomaly boost
     timestamp: float = field(default_factory=time.monotonic)
 
     @property
@@ -143,9 +145,19 @@ class ThreatEngine:
     # ── Public API ────────────────────────────────────────────────────────────
 
     def score_all(
-        self, active_states: List[TrackState]
+        self,
+        active_states: List[TrackState],
+        journey_thresholds: Optional[Dict[str, float]] = None,
+        journey_id: Optional[str] = None,
     ) -> Dict[int, ThreatResult]:
-        """Score every active track. Returns Dict[track_id → ThreatResult]."""
+        """Score every active track. Returns Dict[track_id → ThreatResult].
+        
+        Args:
+            active_states: All active TrackState objects.
+            journey_thresholds: If a journey is active, adjusted thresholds
+                                {"LOW": x, "MEDIUM": y, "HIGH": z}.
+            journey_id: ID of the active journey (for traceability).
+        """
         results: Dict[int, ThreatResult] = {}
         
         # Pre-compute interaction pairs for the whole scene once
@@ -159,7 +171,11 @@ class ThreatEngine:
 
         for state in active_states:
             interaction_res = interactions.get(state.track_id)
-            result = self._score_one(state, active_states, interaction_res)
+            result = self._score_one(
+                state, active_states, interaction_res,
+                journey_thresholds=journey_thresholds,
+                journey_id=journey_id,
+            )
             
             # Write threat state back into TrackState for feature feedback
             prev_level = state.threat_level
@@ -180,7 +196,12 @@ class ThreatEngine:
     # ── Core scoring pipeline ─────────────────────────────────────────────────
 
     def _score_one(
-        self, target: TrackState, all_states: List[TrackState], interaction=None
+        self,
+        target: TrackState,
+        all_states: List[TrackState],
+        interaction=None,
+        journey_thresholds: Optional[Dict[str, float]] = None,
+        journey_id: Optional[str] = None,
     ) -> ThreatResult:
         feat_dict = self._fe.extract(target, all_states)
         feat_vec  = self._fe.to_vector(feat_dict)
@@ -202,7 +223,15 @@ class ThreatEngine:
             feat_dict.update(interaction.features)
 
         composite  = float(np.clip(composite, 0.0, 1.0))
-        raw_level  = self._score_to_level(composite)
+
+        # ── Journey-Aware Boosting (Phase 2) ─────────────────────────────────
+        if journey_id:
+            # Boost score by 15% of the remaining range to make it more sensitive
+            # This helps bring MEDIUM threats to HIGH faster during a journey.
+            composite += (1.0 - composite) * 0.15
+            log.debug("Journey boost applied to track %d: %.3f", target.track_id, composite)
+        
+        raw_level  = self._score_to_level(composite, journey_thresholds)
         final_level = self._apply_sustained_gating(target, raw_level)
 
         log.debug(
@@ -227,6 +256,7 @@ class ThreatEngine:
             features=feat_dict,
             sustained_frames=target.sustained_count,
             interaction_type=interaction_type,
+            journey_id=journey_id,
         )
 
     # ── XGBoost inference ─────────────────────────────────────────────────────
@@ -253,112 +283,59 @@ class ThreatEngine:
         all_states: List[TrackState],
     ) -> float:
         """
-        Calibrated heuristic score.
-
-        Key design decisions:
-          1. Proximity is computed in ZONES (close/medium/far) rather than
-             linear — real danger is non-linear with distance.
-          2. Velocity-toward is amplified when ALSO close (AND-gate).
-          3. Sustained proximity counter is maintained per-track (not per-frame)
-             so it accumulates correctly.
-          4. Single-person scenes always score 0 — no threat without others.
-          5. Speed is only a threat signal when ALSO pointing toward someone.
+        Simplified 3-Heuristic Hackathon Model:
+        1. Proximity: Inverse normalized distance (max threat when touching).
+        2. Closure Velocity: Approach speed toward the target.
+        3. Surround Score: Angular distribution of other tracked IDs.
         """
         others = [s for s in all_states if s.track_id != target.track_id]
-
-        # ── Gate: need at least one other person ──────────────────────────────
         if not others:
             return 0.0
 
+        # Features from extractor
         prox_norm   = feat.get("proximity_norm",         1.0)
+        vel_toward  = feat.get("velocity_toward_target",  0.5)
         encircle    = feat.get("encirclement_score",      0.0)
         surr_count  = feat.get("surrounding_count",       0.0)
-        speed_norm  = feat.get("speed_norm",              0.0)
-        vel_toward  = feat.get("velocity_toward_target",  0.5)
-        dir_change  = feat.get("direction_change",        0.0)
 
-        # ── 1. Proximity zone score ───────────────────────────────────────────
-        # Non-linear: danger increases steeply as distance shrinks
-        if prox_norm < _CLOSE_ZONE:
-            prox_score = 1.0
-        elif prox_norm < _MEDIUM_ZONE:
-            # linear interpolation: 0.5 → 1.0 across medium→close zone
-            prox_score = 0.5 + 0.5 * (1.0 - (prox_norm - _CLOSE_ZONE) /
-                                       (_MEDIUM_ZONE - _CLOSE_ZONE))
-        elif prox_norm < _FAR_ZONE:
-            prox_score = 0.5 * (1.0 - (prox_norm - _MEDIUM_ZONE) /
-                                 (_FAR_ZONE - _MEDIUM_ZONE))
-        else:
-            prox_score = 0.0
+        # 1. Proximity (Inverse Normalized Distance)
+        # Danger starts at 0.3 (Far), maxes at 0.05 (Critically Close)
+        prox_score = np.clip((0.3 - prox_norm) / 0.25, 0.0, 1.0)
 
-        # ── 2. Directional approach signal ───────────────────────────────────
-        # vel_toward ∈ [0,1]: 0.5=neutral, 1.0=directly toward
-        # Ramp starts at 0.55 (not 0.4) so the neutral value of 0.5 does NOT
-        # contribute — only clear directional approach scores positively.
-        approach = max(0.0, (vel_toward - 0.55) / 0.45)  # ramps from 0.55→1.0
+        # 2. Closure Velocity (Are they moving towards the target?)
+        # vel_toward is 0.5 (Neutral), 1.0 (Directly Toward). 
+        # We only care about positive approach.
+        vel_score = max(0.0, (vel_toward - 0.5) * 2.0)
+        
+        # Velocity only adds threat if they are relatively close
+        closure_threat = vel_score * np.clip((0.4 - prox_norm) / 0.3, 0.0, 1.0)
 
-        # AND-gate: approach only matters when also close
-        approach_score = approach * prox_score  # removed the min-floor of 0.3
+        # 3. Surround Score (Encirclement / Boxed in)
+        # Higher count and higher angular coverage = higher threat
+        surround_threat = encircle * min(surr_count / 3.0, 1.0)
 
-        # ── 3. Sustained proximity counter ───────────────────────────────────
-        tid = target.track_id
-        if prox_norm < _FAR_ZONE:
-            self._proximity_counters[tid] = self._proximity_counters.get(tid, 0) + 1
-        else:
-            self._proximity_counters[tid] = max(
-                0, self._proximity_counters.get(tid, 0) - 2
-            )
-
-        sustained_frames = self._proximity_counters[tid]
-        # Saturates at THREAT_SUSTAINED_FRAMES
-        sustained_score = min(
-            sustained_frames / max(cfg.THREAT_SUSTAINED_FRAMES, 1), 1.0
-        )
-
-        # ── 4. Group encirclement ─────────────────────────────────────────────
-        # With only 1 other person, encirclement is meaningless — boost
-        # proximity instead. With 2+ others, use true encirclement.
-        if int(surr_count) == 1:
-            # 1 person close: scale reduced — normal chat distance shouldn't score
-            group_score = prox_score * 0.25
-        else:
-            group_score = encircle * min(surr_count / 3.0, 1.0)
-
-        # ── 5. Speed signal (only meaningful when moving toward someone) ──────
-        # Fast movement toward someone is a threat; fast movement away is not
-        speed_signal = min(speed_norm * 2.5, 1.0) * approach
-
-        # ── 6. Erratic path (panic / chase) ──────────────────────────────────
-        # Only meaningful when also close
-        erratic_score = dir_change * prox_score
-
-        # ── Weighted combination ──────────────────────────────────────────────
-        # Calibration targets (heuristic only, no XGBoost):
-        #   1 person alone                     → 0.00  (NONE, gated out)
-        #   2 people at chat distance          → ~0.08 (NONE)
-        #   2 people very close, stationary   → ~0.30 (LOW)
-        #   2 people very close, sustained 15f → ~0.47 (MEDIUM)
-        #   2 people very close + approaching  → ~0.65 (HIGH)
-        #   3+ people surrounding             → ~0.70 (HIGH)
+        # ── Weighted combination for Demo Stability ──────────────────────────
         score = (
-            0.25 * prox_score        # raw closeness (elevated — distance matters)
-            + 0.22 * approach_score  # moving toward + close
-            + 0.16 * group_score     # encirclement / 1-on-1
-            + 0.22 * sustained_score # sustained close presence (elevated — key signal)
-            + 0.09 * speed_signal    # fast + approaching
-            + 0.06 * erratic_score   # erratic when close
+            0.40 * prox_score      # 40% Weight: Pure distance
+            + 0.30 * closure_threat # 30% Weight: Moving towards user
+            + 0.30 * surround_threat # 30% Weight: Multiple IDs surrounding
         )
 
         return float(np.clip(score, 0.0, 1.0))
 
     # ── Threshold + gating ────────────────────────────────────────────────────
 
-    def _score_to_level(self, score: float) -> str:
-        if score >= cfg.THREAT_HIGH:
+    def _score_to_level(
+        self, score: float, thresholds: Optional[Dict[str, float]] = None
+    ) -> str:
+        t_high = thresholds["HIGH"] if thresholds else cfg.THREAT_HIGH
+        t_med = thresholds["MEDIUM"] if thresholds else cfg.THREAT_MEDIUM
+        t_low = thresholds["LOW"] if thresholds else cfg.THREAT_LOW
+        if score >= t_high:
             return "HIGH"
-        elif score >= cfg.THREAT_MEDIUM:
+        elif score >= t_med:
             return "MEDIUM"
-        elif score >= cfg.THREAT_LOW:
+        elif score >= t_low:
             return "LOW"
         return "NONE"
 

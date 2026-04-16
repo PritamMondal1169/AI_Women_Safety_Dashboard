@@ -28,6 +28,7 @@ from __future__ import annotations
 
 import threading
 import time
+import os
 from typing import Optional, Tuple, Union
 
 import cv2
@@ -155,8 +156,20 @@ class Camera:
         self._release()
         log.debug("Opening camera source: {src}", src=self._source)
         try:
-            self._cap = cv2.VideoCapture(self._source)
-            if not self._cap.isOpened():
+            # ── Optimisation Check: Use FFMPEG for URL sources (MJPEG/RTSP) ────
+            if isinstance(self._source, str) and (self._source.startswith("http") or self._source.startswith("rtsp")):
+                log.info("Applying low-latency FFMPEG optimisations for URL source.")
+                
+                # These environment variables tell OpenCV to use specific FFMPEG flags
+                # 'low_delay' tells FFMPEG to minimize the latency between capture and delivery
+                os.environ["OPENCV_FFMPEG_CAPTURE_OPTIONS"] = "low_delay;nobuffer;probesize,32"
+                
+                # Use CAP_FFMPEG backend specifically for network streams
+                self._cap = cv2.VideoCapture(self._source, cv2.CAP_FFMPEG)
+            else:
+                self._cap = cv2.VideoCapture(self._source)
+
+            if not self._cap or not self._cap.isOpened():
                 log.error("cv2.VideoCapture failed to open source: {src}", src=self._source)
                 return False
 
@@ -166,6 +179,7 @@ class Camera:
             self._cap.set(cv2.CAP_PROP_FPS, self._fps)
 
             # Reduce internal buffer to minimise latency (1 frame)
+            # This is critical for MJPEG streams over Wi-Fi
             self._cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
             actual_w = int(self._cap.get(cv2.CAP_PROP_FRAME_WIDTH))

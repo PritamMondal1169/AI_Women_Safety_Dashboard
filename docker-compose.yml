@@ -1,0 +1,43 @@
+# SafeSphere — Docker Compose (local development)
+#
+# Run:  docker-compose up --build
+#
+# Services:
+#   coordinator — FastAPI API + WebSocket hub
+#   dashboard   — React security dashboard (Vite dev server)
+
+version: '3.8'
+
+services:
+  coordinator:
+    build:
+      context: .
+      dockerfile: Dockerfile.coordinator
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite+aiosqlite:///./safesphere.db
+      - JWT_SECRET=safesphere-docker-secret
+      - LOG_LEVEL=INFO
+    volumes:
+      - coordinator-data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://coordinator:8000
+    depends_on:
+      coordinator:
+        condition: service_healthy
+
+volumes:
+  coordinator-data:

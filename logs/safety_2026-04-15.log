@@ -1,0 +1,1375 @@
+2026-04-15 16:40:14.281 | INFO     | utils.logger:setup_logging:107 — Logging initialised | level=DEBUG | dir=C:\Users\HP\OneDrive\Desktop\women-safety-product\logs | rotation=10 MB | retention=7 days
+2026-04-15 16:40:14.283 | INFO     | __main__:run:334 — ================================================================
+2026-04-15 16:40:14.283 | INFO     | __main__:run:335 —   Women Safety Product — Production Pipeline (Days 1–5)
+2026-04-15 16:40:14.284 | INFO     | __main__:run:336 — ================================================================
+2026-04-15 16:40:14.284 | INFO     | __main__:run:337 — ============================================================
+  Women Safety Product — Active Configuration
+============================================================
+  PROJECT_ROOT                        C:\Users\HP\OneDrive\Desktop\women-safety-product
+  CAMERA_SOURCE                       0
+  CAMERA_WIDTH                        640
+  CAMERA_HEIGHT                       480
+  CAMERA_FPS                          30
+  CAMERA_RECONNECT_DELAY              3
+  CAMERA_MAX_RECONNECT                10
+  MODEL_PATH                          models/yolov8n-pose.pt
+  MODEL_CONFIDENCE                    0.55
+  MODEL_IOU                           0.5
+  MODEL_DEVICE                        cpu
+  MODEL_IMGSZ                         640
+  EXPORT_ONNX                         False
+  TRACKER_CONFIG                      botsort.yaml
+  TRACKER_PERSIST                     True
+  THREAT_MODEL_PATH                   models/threat_xgb.json
+  THREAT_LOW                          0.22
+  THREAT_MEDIUM                       0.44
+  THREAT_HIGH                         0.62
+  THREAT_SUSTAINED_FRAMES             8
+  THREAT_MIN_GROUP_SIZE               2
+  ENABLE_INTERACTION_ANALYSIS         True
+  INTERACTION_DISTANCE_THRESHOLD      0.25
+  INTERACTION_BOOST_MAX               0.25
+  ALERT_EMAIL_ENABLED                 False
+  ALERT_EMAIL_SMTP                    smtp.gmail.com
+  ALERT_EMAIL_PORT                    587
+  ALERT_EMAIL_SENDER                  your@gmail.com
+  ALERT_EMAIL_PASSWORD                ***
+  ALERT_EMAIL_RECEIVER                emergency@example.com
+  ALERT_SOUND_ENABLED                 True
+  ALERT_COOLDOWN                      60
+  LOCATION_GOOGLE_API_KEY             ***
+  LOCATION_IP_FALLBACK                True
+  COORDINATOR_URL                     http://localhost:8000
+  EDGE_OFFLINE_MODE                   False
+  DASHBOARD_PORT                      8501
+  DASHBOARD_REFRESH_MS                100
+  LOG_MAX_ROWS                        200
+  LOG_LEVEL                           DEBUG
+  LOG_DIR                             logs
+  LOG_ROTATION                        10 MB
+  LOG_RETENTION                       7 days
+============================================================
+2026-04-15 16:40:14.285 | INFO     | __main__:run:374 — Initialising camera (source=0)…
+2026-04-15 16:40:14.286 | INFO     | core.camera:__init__:78 — Camera created | source=0 | 640x480 @ 30fps
+2026-04-15 16:40:14.286 | DEBUG    | core.camera:_open:156 — Opening camera source: 0
+2026-04-15 16:40:32.717 | INFO     | core.camera:_open:174 — Camera opened | actual 640x480 @ 30.0fps
+2026-04-15 16:40:32.718 | DEBUG    | core.camera:_reader_loop:202 — Camera reader loop entered.
+2026-04-15 16:40:32.718 | INFO     | core.camera:start:101 — Camera reader thread started.
+2026-04-15 16:40:33.071 | INFO     | __main__:run:383 — Frame resolution: 640×480
+2026-04-15 16:40:33.072 | INFO     | __main__:run:389 — Initialising Detector (skip=0)…
+2026-04-15 16:40:33.072 | INFO     | core.detector:_load_model:118 — Loading YOLO model from: C:\Users\HP\OneDrive\Desktop\women-safety-product\models\yolov8n-pose.pt
+2026-04-15 16:40:33.512 | INFO     | core.detector:_load_model:132 — YOLO model loaded and warmed up. Device: cpu (FP16: False)
+2026-04-15 16:40:33.513 | INFO     | __main__:run:392 — Initialising TrackManager…
+2026-04-15 16:40:33.513 | INFO     | core.tracker:__init__:179 — TrackManager initialised.
+2026-04-15 16:40:33.513 | INFO     | __main__:run:395 — Initialising ThreatEngine (640×480)…
+2026-04-15 16:40:33.514 | INFO     | core.features:__init__:115 — FeatureExtractor ready | 640x480 | diag=800.0px | features=20
+2026-04-15 16:40:52.004 | SUCCESS  | core.threat:_load_xgb_model:139 — XGBoost model loaded from C:\Users\HP\OneDrive\Desktop\women-safety-product\models\threat_xgb.json.
+2026-04-15 16:40:52.006 | INFO     | core.threat:__init__:112 — ThreatEngine ready | xgb=True | diag=800px | thresholds=(0.22,0.44,0.62) | sustained=8
+2026-04-15 16:40:52.006 | INFO     | __main__:run:398 — Initialising AlertDispatcher…
+2026-04-15 16:40:52.007 | INFO     | utils.alerts:__init__:115 — AlertDispatcher ready | email=False | sound=True | cooldown=60s
+2026-04-15 16:40:52.007 | INFO     | __main__:run:401 — Initialising MultiChannelAlerter (Twilio/AT)…
+2026-04-15 16:40:52.009 | ERROR    | utils.twilio_alerts:_init_client:101 — twilio package not installed. Run: pip install twilio
+2026-04-15 16:40:52.010 | INFO     | __main__:run:404 — Initialising LocationProvider…
+2026-04-15 16:40:52.011 | INFO     | utils.location:__init__:99 — LocationProvider | google=False | ip_fallback=True | ttl=300s
+2026-04-15 16:40:52.014 | DEBUG    | utils.location:_refresh_loop:156 — Location refresh loop: interval=150s
+2026-04-15 16:40:52.014 | INFO     | utils.location:start_background_refresh:138 — Location background refresh thread started.
+2026-04-15 16:40:53.128 | INFO     | __main__:run:408 — Location: Kolkata, West Bengal, India (22.5643°, 88.3693°)
+2026-04-15 16:40:53.129 | INFO     | utils.performance:__init__:207 — FrameSkipTuner | target=25.0fps ±2.0 window=30 init_skip=0
+2026-04-15 16:40:57.200 | INFO     | __main__:run:448 — Pipeline ready | auto_tuner=True | target_fps=25.0 | device=cpu
+2026-04-15 16:40:57.201 | INFO     | __main__:run:452 — Controls: q=quit  s=snapshot  p=pause  +=skip+  -=skip-
+2026-04-15 16:40:57.216 | INFO     | __main__:poll:121 — Runtime config updated: ['THREAT_LOW', 'THREAT_MEDIUM', 'THREAT_HIGH', 'THREAT_SUSTAINED_FRAMES', 'ALERT_COOLDOWN', 'MODEL_CONFIDENCE', 'SKIP_FRAMES', '_updated_at']
+2026-04-15 16:40:57.469 | DEBUG    | core.detector:detect:204 — Frame 1 | 1 persons | inference 250.0ms
+2026-04-15 16:40:57.470 | DEBUG    | core.tracker:update:204 — New track ID=3 detected.
+2026-04-15 16:40:57.478 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.000 h=0.000 IA=0.00 level=NONE prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:57.545 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:57.574 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:57.700 | DEBUG    | core.detector:detect:204 — Frame 2 | 0 persons | inference 110.0ms
+2026-04-15 16:40:57.702 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:57.730 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:57.746 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:57.863 | DEBUG    | core.detector:detect:204 — Frame 3 | 0 persons | inference 94.0ms
+2026-04-15 16:40:57.866 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:57.887 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:57.915 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:58.032 | DEBUG    | core.detector:detect:204 — Frame 4 | 0 persons | inference 94.0ms
+2026-04-15 16:40:58.035 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:58.056 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:58.072 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:58.202 | DEBUG    | core.detector:detect:204 — Frame 5 | 0 persons | inference 110.0ms
+2026-04-15 16:40:58.204 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:58.225 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:58.240 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:58.395 | DEBUG    | core.detector:detect:204 — Frame 6 | 1 persons | inference 140.0ms
+2026-04-15 16:40:58.398 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:58.427 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:58.443 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:58.557 | DEBUG    | core.detector:detect:204 — Frame 7 | 0 persons | inference 109.0ms
+2026-04-15 16:40:58.560 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:58.580 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:58.596 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:58.704 | DEBUG    | core.detector:detect:204 — Frame 8 | 1 persons | inference 94.0ms
+2026-04-15 16:40:58.707 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:58.720 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:58.735 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:58.839 | DEBUG    | core.detector:detect:204 — Frame 9 | 1 persons | inference 93.0ms
+2026-04-15 16:40:58.842 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:58.859 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:58.875 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:58.973 | DEBUG    | core.detector:detect:204 — Frame 10 | 0 persons | inference 78.0ms
+2026-04-15 16:40:58.975 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:58.998 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.014 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.014 | INFO     | utils.performance:tick:248 — FrameSkipTuner ▲ increased skip 0→1 | fps=18.9 target=25.0
+2026-04-15 16:40:59.029 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.077 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.091 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.190 | DEBUG    | core.detector:detect:204 — Frame 12 | 0 persons | inference 78.0ms
+2026-04-15 16:40:59.192 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.217 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.237 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.262 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.277 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.293 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.425 | DEBUG    | core.detector:detect:204 — Frame 14 | 0 persons | inference 109.0ms
+2026-04-15 16:40:59.428 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.449 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.463 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.479 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.495 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.509 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.614 | DEBUG    | core.detector:detect:204 — Frame 16 | 1 persons | inference 78.0ms
+2026-04-15 16:40:59.615 | DEBUG    | core.tracker:update:204 — New track ID=2 detected.
+2026-04-15 16:40:59.618 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.512 enc=0.000 surr=0
+2026-04-15 16:40:59.619 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.000 h=0.000 IA=0.00 level=NONE prox_n=0.512 enc=0.000 surr=0
+2026-04-15 16:40:59.648 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.512 enc=0.000 surr=0
+2026-04-15 16:40:59.650 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.512 enc=0.000 surr=0
+2026-04-15 16:40:59.662 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.512 enc=0.000 surr=0
+2026-04-15 16:40:59.664 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.512 enc=0.000 surr=0
+2026-04-15 16:40:59.680 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.682 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.707 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.709 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.723 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.725 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.826 | DEBUG    | core.detector:detect:204 — Frame 18 | 1 persons | inference 94.0ms
+2026-04-15 16:40:59.829 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.508 enc=0.000 surr=0
+2026-04-15 16:40:59.831 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.508 enc=0.000 surr=0
+2026-04-15 16:40:59.848 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.508 enc=0.000 surr=0
+2026-04-15 16:40:59.851 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.508 enc=0.000 surr=0
+2026-04-15 16:40:59.879 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.508 enc=0.000 surr=0
+2026-04-15 16:40:59.881 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.508 enc=0.000 surr=0
+2026-04-15 16:40:59.909 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.912 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.940 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.942 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.969 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:40:59.971 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.075 | DEBUG    | core.detector:detect:204 — Frame 20 | 1 persons | inference 94.0ms
+2026-04-15 16:41:00.077 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.503 enc=0.000 surr=0
+2026-04-15 16:41:00.079 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.503 enc=0.000 surr=0
+2026-04-15 16:41:00.094 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.503 enc=0.000 surr=0
+2026-04-15 16:41:00.096 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.503 enc=0.000 surr=0
+2026-04-15 16:41:00.123 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.503 enc=0.000 surr=0
+2026-04-15 16:41:00.126 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.503 enc=0.000 surr=0
+2026-04-15 16:41:00.126 | INFO     | utils.performance:tick:248 — FrameSkipTuner ▲ increased skip 1→2 | fps=22.3 target=25.0
+2026-04-15 16:41:00.225 | DEBUG    | core.detector:detect:204 — Frame 21 | 1 persons | inference 78.0ms
+2026-04-15 16:41:00.229 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.501 enc=0.000 surr=0
+2026-04-15 16:41:00.231 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.501 enc=0.000 surr=0
+2026-04-15 16:41:00.278 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.501 enc=0.000 surr=0
+2026-04-15 16:41:00.280 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.501 enc=0.000 surr=0
+2026-04-15 16:41:00.292 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.501 enc=0.000 surr=0
+2026-04-15 16:41:00.294 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.501 enc=0.000 surr=0
+2026-04-15 16:41:00.307 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.311 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.344 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.323 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.326 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.344 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.339 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.341 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.344 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.354 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.357 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.344 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.369 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.372 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.344 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.388 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.390 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.344 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.501 | DEBUG    | core.detector:detect:204 — Frame 24 | 1 persons | inference 79.0ms
+2026-04-15 16:41:00.501 | DEBUG    | core.tracker:update:217 — Pruning stale track ID=3 (missing 45 frames).
+2026-04-15 16:41:00.504 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.526 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.541 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.556 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.572 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.587 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.602 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.618 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.634 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.739 | DEBUG    | core.detector:detect:204 — Frame 27 | 1 persons | inference 94.0ms
+2026-04-15 16:41:00.741 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.760 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.775 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.791 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.806 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.822 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.837 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.853 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.869 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.978 | DEBUG    | core.detector:detect:204 — Frame 30 | 1 persons | inference 94.0ms
+2026-04-15 16:41:00.981 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:00.994 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.011 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.011 | INFO     | utils.performance:tick:248 — FrameSkipTuner ▼ decreased skip 2→1 | fps=29.7 target=25.0
+2026-04-15 16:41:01.026 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.074 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.089 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.189 | DEBUG    | core.detector:detect:204 — Frame 32 | 1 persons | inference 78.0ms
+2026-04-15 16:41:01.191 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.212 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.227 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.244 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.257 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.274 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.371 | DEBUG    | core.detector:detect:204 — Frame 34 | 1 persons | inference 94.0ms
+2026-04-15 16:41:01.376 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.397 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.414 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.428 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.446 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.459 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.577 | DEBUG    | core.detector:detect:204 — Frame 36 | 1 persons | inference 110.0ms
+2026-04-15 16:41:01.579 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.599 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.614 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.631 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.645 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.661 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.759 | DEBUG    | core.detector:detect:204 — Frame 38 | 1 persons | inference 94.0ms
+2026-04-15 16:41:01.762 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.785 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.800 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.816 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.831 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.847 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:01.949 | DEBUG    | core.detector:detect:204 — Frame 40 | 2 persons | inference 94.0ms
+2026-04-15 16:41:01.950 | DEBUG    | core.tracker:update:204 — New track ID=1 detected.
+2026-04-15 16:41:01.952 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.410 enc=0.000 surr=0
+2026-04-15 16:41:01.953 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.000 h=0.000 IA=0.00 level=NONE prox_n=0.410 enc=0.000 surr=0
+2026-04-15 16:41:01.973 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.410 enc=0.000 surr=0
+2026-04-15 16:41:01.975 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.410 enc=0.000 surr=0
+2026-04-15 16:41:02.004 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.410 enc=0.000 surr=0
+2026-04-15 16:41:02.006 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.410 enc=0.000 surr=0
+2026-04-15 16:41:02.006 | INFO     | utils.performance:tick:248 — FrameSkipTuner ▼ decreased skip 1→0 | fps=33.4 target=25.0
+2026-04-15 16:41:02.104 | DEBUG    | core.detector:detect:204 — Frame 41 | 1 persons | inference 94.0ms
+2026-04-15 16:41:02.107 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.413 enc=0.000 surr=0
+2026-04-15 16:41:02.108 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.413 enc=0.000 surr=0
+2026-04-15 16:41:02.141 | INFO     | utils.performance:log_summary:164 — Perf | FPS=32.28 FrameAvg=22.19ms P95=110.0ms InfAvg=116.34ms Frames=121 Uptime=9.0s
+2026-04-15 16:41:02.141 | INFO     | __main__:run:620 — Tuner | skip=0 adjustments=4 | Tracks=2 total_seen=3 | Alerts=0
+2026-04-15 16:41:02.159 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.413 enc=0.000 surr=0
+2026-04-15 16:41:02.161 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.413 enc=0.000 surr=0
+2026-04-15 16:41:02.174 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.413 enc=0.000 surr=0
+2026-04-15 16:41:02.177 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.413 enc=0.000 surr=0
+2026-04-15 16:41:02.269 | DEBUG    | core.detector:detect:204 — Frame 42 | 1 persons | inference 78.0ms
+2026-04-15 16:41:02.273 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.414 enc=0.000 surr=0
+2026-04-15 16:41:02.274 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.414 enc=0.000 surr=0
+2026-04-15 16:41:02.297 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.414 enc=0.000 surr=0
+2026-04-15 16:41:02.299 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.414 enc=0.000 surr=0
+2026-04-15 16:41:02.314 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.414 enc=0.000 surr=0
+2026-04-15 16:41:02.316 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.414 enc=0.000 surr=0
+2026-04-15 16:41:02.413 | DEBUG    | core.detector:detect:204 — Frame 43 | 1 persons | inference 78.0ms
+2026-04-15 16:41:02.416 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.416 enc=0.000 surr=0
+2026-04-15 16:41:02.417 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.416 enc=0.000 surr=0
+2026-04-15 16:41:02.435 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.416 enc=0.000 surr=0
+2026-04-15 16:41:02.437 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.416 enc=0.000 surr=0
+2026-04-15 16:41:02.450 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.416 enc=0.000 surr=0
+2026-04-15 16:41:02.451 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.416 enc=0.000 surr=0
+2026-04-15 16:41:02.549 | DEBUG    | core.detector:detect:204 — Frame 44 | 1 persons | inference 78.0ms
+2026-04-15 16:41:02.552 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.415 enc=0.000 surr=0
+2026-04-15 16:41:02.554 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.415 enc=0.000 surr=0
+2026-04-15 16:41:02.573 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.415 enc=0.000 surr=0
+2026-04-15 16:41:02.575 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.415 enc=0.000 surr=0
+2026-04-15 16:41:02.590 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.415 enc=0.000 surr=0
+2026-04-15 16:41:02.592 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.415 enc=0.000 surr=0
+2026-04-15 16:41:02.692 | DEBUG    | core.detector:detect:204 — Frame 45 | 1 persons | inference 78.0ms
+2026-04-15 16:41:02.695 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.416 enc=0.000 surr=0
+2026-04-15 16:41:02.697 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.416 enc=0.000 surr=0
+2026-04-15 16:41:02.713 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.416 enc=0.000 surr=0
+2026-04-15 16:41:02.714 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.416 enc=0.000 surr=0
+2026-04-15 16:41:02.729 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.416 enc=0.000 surr=0
+2026-04-15 16:41:02.731 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.416 enc=0.000 surr=0
+2026-04-15 16:41:02.828 | DEBUG    | core.detector:detect:204 — Frame 46 | 1 persons | inference 78.0ms
+2026-04-15 16:41:02.831 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.415 enc=0.000 surr=0
+2026-04-15 16:41:02.833 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.415 enc=0.000 surr=0
+2026-04-15 16:41:02.852 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.415 enc=0.000 surr=0
+2026-04-15 16:41:02.854 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.415 enc=0.000 surr=0
+2026-04-15 16:41:02.868 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.415 enc=0.000 surr=0
+2026-04-15 16:41:02.869 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=0.415 enc=0.000 surr=0
+2026-04-15 16:41:02.967 | DEBUG    | core.detector:detect:204 — Frame 47 | 2 persons | inference 93.0ms
+2026-04-15 16:41:02.968 | DEBUG    | core.tracker:update:204 — New track ID=3 detected.
+2026-04-15 16:41:02.970 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.416 enc=0.059 surr=0
+2026-04-15 16:41:02.973 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.449 h=0.169 IA=0.00 level=MEDIUM prox_n=0.195 enc=0.301 surr=0
+2026-04-15 16:41:02.974 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.110 h=0.169 IA=0.00 level=NONE prox_n=0.195 enc=0.140 surr=0
+2026-04-15 16:41:02.978 | WARNING  | utils.alerts:dispatch:149 — 🟠 ALERT | Track=1 | Level=MEDIUM | Score=0.449 | Loc=Kolkata, West Bengal, India (22.5643°, 88.3693°)
+2026-04-15 16:41:03.490 | DEBUG    | utils.alerts:_play_sound:218 — Sound played | level=MEDIUM
+2026-04-15 16:41:03.504 | DEBUG    | utils.twilio_alerts:dispatch:568 — No external channels fired for MEDIUM — configure Twilio or Africa's Talking in .env
+2026-04-15 16:41:03.504 | DEBUG    | __main__:run:581 — Failed to post alert to cloud: 'LocationFix' object has no attribute 'latitude'
+2026-04-15 16:41:03.523 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.416 enc=0.059 surr=0
+2026-04-15 16:41:03.525 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.449 h=0.169 IA=0.00 level=MEDIUM prox_n=0.195 enc=0.301 surr=0
+2026-04-15 16:41:03.527 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.452 h=0.169 IA=0.00 level=MEDIUM prox_n=0.195 enc=0.140 surr=0
+2026-04-15 16:41:03.554 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.416 enc=0.059 surr=0
+2026-04-15 16:41:03.556 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.449 h=0.169 IA=0.00 level=MEDIUM prox_n=0.195 enc=0.301 surr=0
+2026-04-15 16:41:03.557 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.452 h=0.169 IA=0.00 level=MEDIUM prox_n=0.195 enc=0.140 surr=0
+2026-04-15 16:41:03.678 | DEBUG    | core.detector:detect:204 — Frame 48 | 2 persons | inference 109.0ms
+2026-04-15 16:41:03.681 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.373 enc=0.061 surr=0
+2026-04-15 16:41:03.683 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.425 h=0.132 IA=0.00 level=LOW prox_n=0.218 enc=0.330 surr=0
+2026-04-15 16:41:03.684 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.428 h=0.132 IA=0.00 level=LOW prox_n=0.218 enc=0.109 surr=0
+2026-04-15 16:41:03.707 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.373 enc=0.061 surr=0
+2026-04-15 16:41:03.710 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.425 h=0.132 IA=0.00 level=LOW prox_n=0.218 enc=0.330 surr=0
+2026-04-15 16:41:03.712 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.428 h=0.132 IA=0.00 level=LOW prox_n=0.218 enc=0.109 surr=0
+2026-04-15 16:41:03.739 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.373 enc=0.061 surr=0
+2026-04-15 16:41:03.741 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.425 h=0.132 IA=0.00 level=LOW prox_n=0.218 enc=0.330 surr=0
+2026-04-15 16:41:03.743 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.428 h=0.132 IA=0.00 level=LOW prox_n=0.218 enc=0.109 surr=0
+2026-04-15 16:41:03.854 | DEBUG    | core.detector:detect:204 — Frame 49 | 1 persons | inference 94.0ms
+2026-04-15 16:41:03.857 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.385 enc=0.061 surr=0
+2026-04-15 16:41:03.859 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.476 h=0.196 IA=0.00 level=MEDIUM prox_n=0.214 enc=0.321 surr=0
+2026-04-15 16:41:03.861 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.432 h=0.138 IA=0.00 level=LOW prox_n=0.214 enc=0.118 surr=0
+2026-04-15 16:41:03.879 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.385 enc=0.061 surr=0
+2026-04-15 16:41:03.880 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.476 h=0.196 IA=0.00 level=MEDIUM prox_n=0.214 enc=0.321 surr=0
+2026-04-15 16:41:03.882 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.432 h=0.138 IA=0.00 level=LOW prox_n=0.214 enc=0.118 surr=0
+2026-04-15 16:41:03.894 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.385 enc=0.061 surr=0
+2026-04-15 16:41:03.896 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.476 h=0.196 IA=0.00 level=MEDIUM prox_n=0.214 enc=0.321 surr=0
+2026-04-15 16:41:03.898 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.432 h=0.138 IA=0.00 level=LOW prox_n=0.214 enc=0.118 surr=0
+2026-04-15 16:41:03.994 | DEBUG    | core.detector:detect:204 — Frame 50 | 3 persons | inference 94.0ms
+2026-04-15 16:41:03.998 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.358 h=0.012 IA=0.00 level=LOW prox_n=0.386 enc=0.062 surr=0
+2026-04-15 16:41:04.000 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.489 h=0.215 IA=0.00 level=MEDIUM prox_n=0.216 enc=0.319 surr=0
+2026-04-15 16:41:04.002 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.432 h=0.135 IA=0.00 level=LOW prox_n=0.216 enc=0.119 surr=0
+2026-04-15 16:41:04.030 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.358 h=0.012 IA=0.00 level=LOW prox_n=0.386 enc=0.062 surr=0
+2026-04-15 16:41:04.033 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.489 h=0.215 IA=0.00 level=MEDIUM prox_n=0.216 enc=0.319 surr=0
+2026-04-15 16:41:04.035 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.432 h=0.135 IA=0.00 level=LOW prox_n=0.216 enc=0.119 surr=0
+2026-04-15 16:41:04.061 | DEBUG    | core.tracker:update:229 — TrackManager | active=3 | total_seen=4 | frame=150
+2026-04-15 16:41:04.064 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.358 h=0.012 IA=0.00 level=LOW prox_n=0.386 enc=0.062 surr=0
+2026-04-15 16:41:04.067 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.489 h=0.215 IA=0.00 level=MEDIUM prox_n=0.216 enc=0.319 surr=0
+2026-04-15 16:41:04.069 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.432 h=0.135 IA=0.00 level=LOW prox_n=0.216 enc=0.119 surr=0
+2026-04-15 16:41:04.069 | INFO     | utils.performance:tick:248 — FrameSkipTuner ▲ increased skip 0→1 | fps=19.5 target=25.0
+2026-04-15 16:41:04.095 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.773 enc=0.047 surr=0
+2026-04-15 16:41:04.097 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.346 enc=0.339 surr=0
+2026-04-15 16:41:04.100 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.381 h=0.047 IA=0.00 level=LOW prox_n=0.346 enc=0.114 surr=0
+2026-04-15 16:41:04.140 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.773 enc=0.047 surr=0
+2026-04-15 16:41:04.143 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.346 enc=0.339 surr=0
+2026-04-15 16:41:04.145 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.381 h=0.047 IA=0.00 level=LOW prox_n=0.346 enc=0.114 surr=0
+2026-04-15 16:41:04.171 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.773 enc=0.047 surr=0
+2026-04-15 16:41:04.173 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.346 enc=0.339 surr=0
+2026-04-15 16:41:04.175 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.381 h=0.047 IA=0.00 level=LOW prox_n=0.346 enc=0.114 surr=0
+2026-04-15 16:41:04.308 | DEBUG    | core.detector:detect:204 — Frame 52 | 1 persons | inference 109.0ms
+2026-04-15 16:41:04.312 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.014 surr=0
+2026-04-15 16:41:04.314 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.512 h=0.259 IA=0.00 level=MEDIUM prox_n=0.145 enc=0.107 surr=1
+2026-04-15 16:41:04.316 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.531 h=0.286 IA=0.00 level=MEDIUM prox_n=0.145 enc=0.379 surr=1
+2026-04-15 16:41:04.319 | WARNING  | utils.alerts:dispatch:149 — 🟠 ALERT | Track=3 | Level=MEDIUM | Score=0.531 | Loc=Kolkata, West Bengal, India (22.5643°, 88.3693°)
+2026-04-15 16:41:04.832 | DEBUG    | utils.alerts:_play_sound:218 — Sound played | level=MEDIUM
+2026-04-15 16:41:04.853 | DEBUG    | utils.twilio_alerts:dispatch:568 — No external channels fired for MEDIUM — configure Twilio or Africa's Talking in .env
+2026-04-15 16:41:04.854 | DEBUG    | __main__:run:581 — Failed to post alert to cloud: 'LocationFix' object has no attribute 'latitude'
+2026-04-15 16:41:04.882 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.014 surr=0
+2026-04-15 16:41:04.885 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.512 h=0.259 IA=0.00 level=MEDIUM prox_n=0.145 enc=0.107 surr=1
+2026-04-15 16:41:04.888 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.531 h=0.286 IA=0.00 level=MEDIUM prox_n=0.145 enc=0.379 surr=1
+2026-04-15 16:41:04.914 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.014 surr=0
+2026-04-15 16:41:04.919 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.512 h=0.259 IA=0.00 level=MEDIUM prox_n=0.145 enc=0.107 surr=1
+2026-04-15 16:41:04.921 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.531 h=0.286 IA=0.00 level=MEDIUM prox_n=0.145 enc=0.379 surr=1
+2026-04-15 16:41:04.945 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.758 enc=0.047 surr=0
+2026-04-15 16:41:04.947 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.355 enc=0.345 surr=0
+2026-04-15 16:41:04.949 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.376 h=0.041 IA=0.00 level=LOW prox_n=0.355 enc=0.108 surr=0
+2026-04-15 16:41:04.975 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.758 enc=0.047 surr=0
+2026-04-15 16:41:04.977 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.355 enc=0.345 surr=0
+2026-04-15 16:41:04.980 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.376 h=0.041 IA=0.00 level=LOW prox_n=0.355 enc=0.108 surr=0
+2026-04-15 16:41:05.007 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.758 enc=0.047 surr=0
+2026-04-15 16:41:05.009 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.355 enc=0.345 surr=0
+2026-04-15 16:41:05.011 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.376 h=0.041 IA=0.00 level=LOW prox_n=0.355 enc=0.108 surr=0
+2026-04-15 16:41:05.134 | DEBUG    | core.detector:detect:204 — Frame 54 | 1 persons | inference 109.0ms
+2026-04-15 16:41:05.138 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.015 surr=0
+2026-04-15 16:41:05.140 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.475 h=0.201 IA=0.00 level=MEDIUM prox_n=0.180 enc=0.090 surr=1
+2026-04-15 16:41:05.142 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.495 h=0.232 IA=0.00 level=MEDIUM prox_n=0.180 enc=0.395 surr=1
+2026-04-15 16:41:05.163 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.015 surr=0
+2026-04-15 16:41:05.166 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.475 h=0.201 IA=0.00 level=MEDIUM prox_n=0.180 enc=0.090 surr=1
+2026-04-15 16:41:05.169 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.495 h=0.232 IA=0.00 level=MEDIUM prox_n=0.180 enc=0.395 surr=1
+2026-04-15 16:41:05.194 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.015 surr=0
+2026-04-15 16:41:05.197 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.475 h=0.201 IA=0.00 level=MEDIUM prox_n=0.180 enc=0.090 surr=1
+2026-04-15 16:41:05.200 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.495 h=0.232 IA=0.00 level=MEDIUM prox_n=0.180 enc=0.395 surr=1
+2026-04-15 16:41:05.226 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.835 enc=0.047 surr=0
+2026-04-15 16:41:05.231 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.316 enc=0.313 surr=0
+2026-04-15 16:41:05.233 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.393 h=0.066 IA=0.00 level=LOW prox_n=0.316 enc=0.140 surr=0
+2026-04-15 16:41:05.257 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.835 enc=0.047 surr=0
+2026-04-15 16:41:05.260 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.316 enc=0.313 surr=0
+2026-04-15 16:41:05.262 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.393 h=0.066 IA=0.00 level=LOW prox_n=0.316 enc=0.140 surr=0
+2026-04-15 16:41:05.289 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.835 enc=0.047 surr=0
+2026-04-15 16:41:05.292 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.316 enc=0.313 surr=0
+2026-04-15 16:41:05.296 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.393 h=0.066 IA=0.00 level=LOW prox_n=0.316 enc=0.140 surr=0
+2026-04-15 16:41:05.411 | DEBUG    | core.detector:detect:204 — Frame 56 | 1 persons | inference 94.0ms
+2026-04-15 16:41:05.415 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.016 surr=0
+2026-04-15 16:41:05.416 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.453 h=0.168 IA=0.00 level=MEDIUM prox_n=0.195 enc=0.084 surr=0
+2026-04-15 16:41:05.418 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.454 h=0.168 IA=0.00 level=MEDIUM prox_n=0.195 enc=0.401 surr=0
+2026-04-15 16:41:05.444 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.016 surr=0
+2026-04-15 16:41:05.446 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.453 h=0.168 IA=0.00 level=MEDIUM prox_n=0.195 enc=0.084 surr=0
+2026-04-15 16:41:05.448 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.454 h=0.168 IA=0.00 level=MEDIUM prox_n=0.195 enc=0.401 surr=0
+2026-04-15 16:41:05.473 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.016 surr=0
+2026-04-15 16:41:05.476 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.453 h=0.168 IA=0.00 level=MEDIUM prox_n=0.195 enc=0.084 surr=0
+2026-04-15 16:41:05.478 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.454 h=0.168 IA=0.00 level=MEDIUM prox_n=0.195 enc=0.401 surr=0
+2026-04-15 16:41:05.504 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.868 enc=0.047 surr=0
+2026-04-15 16:41:05.507 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.303 enc=0.298 surr=0
+2026-04-15 16:41:05.509 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.396 h=0.071 IA=0.00 level=LOW prox_n=0.303 enc=0.155 surr=0
+2026-04-15 16:41:05.535 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.868 enc=0.047 surr=0
+2026-04-15 16:41:05.538 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.303 enc=0.298 surr=0
+2026-04-15 16:41:05.540 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.396 h=0.071 IA=0.00 level=LOW prox_n=0.303 enc=0.155 surr=0
+2026-04-15 16:41:05.566 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.868 enc=0.047 surr=0
+2026-04-15 16:41:05.568 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.303 enc=0.298 surr=0
+2026-04-15 16:41:05.570 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.396 h=0.071 IA=0.00 level=LOW prox_n=0.303 enc=0.155 surr=0
+2026-04-15 16:41:05.691 | DEBUG    | core.detector:detect:204 — Frame 58 | 2 persons | inference 94.0ms
+2026-04-15 16:41:05.694 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.397 h=0.074 IA=0.00 level=LOW prox_n=0.278 enc=0.212 surr=0
+2026-04-15 16:41:05.697 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.363 h=0.035 IA=0.00 level=LOW prox_n=0.278 enc=0.203 surr=0
+2026-04-15 16:41:05.698 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.344 h=0.000 IA=0.00 level=LOW prox_n=0.523 enc=0.085 surr=0
+2026-04-15 16:41:05.722 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.397 h=0.074 IA=0.00 level=LOW prox_n=0.278 enc=0.212 surr=0
+2026-04-15 16:41:05.724 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.363 h=0.035 IA=0.00 level=LOW prox_n=0.278 enc=0.203 surr=0
+2026-04-15 16:41:05.727 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.344 h=0.000 IA=0.00 level=LOW prox_n=0.523 enc=0.085 surr=0
+2026-04-15 16:41:05.738 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.397 h=0.074 IA=0.00 level=LOW prox_n=0.278 enc=0.212 surr=0
+2026-04-15 16:41:05.740 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.363 h=0.035 IA=0.00 level=LOW prox_n=0.278 enc=0.203 surr=0
+2026-04-15 16:41:05.743 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.344 h=0.000 IA=0.00 level=LOW prox_n=0.523 enc=0.085 surr=0
+2026-04-15 16:41:05.754 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.875 enc=0.047 surr=0
+2026-04-15 16:41:05.756 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.311 enc=0.299 surr=0
+2026-04-15 16:41:05.758 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.392 h=0.065 IA=0.00 level=LOW prox_n=0.311 enc=0.154 surr=0
+2026-04-15 16:41:05.784 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.875 enc=0.047 surr=0
+2026-04-15 16:41:05.786 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.311 enc=0.299 surr=0
+2026-04-15 16:41:05.789 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.392 h=0.065 IA=0.00 level=LOW prox_n=0.311 enc=0.154 surr=0
+2026-04-15 16:41:05.813 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.875 enc=0.047 surr=0
+2026-04-15 16:41:05.816 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.311 enc=0.299 surr=0
+2026-04-15 16:41:05.818 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.392 h=0.065 IA=0.00 level=LOW prox_n=0.311 enc=0.154 surr=0
+2026-04-15 16:41:05.943 | DEBUG    | core.detector:detect:204 — Frame 60 | 1 persons | inference 94.0ms
+2026-04-15 16:41:05.947 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.015 surr=0
+2026-04-15 16:41:05.949 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.490 h=0.224 IA=0.00 level=MEDIUM prox_n=0.166 enc=0.096 surr=1
+2026-04-15 16:41:05.952 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.509 h=0.253 IA=0.00 level=MEDIUM prox_n=0.166 enc=0.389 surr=1
+2026-04-15 16:41:05.970 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.015 surr=0
+2026-04-15 16:41:05.973 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.490 h=0.224 IA=0.00 level=MEDIUM prox_n=0.166 enc=0.096 surr=1
+2026-04-15 16:41:05.976 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.509 h=0.253 IA=0.00 level=MEDIUM prox_n=0.166 enc=0.389 surr=1
+2026-04-15 16:41:06.004 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.015 surr=0
+2026-04-15 16:41:06.007 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.490 h=0.224 IA=0.00 level=MEDIUM prox_n=0.166 enc=0.096 surr=1
+2026-04-15 16:41:06.008 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.509 h=0.253 IA=0.00 level=MEDIUM prox_n=0.166 enc=0.389 surr=1
+2026-04-15 16:41:06.009 | INFO     | utils.performance:tick:248 — FrameSkipTuner ▲ increased skip 1→2 | fps=15.1 target=25.0
+2026-04-15 16:41:06.031 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.818 enc=0.046 surr=0
+2026-04-15 16:41:06.034 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.325 enc=0.329 surr=0
+2026-04-15 16:41:06.036 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.391 h=0.063 IA=0.00 level=LOW prox_n=0.325 enc=0.126 surr=0
+2026-04-15 16:41:06.093 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.818 enc=0.046 surr=0
+2026-04-15 16:41:06.096 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.325 enc=0.329 surr=0
+2026-04-15 16:41:06.098 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.391 h=0.063 IA=0.00 level=LOW prox_n=0.325 enc=0.126 surr=0
+2026-04-15 16:41:06.124 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.818 enc=0.046 surr=0
+2026-04-15 16:41:06.127 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.325 enc=0.329 surr=0
+2026-04-15 16:41:06.129 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.391 h=0.063 IA=0.00 level=LOW prox_n=0.325 enc=0.126 surr=0
+2026-04-15 16:41:06.154 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=0.387 enc=0.206 surr=0
+2026-04-15 16:41:06.157 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.341 h=0.001 IA=0.00 level=LOW prox_n=0.387 enc=0.232 surr=0
+2026-04-15 16:41:06.160 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.982 enc=0.062 surr=0
+2026-04-15 16:41:06.184 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=0.387 enc=0.206 surr=0
+2026-04-15 16:41:06.187 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.341 h=0.001 IA=0.00 level=LOW prox_n=0.387 enc=0.232 surr=0
+2026-04-15 16:41:06.189 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.982 enc=0.062 surr=0
+2026-04-15 16:41:06.216 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=0.387 enc=0.206 surr=0
+2026-04-15 16:41:06.218 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.341 h=0.001 IA=0.00 level=LOW prox_n=0.387 enc=0.232 surr=0
+2026-04-15 16:41:06.220 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.982 enc=0.062 surr=0
+2026-04-15 16:41:06.344 | DEBUG    | core.detector:detect:204 — Frame 63 | 1 persons | inference 93.0ms
+2026-04-15 16:41:06.347 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.015 surr=0
+2026-04-15 16:41:06.349 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.487 h=0.220 IA=0.00 level=MEDIUM prox_n=0.169 enc=0.096 surr=1
+2026-04-15 16:41:06.351 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.506 h=0.249 IA=0.00 level=MEDIUM prox_n=0.169 enc=0.389 surr=1
+2026-04-15 16:41:06.371 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.015 surr=0
+2026-04-15 16:41:06.374 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.487 h=0.220 IA=0.00 level=MEDIUM prox_n=0.169 enc=0.096 surr=1
+2026-04-15 16:41:06.376 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.506 h=0.249 IA=0.00 level=MEDIUM prox_n=0.169 enc=0.389 surr=1
+2026-04-15 16:41:06.402 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.015 surr=0
+2026-04-15 16:41:06.405 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.487 h=0.220 IA=0.00 level=MEDIUM prox_n=0.169 enc=0.096 surr=1
+2026-04-15 16:41:06.407 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.506 h=0.249 IA=0.00 level=MEDIUM prox_n=0.169 enc=0.389 surr=1
+2026-04-15 16:41:06.433 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.823 enc=0.046 surr=0
+2026-04-15 16:41:06.436 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.324 enc=0.326 surr=0
+2026-04-15 16:41:06.438 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.391 h=0.063 IA=0.00 level=LOW prox_n=0.324 enc=0.128 surr=0
+2026-04-15 16:41:06.464 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.823 enc=0.046 surr=0
+2026-04-15 16:41:06.467 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.324 enc=0.326 surr=0
+2026-04-15 16:41:06.469 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.391 h=0.063 IA=0.00 level=LOW prox_n=0.324 enc=0.128 surr=0
+2026-04-15 16:41:06.495 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.823 enc=0.046 surr=0
+2026-04-15 16:41:06.497 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.324 enc=0.326 surr=0
+2026-04-15 16:41:06.499 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.391 h=0.063 IA=0.00 level=LOW prox_n=0.324 enc=0.128 surr=0
+2026-04-15 16:41:06.526 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=0.394 enc=0.203 surr=0
+2026-04-15 16:41:06.528 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.341 h=0.001 IA=0.00 level=LOW prox_n=0.394 enc=0.233 surr=0
+2026-04-15 16:41:06.531 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.975 enc=0.063 surr=0
+2026-04-15 16:41:06.556 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=0.394 enc=0.203 surr=0
+2026-04-15 16:41:06.559 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.341 h=0.001 IA=0.00 level=LOW prox_n=0.394 enc=0.233 surr=0
+2026-04-15 16:41:06.562 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.975 enc=0.063 surr=0
+2026-04-15 16:41:06.589 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=0.394 enc=0.203 surr=0
+2026-04-15 16:41:06.591 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.341 h=0.001 IA=0.00 level=LOW prox_n=0.394 enc=0.233 surr=0
+2026-04-15 16:41:06.594 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.975 enc=0.063 surr=0
+2026-04-15 16:41:06.727 | DEBUG    | core.detector:detect:204 — Frame 66 | 2 persons | inference 109.0ms
+2026-04-15 16:41:06.731 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.480 h=0.200 IA=0.00 level=MEDIUM prox_n=0.261 enc=0.039 surr=0
+2026-04-15 16:41:06.733 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.477 h=0.204 IA=0.00 level=MEDIUM prox_n=0.176 enc=0.059 surr=1
+2026-04-15 16:41:06.734 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.499 h=0.239 IA=0.00 level=MEDIUM prox_n=0.176 enc=0.402 surr=1
+2026-04-15 16:41:06.738 | WARNING  | utils.alerts:dispatch:149 — 🟠 ALERT | Track=2 | Level=MEDIUM | Score=0.480 | Loc=Kolkata, West Bengal, India (22.5643°, 88.3693°)
+2026-04-15 16:41:07.250 | DEBUG    | utils.alerts:_play_sound:218 — Sound played | level=MEDIUM
+2026-04-15 16:41:07.269 | DEBUG    | utils.twilio_alerts:dispatch:568 — No external channels fired for MEDIUM — configure Twilio or Africa's Talking in .env
+2026-04-15 16:41:07.270 | DEBUG    | __main__:run:581 — Failed to post alert to cloud: 'LocationFix' object has no attribute 'latitude'
+2026-04-15 16:41:07.303 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.480 h=0.200 IA=0.00 level=MEDIUM prox_n=0.261 enc=0.039 surr=0
+2026-04-15 16:41:07.305 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.477 h=0.204 IA=0.00 level=MEDIUM prox_n=0.176 enc=0.059 surr=1
+2026-04-15 16:41:07.308 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.499 h=0.239 IA=0.00 level=MEDIUM prox_n=0.176 enc=0.402 surr=1
+2026-04-15 16:41:07.330 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.480 h=0.200 IA=0.00 level=MEDIUM prox_n=0.261 enc=0.039 surr=0
+2026-04-15 16:41:07.333 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.477 h=0.204 IA=0.00 level=MEDIUM prox_n=0.176 enc=0.059 surr=1
+2026-04-15 16:41:07.335 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.499 h=0.239 IA=0.00 level=MEDIUM prox_n=0.176 enc=0.402 surr=1
+2026-04-15 16:41:07.361 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.835 enc=0.047 surr=0
+2026-04-15 16:41:07.365 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.319 enc=0.315 surr=0
+2026-04-15 16:41:07.368 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.392 h=0.065 IA=0.00 level=LOW prox_n=0.319 enc=0.138 surr=0
+2026-04-15 16:41:07.391 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.835 enc=0.047 surr=0
+2026-04-15 16:41:07.393 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.319 enc=0.315 surr=0
+2026-04-15 16:41:07.395 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.392 h=0.065 IA=0.00 level=LOW prox_n=0.319 enc=0.138 surr=0
+2026-04-15 16:41:07.422 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.835 enc=0.047 surr=0
+2026-04-15 16:41:07.424 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.319 enc=0.315 surr=0
+2026-04-15 16:41:07.426 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.392 h=0.065 IA=0.00 level=LOW prox_n=0.319 enc=0.138 surr=0
+2026-04-15 16:41:07.454 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.041 surr=0
+2026-04-15 16:41:07.456 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.954 enc=0.384 surr=0
+2026-04-15 16:41:07.458 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.954 enc=0.074 surr=0
+2026-04-15 16:41:07.484 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.041 surr=0
+2026-04-15 16:41:07.486 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.954 enc=0.384 surr=0
+2026-04-15 16:41:07.489 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.954 enc=0.074 surr=0
+2026-04-15 16:41:07.516 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.041 surr=0
+2026-04-15 16:41:07.518 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.954 enc=0.384 surr=0
+2026-04-15 16:41:07.520 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.954 enc=0.074 surr=0
+2026-04-15 16:41:07.634 | DEBUG    | core.detector:detect:204 — Frame 69 | 2 persons | inference 94.0ms
+2026-04-15 16:41:07.638 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.479 h=0.198 IA=0.00 level=MEDIUM prox_n=0.262 enc=0.039 surr=0
+2026-04-15 16:41:07.641 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.482 h=0.213 IA=0.00 level=MEDIUM prox_n=0.171 enc=0.061 surr=1
+2026-04-15 16:41:07.644 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.505 h=0.246 IA=0.00 level=MEDIUM prox_n=0.171 enc=0.400 surr=1
+2026-04-15 16:41:07.670 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.479 h=0.198 IA=0.00 level=MEDIUM prox_n=0.262 enc=0.039 surr=0
+2026-04-15 16:41:07.672 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.482 h=0.213 IA=0.00 level=MEDIUM prox_n=0.171 enc=0.061 surr=1
+2026-04-15 16:41:07.674 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.505 h=0.246 IA=0.00 level=MEDIUM prox_n=0.171 enc=0.400 surr=1
+2026-04-15 16:41:07.702 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.479 h=0.198 IA=0.00 level=MEDIUM prox_n=0.262 enc=0.039 surr=0
+2026-04-15 16:41:07.704 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.482 h=0.213 IA=0.00 level=MEDIUM prox_n=0.171 enc=0.061 surr=1
+2026-04-15 16:41:07.706 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.505 h=0.246 IA=0.00 level=MEDIUM prox_n=0.171 enc=0.400 surr=1
+2026-04-15 16:41:07.732 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.825 enc=0.047 surr=0
+2026-04-15 16:41:07.735 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.326 enc=0.319 surr=0
+2026-04-15 16:41:07.737 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.389 h=0.060 IA=0.00 level=LOW prox_n=0.326 enc=0.133 surr=0
+2026-04-15 16:41:07.762 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.825 enc=0.047 surr=0
+2026-04-15 16:41:07.765 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.326 enc=0.319 surr=0
+2026-04-15 16:41:07.767 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.389 h=0.060 IA=0.00 level=LOW prox_n=0.326 enc=0.133 surr=0
+2026-04-15 16:41:07.793 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.825 enc=0.047 surr=0
+2026-04-15 16:41:07.796 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.326 enc=0.319 surr=0
+2026-04-15 16:41:07.798 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.389 h=0.060 IA=0.00 level=LOW prox_n=0.326 enc=0.133 surr=0
+2026-04-15 16:41:07.798 | INFO     | utils.performance:tick:248 — FrameSkipTuner ▲ increased skip 2→3 | fps=15.9 target=25.0
+2026-04-15 16:41:07.825 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.042 surr=0
+2026-04-15 16:41:07.827 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.976 enc=0.386 surr=0
+2026-04-15 16:41:07.830 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.976 enc=0.072 surr=0
+2026-04-15 16:41:07.870 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.042 surr=0
+2026-04-15 16:41:07.873 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.976 enc=0.386 surr=0
+2026-04-15 16:41:07.875 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.976 enc=0.072 surr=0
+2026-04-15 16:41:07.900 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.042 surr=0
+2026-04-15 16:41:07.903 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.976 enc=0.386 surr=0
+2026-04-15 16:41:07.906 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.976 enc=0.072 surr=0
+2026-04-15 16:41:08.027 | DEBUG    | core.detector:detect:204 — Frame 72 | 2 persons | inference 94.0ms
+2026-04-15 16:41:08.031 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.477 h=0.195 IA=0.00 level=MEDIUM prox_n=0.263 enc=0.039 surr=0
+2026-04-15 16:41:08.035 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.471 h=0.195 IA=0.00 level=MEDIUM prox_n=0.182 enc=0.058 surr=1
+2026-04-15 16:41:08.037 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.493 h=0.229 IA=0.00 level=MEDIUM prox_n=0.182 enc=0.403 surr=1
+2026-04-15 16:41:08.057 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.477 h=0.195 IA=0.00 level=MEDIUM prox_n=0.263 enc=0.039 surr=0
+2026-04-15 16:41:08.060 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.471 h=0.195 IA=0.00 level=MEDIUM prox_n=0.182 enc=0.058 surr=1
+2026-04-15 16:41:08.061 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.493 h=0.229 IA=0.00 level=MEDIUM prox_n=0.182 enc=0.403 surr=1
+2026-04-15 16:41:08.089 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.477 h=0.195 IA=0.00 level=MEDIUM prox_n=0.263 enc=0.039 surr=0
+2026-04-15 16:41:08.091 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.471 h=0.195 IA=0.00 level=MEDIUM prox_n=0.182 enc=0.058 surr=1
+2026-04-15 16:41:08.093 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.493 h=0.229 IA=0.00 level=MEDIUM prox_n=0.182 enc=0.403 surr=1
+2026-04-15 16:41:08.118 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.850 enc=0.048 surr=0
+2026-04-15 16:41:08.121 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.319 enc=0.309 surr=0
+2026-04-15 16:41:08.123 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.391 h=0.063 IA=0.00 level=LOW prox_n=0.319 enc=0.144 surr=0
+2026-04-15 16:41:08.135 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.850 enc=0.048 surr=0
+2026-04-15 16:41:08.137 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.319 enc=0.309 surr=0
+2026-04-15 16:41:08.139 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.391 h=0.063 IA=0.00 level=LOW prox_n=0.319 enc=0.144 surr=0
+2026-04-15 16:41:08.164 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.850 enc=0.048 surr=0
+2026-04-15 16:41:08.167 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.319 enc=0.309 surr=0
+2026-04-15 16:41:08.170 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.391 h=0.063 IA=0.00 level=LOW prox_n=0.319 enc=0.144 surr=0
+2026-04-15 16:41:08.192 | DEBUG    | core.tracker:update:217 — Pruning stale track ID=3 (missing 45 frames).
+2026-04-15 16:41:08.195 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.198 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.226 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.231 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.256 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.259 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.287 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.290 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.319 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.322 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.350 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.353 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.469 | DEBUG    | core.detector:detect:204 — Frame 76 | 2 persons | inference 93.0ms
+2026-04-15 16:41:08.472 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.423 enc=0.000 surr=0
+2026-04-15 16:41:08.475 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.423 enc=0.000 surr=0
+2026-04-15 16:41:08.490 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.423 enc=0.000 surr=0
+2026-04-15 16:41:08.493 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.423 enc=0.000 surr=0
+2026-04-15 16:41:08.522 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.423 enc=0.000 surr=0
+2026-04-15 16:41:08.525 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.423 enc=0.000 surr=0
+2026-04-15 16:41:08.553 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.845 enc=0.000 surr=0
+2026-04-15 16:41:08.556 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.845 enc=0.000 surr=0
+2026-04-15 16:41:08.582 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.845 enc=0.000 surr=0
+2026-04-15 16:41:08.585 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.845 enc=0.000 surr=0
+2026-04-15 16:41:08.599 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.845 enc=0.000 surr=0
+2026-04-15 16:41:08.602 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.845 enc=0.000 surr=0
+2026-04-15 16:41:08.631 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.634 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.661 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.664 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.692 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.695 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.722 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.726 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.739 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.742 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.755 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.757 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.903 | DEBUG    | core.detector:detect:204 — Frame 80 | 1 persons | inference 141.0ms
+2026-04-15 16:41:08.907 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.910 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.938 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.941 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.969 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.971 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:08.972 | INFO     | utils.performance:tick:248 — FrameSkipTuner ▲ increased skip 3→4 | fps=20.1 target=25.0
+2026-04-15 16:41:09.001 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.005 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.046 | INFO     | utils.performance:log_summary:164 — Perf | FPS=20.3 FrameAvg=24.07ms P95=109.0ms InfAvg=107.26ms Frames=241 Uptime=15.9s
+2026-04-15 16:41:09.046 | INFO     | __main__:run:620 — Tuner | skip=4 adjustments=8 | Tracks=2 total_seen=4 | Alerts=3
+2026-04-15 16:41:09.062 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.068 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.094 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.098 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.123 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.128 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.157 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.161 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.185 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.190 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.216 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.219 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.247 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.250 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.278 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.280 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.309 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.312 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.338 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.342 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.369 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.372 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 16:41:09.491 | DEBUG    | core.detector:detect:204 — Frame 85 | 2 persons | inference 94.0ms
+2026-04-15 16:41:09.491 | DEBUG    | core.tracker:update:204 — New track ID=3 detected.
+2026-04-15 16:41:09.496 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.005 surr=0
+2026-04-15 16:41:09.498 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.527 h=0.272 IA=0.00 level=MEDIUM prox_n=0.205 enc=0.323 surr=0
+2026-04-15 16:41:09.501 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.099 h=0.152 IA=0.00 level=NONE prox_n=0.205 enc=0.172 surr=0
+2026-04-15 16:41:09.525 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.005 surr=0
+2026-04-15 16:41:09.529 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.527 h=0.272 IA=0.00 level=MEDIUM prox_n=0.205 enc=0.323 surr=0
+2026-04-15 16:41:09.531 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.441 h=0.152 IA=0.00 level=MEDIUM prox_n=0.205 enc=0.172 surr=0
+2026-04-15 16:41:09.556 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.005 surr=0
+2026-04-15 16:41:09.560 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.527 h=0.272 IA=0.00 level=MEDIUM prox_n=0.205 enc=0.323 surr=0
+2026-04-15 16:41:09.563 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.441 h=0.152 IA=0.00 level=MEDIUM prox_n=0.205 enc=0.172 surr=0
+2026-04-15 16:41:09.586 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.008 surr=0
+2026-04-15 16:41:09.589 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.316 enc=0.331 surr=0
+2026-04-15 16:41:09.591 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=0.316 enc=0.161 surr=0
+2026-04-15 16:41:09.617 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.008 surr=0
+2026-04-15 16:41:09.620 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.316 enc=0.331 surr=0
+2026-04-15 16:41:09.622 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=0.316 enc=0.161 surr=0
+2026-04-15 16:41:09.647 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.008 surr=0
+2026-04-15 16:41:09.651 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.316 enc=0.331 surr=0
+2026-04-15 16:41:09.652 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.342 h=0.000 IA=0.00 level=LOW prox_n=0.316 enc=0.161 surr=0
+2026-04-15 16:41:09.678 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.014 surr=0
+2026-04-15 16:41:09.682 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.495 enc=0.339 surr=0
+2026-04-15 16:41:09.684 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.495 enc=0.147 surr=0
+2026-04-15 16:41:09.709 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.014 surr=0
+2026-04-15 16:41:09.712 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.495 enc=0.339 surr=0
+2026-04-15 16:41:09.714 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.495 enc=0.147 surr=0
+2026-04-15 16:41:09.740 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.014 surr=0
+2026-04-15 16:41:09.744 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.495 enc=0.339 surr=0
+2026-04-15 16:41:09.746 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.495 enc=0.147 surr=0
+2026-04-15 16:41:09.771 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.028 surr=0
+2026-04-15 16:41:09.775 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.798 enc=0.341 surr=0
+2026-04-15 16:41:09.777 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.798 enc=0.132 surr=0
+2026-04-15 16:41:09.802 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.028 surr=0
+2026-04-15 16:41:09.806 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.798 enc=0.341 surr=0
+2026-04-15 16:41:09.808 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.798 enc=0.132 surr=0
+2026-04-15 16:41:09.833 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.028 surr=0
+2026-04-15 16:41:09.836 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.798 enc=0.341 surr=0
+2026-04-15 16:41:09.838 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.798 enc=0.132 surr=0
+2026-04-15 16:41:09.863 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.115 surr=0
+2026-04-15 16:41:09.867 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.266 surr=0
+2026-04-15 16:41:09.870 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.120 surr=0
+2026-04-15 16:41:09.894 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.115 surr=0
+2026-04-15 16:41:09.897 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.266 surr=0
+2026-04-15 16:41:09.899 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.120 surr=0
+2026-04-15 16:41:09.927 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.115 surr=0
+2026-04-15 16:41:09.929 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.266 surr=0
+2026-04-15 16:41:09.931 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.120 surr=0
+2026-04-15 16:41:10.042 | DEBUG    | core.detector:detect:204 — Frame 90 | 2 persons | inference 93.0ms
+2026-04-15 16:41:10.046 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.005 surr=0
+2026-04-15 16:41:10.049 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.530 h=0.278 IA=0.00 level=MEDIUM prox_n=0.201 enc=0.318 surr=0
+2026-04-15 16:41:10.051 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.448 h=0.158 IA=0.00 level=MEDIUM prox_n=0.201 enc=0.177 surr=0
+2026-04-15 16:41:10.054 | DEBUG    | utils.alerts:dispatch:138 — Alert suppressed (cooldown) | track=3 level=MEDIUM
+2026-04-15 16:41:10.082 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.005 surr=0
+2026-04-15 16:41:10.088 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.530 h=0.278 IA=0.00 level=MEDIUM prox_n=0.201 enc=0.318 surr=0
+2026-04-15 16:41:10.091 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.448 h=0.158 IA=0.00 level=MEDIUM prox_n=0.201 enc=0.177 surr=0
+2026-04-15 16:41:10.113 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.005 surr=0
+2026-04-15 16:41:10.116 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.530 h=0.278 IA=0.00 level=MEDIUM prox_n=0.201 enc=0.318 surr=0
+2026-04-15 16:41:10.117 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.448 h=0.158 IA=0.00 level=MEDIUM prox_n=0.201 enc=0.177 surr=0
+2026-04-15 16:41:10.143 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.008 surr=0
+2026-04-15 16:41:10.146 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.308 enc=0.325 surr=0
+2026-04-15 16:41:10.148 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.393 h=0.067 IA=0.00 level=LOW prox_n=0.308 enc=0.166 surr=0
+2026-04-15 16:41:10.204 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.008 surr=0
+2026-04-15 16:41:10.208 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.308 enc=0.325 surr=0
+2026-04-15 16:41:10.210 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.393 h=0.067 IA=0.00 level=LOW prox_n=0.308 enc=0.166 surr=0
+2026-04-15 16:41:10.235 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.008 surr=0
+2026-04-15 16:41:10.240 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.308 enc=0.325 surr=0
+2026-04-15 16:41:10.243 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.393 h=0.067 IA=0.00 level=LOW prox_n=0.308 enc=0.166 surr=0
+2026-04-15 16:41:10.265 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.014 surr=0
+2026-04-15 16:41:10.271 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.481 enc=0.332 surr=0
+2026-04-15 16:41:10.273 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.481 enc=0.154 surr=0
+2026-04-15 16:41:10.297 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.014 surr=0
+2026-04-15 16:41:10.300 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.481 enc=0.332 surr=0
+2026-04-15 16:41:10.302 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.481 enc=0.154 surr=0
+2026-04-15 16:41:10.329 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.014 surr=0
+2026-04-15 16:41:10.333 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.481 enc=0.332 surr=0
+2026-04-15 16:41:10.335 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.481 enc=0.154 surr=0
+2026-04-15 16:41:10.359 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.027 surr=0
+2026-04-15 16:41:10.363 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.766 enc=0.333 surr=0
+2026-04-15 16:41:10.365 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.766 enc=0.140 surr=0
+2026-04-15 16:41:10.391 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.027 surr=0
+2026-04-15 16:41:10.395 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.766 enc=0.333 surr=0
+2026-04-15 16:41:10.397 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.766 enc=0.140 surr=0
+2026-04-15 16:41:10.421 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.027 surr=0
+2026-04-15 16:41:10.424 | DEBUG    | core.threat:_score_one:229 — Track=1 score=0.343 h=0.000 IA=0.00 level=LOW prox_n=0.766 enc=0.333 surr=0
+2026-04-15 16:41:10.427 | DEBUG    | core.threat:_score_one:229 — Track=3 score=0.350 h=0.000 IA=0.00 level=LOW prox_n=0.766 enc=0.140 surr=0
+2026-04-15 16:41:10.450 | DEBUG    | core.tracker:update:217 — Pruning stale track ID=2 (missing 45 frames).
+2026-04-15 16:41:10.450 | INFO     | __main__:run:511 — Blind Spot: Departure detected for track 2
+2026-04-15 16:41:10.450 | ERROR    | __main__:<module>:697 — Unhandled top-level exception.
+Traceback (most recent call last):
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 692, in <module>
+    code = run(args)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 512, in run
+    edge_client.report_departure(p_state.track_id)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\core\edge_client.py", line 249, in report_departure
+    return self._request("POST", f"/api/v1/cameras/{self.camera_id}/transit-departure", json=payload)
+TypeError: EdgeClient._request() got an unexpected keyword argument 'json'
+2026-04-15 23:35:40.446 | INFO     | utils.logger:setup_logging:107 — Logging initialised | level=DEBUG | dir=C:\Users\HP\OneDrive\Desktop\women-safety-product\logs | rotation=10 MB | retention=7 days
+2026-04-15 23:35:40.450 | INFO     | __main__:run:337 — ================================================================
+2026-04-15 23:35:40.450 | INFO     | __main__:run:337 — ================================================================
+2026-04-15 23:35:40.451 | INFO     | __main__:run:338 —   Women Safety Product — Production Pipeline (Days 1–5)
+2026-04-15 23:35:40.451 | INFO     | __main__:run:338 —   Women Safety Product — Production Pipeline (Days 1–5)
+2026-04-15 23:35:40.451 | INFO     | __main__:run:339 — ================================================================
+2026-04-15 23:35:40.451 | INFO     | __main__:run:339 — ================================================================
+2026-04-15 23:35:40.452 | INFO     | __main__:run:340 — ============================================================
+  Women Safety Product — Active Configuration
+============================================================
+  PROJECT_ROOT                        C:\Users\HP\OneDrive\Desktop\women-safety-product
+  CAMERA_SOURCE                       0
+  CAMERA_WIDTH                        640
+  CAMERA_HEIGHT                       480
+  CAMERA_FPS                          30
+  CAMERA_RECONNECT_DELAY              3
+  CAMERA_MAX_RECONNECT                10
+  MODEL_PATH                          models/yolov8n-pose.pt
+  MODEL_CONFIDENCE                    0.55
+  MODEL_IOU                           0.5
+  MODEL_DEVICE                        cpu
+  MODEL_IMGSZ                         640
+  EXPORT_ONNX                         False
+  TRACKER_CONFIG                      botsort.yaml
+  TRACKER_PERSIST                     True
+  THREAT_MODEL_PATH                   models/threat_xgb.json
+  THREAT_LOW                          0.22
+  THREAT_MEDIUM                       0.44
+  THREAT_HIGH                         0.62
+  THREAT_SUSTAINED_FRAMES             8
+  THREAT_MIN_GROUP_SIZE               2
+  ENABLE_INTERACTION_ANALYSIS         True
+  INTERACTION_DISTANCE_THRESHOLD      0.25
+  INTERACTION_BOOST_MAX               0.25
+  ALERT_EMAIL_ENABLED                 False
+  ALERT_EMAIL_SMTP                    smtp.gmail.com
+  ALERT_EMAIL_PORT                    587
+  ALERT_EMAIL_SENDER                  your@gmail.com
+  ALERT_EMAIL_PASSWORD                ***
+  ALERT_EMAIL_RECEIVER                emergency@example.com
+  ALERT_SOUND_ENABLED                 True
+  ALERT_COOLDOWN                      60
+  LOCATION_GOOGLE_API_KEY             ***
+  LOCATION_IP_FALLBACK                True
+  COORDINATOR_URL                     http://localhost:8000
+  EDGE_OFFLINE_MODE                   False
+  DASHBOARD_PORT                      8501
+  DASHBOARD_REFRESH_MS                100
+  LOG_MAX_ROWS                        200
+  LOG_LEVEL                           DEBUG
+  LOG_DIR                             logs
+  LOG_ROTATION                        10 MB
+  LOG_RETENTION                       7 days
+============================================================
+2026-04-15 23:35:40.452 | INFO     | __main__:run:340 — ============================================================
+  Women Safety Product — Active Configuration
+============================================================
+  PROJECT_ROOT                        C:\Users\HP\OneDrive\Desktop\women-safety-product
+  CAMERA_SOURCE                       0
+  CAMERA_WIDTH                        640
+  CAMERA_HEIGHT                       480
+  CAMERA_FPS                          30
+  CAMERA_RECONNECT_DELAY              3
+  CAMERA_MAX_RECONNECT                10
+  MODEL_PATH                          models/yolov8n-pose.pt
+  MODEL_CONFIDENCE                    0.55
+  MODEL_IOU                           0.5
+  MODEL_DEVICE                        cpu
+  MODEL_IMGSZ                         640
+  EXPORT_ONNX                         False
+  TRACKER_CONFIG                      botsort.yaml
+  TRACKER_PERSIST                     True
+  THREAT_MODEL_PATH                   models/threat_xgb.json
+  THREAT_LOW                          0.22
+  THREAT_MEDIUM                       0.44
+  THREAT_HIGH                         0.62
+  THREAT_SUSTAINED_FRAMES             8
+  THREAT_MIN_GROUP_SIZE               2
+  ENABLE_INTERACTION_ANALYSIS         True
+  INTERACTION_DISTANCE_THRESHOLD      0.25
+  INTERACTION_BOOST_MAX               0.25
+  ALERT_EMAIL_ENABLED                 False
+  ALERT_EMAIL_SMTP                    smtp.gmail.com
+  ALERT_EMAIL_PORT                    587
+  ALERT_EMAIL_SENDER                  your@gmail.com
+  ALERT_EMAIL_PASSWORD                ***
+  ALERT_EMAIL_RECEIVER                emergency@example.com
+  ALERT_SOUND_ENABLED                 True
+  ALERT_COOLDOWN                      60
+  LOCATION_GOOGLE_API_KEY             ***
+  LOCATION_IP_FALLBACK                True
+  COORDINATOR_URL                     http://localhost:8000
+  EDGE_OFFLINE_MODE                   False
+  DASHBOARD_PORT                      8501
+  DASHBOARD_REFRESH_MS                100
+  LOG_MAX_ROWS                        200
+  LOG_LEVEL                           DEBUG
+  LOG_DIR                             logs
+  LOG_ROTATION                        10 MB
+  LOG_RETENTION                       7 days
+============================================================
+2026-04-15 23:35:40.455 | INFO     | __main__:run:388 — Initialising camera (source=http://192.168.1.158:8080/video)…
+2026-04-15 23:35:40.456 | INFO     | core.camera:__init__:78 — Camera created | source=http://192.168.1.158:8080/video | 640x480 @ 30fps
+2026-04-15 23:35:40.458 | INFO     | __main__:run:388 — Initialising camera (source=http://192.168.1.202:8080/video)…
+2026-04-15 23:35:40.461 | INFO     | core.camera:__init__:78 — Camera created | source=http://192.168.1.202:8080/video | 640x480 @ 30fps
+2026-04-15 23:35:40.462 | DEBUG    | core.camera:_open:156 — Opening camera source: http://192.168.1.202:8080/video
+2026-04-15 23:35:40.854 | INFO     | core.camera:_open:174 — Camera opened | actual 1440x1440 @ 25.0fps
+2026-04-15 23:35:40.856 | DEBUG    | core.camera:_reader_loop:202 — Camera reader loop entered.
+2026-04-15 23:35:40.856 | INFO     | core.camera:start:101 — Camera reader thread started.
+2026-04-15 23:35:41.222 | INFO     | __main__:run:397 — Frame resolution: 1440×1440
+2026-04-15 23:35:41.223 | INFO     | __main__:run:403 — Initialising Detector (skip=0)…
+2026-04-15 23:35:41.223 | INFO     | core.detector:_load_model:118 — Loading YOLO model from: C:\Users\HP\OneDrive\Desktop\women-safety-product\models\yolov8n-pose.pt
+2026-04-15 23:35:41.841 | INFO     | core.detector:_load_model:132 — YOLO model loaded and warmed up. Device: cpu (FP16: False)
+2026-04-15 23:35:41.842 | INFO     | __main__:run:406 — Initialising TrackManager…
+2026-04-15 23:35:41.843 | INFO     | core.tracker:__init__:179 — TrackManager initialised.
+2026-04-15 23:35:41.843 | INFO     | __main__:run:409 — Initialising ThreatEngine (1440×1440)…
+2026-04-15 23:35:41.844 | INFO     | core.features:__init__:115 — FeatureExtractor ready | 1440x1440 | diag=2036.5px | features=20
+2026-04-15 23:35:46.051 | INFO     | core.camera:_open:174 — Camera opened | actual 1920x1080 @ 25.0fps
+2026-04-15 23:35:46.052 | DEBUG    | core.camera:_reader_loop:202 — Camera reader loop entered.
+2026-04-15 23:35:46.052 | INFO     | core.camera:start:101 — Camera reader thread started.
+2026-04-15 23:35:46.416 | INFO     | __main__:run:397 — Frame resolution: 1920×1080
+2026-04-15 23:35:46.417 | INFO     | __main__:run:403 — Initialising Detector (skip=0)…
+2026-04-15 23:35:46.417 | INFO     | core.detector:_load_model:118 — Loading YOLO model from: C:\Users\HP\OneDrive\Desktop\women-safety-product\models\yolov8n-pose.pt
+2026-04-15 23:35:46.758 | INFO     | core.detector:_load_model:132 — YOLO model loaded and warmed up. Device: cpu (FP16: False)
+2026-04-15 23:35:46.759 | INFO     | __main__:run:406 — Initialising TrackManager…
+2026-04-15 23:35:46.759 | INFO     | core.tracker:__init__:179 — TrackManager initialised.
+2026-04-15 23:35:46.760 | INFO     | __main__:run:409 — Initialising ThreatEngine (1920×1080)…
+2026-04-15 23:35:46.761 | INFO     | core.features:__init__:115 — FeatureExtractor ready | 1920x1080 | diag=2202.9px | features=20
+2026-04-15 23:35:56.439 | SUCCESS  | core.threat:_load_xgb_model:139 — XGBoost model loaded from C:\Users\HP\OneDrive\Desktop\women-safety-product\models\threat_xgb.json.
+2026-04-15 23:35:56.439 | SUCCESS  | core.threat:_load_xgb_model:139 — XGBoost model loaded from C:\Users\HP\OneDrive\Desktop\women-safety-product\models\threat_xgb.json.
+2026-04-15 23:35:56.439 | INFO     | core.threat:__init__:112 — ThreatEngine ready | xgb=True | diag=2203px | thresholds=(0.22,0.44,0.62) | sustained=8
+2026-04-15 23:35:56.441 | INFO     | core.threat:__init__:112 — ThreatEngine ready | xgb=True | diag=2036px | thresholds=(0.22,0.44,0.62) | sustained=8
+2026-04-15 23:35:56.441 | INFO     | __main__:run:412 — Initialising AlertDispatcher…
+2026-04-15 23:35:56.442 | INFO     | __main__:run:412 — Initialising AlertDispatcher…
+2026-04-15 23:35:56.441 | INFO     | utils.alerts:__init__:115 — AlertDispatcher ready | email=False | sound=True | cooldown=60s
+2026-04-15 23:35:56.442 | INFO     | __main__:run:415 — Initialising MultiChannelAlerter (Twilio/AT)…
+2026-04-15 23:35:56.442 | INFO     | utils.alerts:__init__:115 — AlertDispatcher ready | email=False | sound=True | cooldown=60s
+2026-04-15 23:35:56.442 | INFO     | __main__:run:415 — Initialising MultiChannelAlerter (Twilio/AT)…
+2026-04-15 23:35:56.443 | ERROR    | utils.twilio_alerts:_init_client:101 — twilio package not installed. Run: pip install twilio
+2026-04-15 23:35:56.444 | INFO     | __main__:run:418 — Initialising LocationProvider…
+2026-04-15 23:35:56.444 | ERROR    | utils.twilio_alerts:_init_client:101 — twilio package not installed. Run: pip install twilio
+2026-04-15 23:35:56.445 | INFO     | utils.location:__init__:99 — LocationProvider | google=False | ip_fallback=True | ttl=300s
+2026-04-15 23:35:56.445 | INFO     | __main__:run:418 — Initialising LocationProvider…
+2026-04-15 23:35:56.445 | INFO     | utils.location:__init__:99 — LocationProvider | google=False | ip_fallback=True | ttl=300s
+2026-04-15 23:35:56.447 | DEBUG    | utils.location:_refresh_loop:156 — Location refresh loop: interval=150s
+2026-04-15 23:35:56.447 | INFO     | utils.location:start_background_refresh:138 — Location background refresh thread started.
+2026-04-15 23:35:56.448 | DEBUG    | utils.location:_refresh_loop:156 — Location refresh loop: interval=150s
+2026-04-15 23:35:56.448 | INFO     | utils.location:start_background_refresh:138 — Location background refresh thread started.
+2026-04-15 23:35:57.076 | INFO     | __main__:run:422 — Location: Kolkata, West Bengal, India (22.5643°, 88.3693°)
+2026-04-15 23:35:57.076 | INFO     | utils.performance:__init__:207 — FrameSkipTuner | target=25.0fps ±2.0 window=30 init_skip=0
+2026-04-15 23:35:59.151 | INFO     | __main__:run:463 — Pipeline ready | auto_tuner=True | target_fps=25.0 | device=cpu
+2026-04-15 23:35:59.152 | INFO     | __main__:run:467 — Controls: q=quit  s=snapshot  p=pause  +=skip+  -=skip-
+2026-04-15 23:35:59.551 | DEBUG    | core.detector:detect:204 — Frame 1 | 0 persons | inference 390.0ms
+2026-04-15 23:36:01.521 | WARNING  | utils.location:_ip_api:240 — ip-api: no network.
+2026-04-15 23:36:01.522 | ERROR    | utils.location:_fetch:180 — All location providers failed.
+2026-04-15 23:36:01.522 | INFO     | __main__:run:422 — Location: Location unavailable
+2026-04-15 23:36:01.523 | INFO     | utils.performance:__init__:207 — FrameSkipTuner | target=25.0fps ±2.0 window=30 init_skip=0
+2026-04-15 23:36:03.559 | INFO     | __main__:run:463 — Pipeline ready | auto_tuner=True | target_fps=25.0 | device=cpu
+2026-04-15 23:36:03.560 | INFO     | __main__:run:467 — Controls: q=quit  s=snapshot  p=pause  +=skip+  -=skip-
+2026-04-15 23:36:03.705 | DEBUG    | core.detector:detect:204 — Frame 1 | 0 persons | inference 141.0ms
+2026-04-15 23:36:07.881 | DEBUG    | core.detector:detect:204 — Frame 2 | 0 persons | inference 187.0ms
+2026-04-15 23:36:11.971 | DEBUG    | core.detector:detect:204 — Frame 2 | 0 persons | inference 125.0ms
+2026-04-15 23:36:14.141 | DEBUG    | core.detector:detect:204 — Frame 3 | 0 persons | inference 140.0ms
+2026-04-15 23:36:18.208 | DEBUG    | core.detector:detect:204 — Frame 3 | 0 persons | inference 141.0ms
+2026-04-15 23:36:20.348 | DEBUG    | core.detector:detect:204 — Frame 4 | 0 persons | inference 94.0ms
+2026-04-15 23:36:24.456 | DEBUG    | core.detector:detect:204 — Frame 4 | 0 persons | inference 157.0ms
+2026-04-15 23:36:26.583 | DEBUG    | core.detector:detect:204 — Frame 5 | 0 persons | inference 125.0ms
+2026-04-15 23:36:30.721 | DEBUG    | core.detector:detect:204 — Frame 5 | 0 persons | inference 141.0ms
+2026-04-15 23:36:32.854 | DEBUG    | core.detector:detect:204 — Frame 6 | 0 persons | inference 140.0ms
+2026-04-15 23:36:36.979 | DEBUG    | core.detector:detect:204 — Frame 6 | 0 persons | inference 140.0ms
+2026-04-15 23:36:41.109 | DEBUG    | core.detector:detect:204 — Frame 7 | 0 persons | inference 94.0ms
+2026-04-15 23:36:45.298 | DEBUG    | core.detector:detect:204 — Frame 7 | 0 persons | inference 172.0ms
+2026-04-15 23:36:47.383 | DEBUG    | core.detector:detect:204 — Frame 8 | 0 persons | inference 156.0ms
+2026-04-15 23:36:51.575 | DEBUG    | core.detector:detect:204 — Frame 8 | 0 persons | inference 156.0ms
+2026-04-15 23:36:53.598 | DEBUG    | core.detector:detect:204 — Frame 9 | 0 persons | inference 125.0ms
+2026-04-15 23:36:57.791 | DEBUG    | core.detector:detect:204 — Frame 9 | 0 persons | inference 110.0ms
+2026-04-15 23:36:59.814 | DEBUG    | core.detector:detect:204 — Frame 10 | 0 persons | inference 93.0ms
+2026-04-15 23:37:03.886 | INFO     | utils.performance:tick:248 — FrameSkipTuner ▲ increased skip 0→1 | fps=0.5 target=25.0
+2026-04-15 23:37:04.042 | DEBUG    | core.detector:detect:204 — Frame 10 | 0 persons | inference 141.0ms
+2026-04-15 23:37:08.125 | INFO     | utils.performance:tick:248 — FrameSkipTuner ▲ increased skip 0→1 | fps=0.5 target=25.0
+2026-04-15 23:37:14.175 | DEBUG    | core.detector:detect:204 — Frame 12 | 0 persons | inference 125.0ms
+2026-04-15 23:37:18.466 | DEBUG    | core.detector:detect:204 — Frame 12 | 0 persons | inference 141.0ms
+2026-04-15 23:37:26.499 | DEBUG    | core.detector:detect:204 — Frame 14 | 0 persons | inference 125.0ms
+2026-04-15 23:37:30.845 | DEBUG    | core.detector:detect:204 — Frame 14 | 0 persons | inference 157.0ms
+2026-04-15 23:37:38.833 | DEBUG    | core.detector:detect:204 — Frame 16 | 0 persons | inference 110.0ms
+2026-04-15 23:37:43.239 | DEBUG    | core.detector:detect:204 — Frame 16 | 0 persons | inference 188.0ms
+2026-04-15 23:37:53.175 | DEBUG    | core.detector:detect:204 — Frame 18 | 0 persons | inference 93.0ms
+2026-04-15 23:37:57.612 | DEBUG    | core.detector:detect:204 — Frame 18 | 0 persons | inference 125.0ms
+2026-04-15 23:38:05.551 | DEBUG    | core.detector:detect:204 — Frame 20 | 0 persons | inference 156.0ms
+2026-04-15 23:38:09.621 | INFO     | utils.performance:tick:248 — FrameSkipTuner ▲ increased skip 1→2 | fps=0.5 target=25.0
+2026-04-15 23:38:09.968 | DEBUG    | core.detector:detect:204 — Frame 20 | 0 persons | inference 141.0ms
+2026-04-15 23:38:11.790 | DEBUG    | core.detector:detect:204 — Frame 21 | 0 persons | inference 125.0ms
+2026-04-15 23:38:14.046 | INFO     | utils.performance:tick:248 — FrameSkipTuner ▲ increased skip 1→2 | fps=0.5 target=25.0
+2026-04-15 23:38:16.196 | DEBUG    | core.detector:detect:204 — Frame 21 | 0 persons | inference 125.0ms
+2026-04-15 23:38:27.069 | DEBUG    | utils.location:_refresh_loop:161 — Location refreshed: Kolkata, West Bengal, India (22.5643°, 88.3693°)
+2026-04-15 23:38:28.084 | DEBUG    | utils.location:_refresh_loop:161 — Location refreshed: Kolkata, West Bengal, India (22.5643°, 88.3693°)
+2026-04-15 23:38:32.267 | DEBUG    | core.detector:detect:204 — Frame 24 | 0 persons | inference 125.0ms
+2026-04-15 23:38:36.673 | DEBUG    | core.detector:detect:204 — Frame 24 | 0 persons | inference 125.0ms
+2026-04-15 23:38:52.784 | DEBUG    | core.detector:detect:204 — Frame 27 | 0 persons | inference 125.0ms
+2026-04-15 23:38:57.205 | DEBUG    | core.detector:detect:204 — Frame 27 | 0 persons | inference 156.0ms
+2026-04-15 23:39:11.217 | DEBUG    | core.detector:detect:204 — Frame 30 | 0 persons | inference 110.0ms
+2026-04-15 23:39:15.295 | INFO     | utils.performance:tick:248 — FrameSkipTuner ▲ increased skip 2→3 | fps=0.5 target=25.0
+2026-04-15 23:39:15.671 | DEBUG    | core.detector:detect:204 — Frame 30 | 0 persons | inference 141.0ms
+2026-04-15 23:39:19.731 | INFO     | utils.performance:tick:248 — FrameSkipTuner ▲ increased skip 2→3 | fps=0.5 target=25.0
+2026-04-15 23:39:25.587 | DEBUG    | core.detector:detect:204 — Frame 32 | 0 persons | inference 125.0ms
+2026-04-15 23:39:30.048 | DEBUG    | core.detector:detect:204 — Frame 32 | 0 persons | inference 157.0ms
+2026-04-15 23:39:50.178 | DEBUG    | core.detector:detect:204 — Frame 36 | 0 persons | inference 156.0ms
+2026-04-15 23:39:54.626 | DEBUG    | core.detector:detect:204 — Frame 36 | 1 persons | inference 141.0ms
+2026-04-15 23:39:54.626 | DEBUG    | core.tracker:update:204 — New track ID=-1 detected.
+2026-04-15 23:39:54.642 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.000 h=0.000 IA=0.00 level=NONE prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:39:58.714 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:00.749 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:02.784 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:04.821 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:06.587 | DEBUG    | core.camera:_reader_loop:239 — Frame grab failed (consecutive=1).
+2026-04-15 23:40:06.587 | DEBUG    | core.camera:_reader_loop:239 — Frame grab failed (consecutive=2).
+2026-04-15 23:40:06.588 | DEBUG    | core.camera:_reader_loop:239 — Frame grab failed (consecutive=3).
+2026-04-15 23:40:06.588 | DEBUG    | core.camera:_reader_loop:239 — Frame grab failed (consecutive=4).
+2026-04-15 23:40:06.589 | DEBUG    | core.camera:_reader_loop:239 — Frame grab failed (consecutive=5).
+2026-04-15 23:40:06.589 | WARNING  | core.camera:_reader_loop:243 — 5 consecutive frame failures — releasing capture for reconnect.
+2026-04-15 23:40:06.609 | WARNING  | core.camera:_reader_loop:216 — Camera not available. Reconnect attempt 1/10 in 3s…
+2026-04-15 23:40:06.860 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:08.914 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:09.623 | DEBUG    | core.camera:_open:156 — Opening camera source: http://192.168.1.202:8080/video
+2026-04-15 23:40:10.961 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:12.997 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:15.033 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:16.775 | DEBUG    | core.detector:detect:204 — Frame 40 | 0 persons | inference 125.0ms
+2026-04-15 23:40:17.073 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:19.105 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:20.846 | INFO     | utils.performance:tick:248 — FrameSkipTuner ▲ increased skip 3→4 | fps=0.5 target=25.0
+2026-04-15 23:40:21.328 | DEBUG    | core.detector:detect:204 — Frame 40 | 0 persons | inference 172.0ms
+2026-04-15 23:40:21.331 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:23.372 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:24.584 | ERROR    | core.camera:_open:160 — cv2.VideoCapture failed to open source: http://192.168.1.202:8080/video
+2026-04-15 23:40:24.585 | WARNING  | core.camera:_reader_loop:216 — Camera not available. Reconnect attempt 2/10 in 6s…
+2026-04-15 23:40:25.416 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:25.416 | INFO     | utils.performance:tick:248 — FrameSkipTuner ▲ increased skip 3→4 | fps=0.5 target=25.0
+2026-04-15 23:40:26.943 | INFO     | utils.performance:log_summary:164 — Perf | FPS=0.46 FrameAvg=23.17ms P95=140.0ms InfAvg=159.74ms Frames=121 Uptime=269.9s
+2026-04-15 23:40:26.944 | INFO     | __main__:run:635 — Tuner | skip=4 adjustments=4 | Tracks=0 total_seen=0 | Alerts=0
+2026-04-15 23:40:27.455 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:30.601 | DEBUG    | core.camera:_open:156 — Opening camera source: http://192.168.1.202:8080/video
+2026-04-15 23:40:31.508 | INFO     | utils.performance:log_summary:164 — Perf | FPS=0.46 FrameAvg=27.13ms P95=172.0ms InfAvg=143.2ms Frames=121 Uptime=270.0s
+2026-04-15 23:40:31.510 | INFO     | __main__:run:635 — Tuner | skip=4 adjustments=4 | Tracks=1 total_seen=1 | Alerts=0
+2026-04-15 23:40:31.523 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:33.566 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:35.612 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:37.648 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:39.694 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:41.730 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:43.776 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:45.808 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:46.634 | ERROR    | core.camera:_open:160 — cv2.VideoCapture failed to open source: http://192.168.1.202:8080/video
+2026-04-15 23:40:46.634 | WARNING  | core.camera:_reader_loop:216 — Camera not available. Reconnect attempt 3/10 in 12s…
+2026-04-15 23:40:47.845 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:49.457 | DEBUG    | core.detector:detect:204 — Frame 45 | 0 persons | inference 110.0ms
+2026-04-15 23:40:49.877 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:51.921 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:54.084 | DEBUG    | core.detector:detect:204 — Frame 45 | 0 persons | inference 141.0ms
+2026-04-15 23:40:54.086 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:56.120 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:58.163 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:40:58.641 | DEBUG    | core.camera:_open:156 — Opening camera source: http://192.168.1.202:8080/video
+2026-04-15 23:40:58.653 | DEBUG    | utils.location:_refresh_loop:161 — Location refreshed: Kolkata, West Bengal, India (22.5643°, 88.3693°)
+2026-04-15 23:40:58.706 | DEBUG    | utils.location:_refresh_loop:161 — Location refreshed: Kolkata, West Bengal, India (22.5643°, 88.3693°)
+2026-04-15 23:41:00.200 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:04.282 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:06.314 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:08.350 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:10.388 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:12.428 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:13.935 | ERROR    | core.camera:_open:160 — cv2.VideoCapture failed to open source: http://192.168.1.202:8080/video
+2026-04-15 23:41:13.935 | WARNING  | core.camera:_reader_loop:216 — Camera not available. Reconnect attempt 4/10 in 12s…
+2026-04-15 23:41:14.471 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:16.522 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:18.566 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:20.612 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:22.171 | DEBUG    | core.detector:detect:204 — Frame 50 | 0 persons | inference 110.0ms
+2026-04-15 23:41:22.646 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:24.687 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:25.941 | DEBUG    | core.camera:_open:156 — Opening camera source: http://192.168.1.202:8080/video
+2026-04-15 23:41:26.238 | DEBUG    | core.tracker:update:229 — TrackManager | active=0 | total_seen=0 | frame=150
+2026-04-15 23:41:26.243 | INFO     | utils.performance:tick:248 — FrameSkipTuner ▲ increased skip 4→5 | fps=0.5 target=25.0
+2026-04-15 23:41:26.845 | DEBUG    | core.detector:detect:204 — Frame 50 | 0 persons | inference 110.0ms
+2026-04-15 23:41:26.848 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:28.884 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:30.927 | DEBUG    | core.tracker:update:229 — TrackManager | active=1 | total_seen=1 | frame=150
+2026-04-15 23:41:30.930 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:30.932 | INFO     | utils.performance:tick:248 — FrameSkipTuner ▲ increased skip 4→5 | fps=0.5 target=25.0
+2026-04-15 23:41:32.980 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:37.057 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:39.102 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:41.065 | ERROR    | core.camera:_open:160 — cv2.VideoCapture failed to open source: http://192.168.1.202:8080/video
+2026-04-15 23:41:41.066 | WARNING  | core.camera:_reader_loop:216 — Camera not available. Reconnect attempt 5/10 in 12s…
+2026-04-15 23:41:41.139 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:43.171 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:45.211 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:47.245 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:48.765 | DEBUG    | core.detector:detect:204 — Frame 54 | 0 persons | inference 125.0ms
+2026-04-15 23:41:49.280 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:51.318 | DEBUG    | core.threat:_score_one:229 — Track=-1 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-15 23:41:53.073 | DEBUG    | core.camera:_open:156 — Opening camera source: http://192.168.1.202:8080/video
+2026-04-15 23:41:53.449 | DEBUG    | core.detector:detect:204 — Frame 54 | 0 persons | inference 94.0ms
+2026-04-15 23:41:53.451 | DEBUG    | core.tracker:update:217 — Pruning stale track ID=-1 (missing 45 frames).
+2026-04-15 23:41:53.451 | INFO     | __main__:run:526 — Blind Spot: Departure detected for track -1
+2026-04-15 23:41:53.451 | ERROR    | __main__:<module>:712 — Unhandled top-level exception.
+Traceback (most recent call last):
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 707, in <module>
+    code = run(args)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 527, in run
+    edge_client.report_departure(p_state.track_id)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\core\edge_client.py", line 249, in report_departure
+    return self._request("POST", f"/api/v1/cameras/{self.camera_id}/transit-departure", json=payload)
+TypeError: EdgeClient._request() got an unexpected keyword argument 'json'
+2026-04-15 23:42:14.062 | INFO     | utils.logger:setup_logging:107 — Logging initialised | level=DEBUG | dir=C:\Users\HP\OneDrive\Desktop\women-safety-product\logs | rotation=10 MB | retention=7 days
+2026-04-15 23:42:14.062 | INFO     | utils.logger:setup_logging:107 — Logging initialised | level=DEBUG | dir=C:\Users\HP\OneDrive\Desktop\women-safety-product\logs | rotation=10 MB | retention=7 days
+2026-04-15 23:42:14.065 | INFO     | __main__:run:337 — ================================================================
+2026-04-15 23:42:14.065 | INFO     | __main__:run:337 — ================================================================
+2026-04-15 23:42:14.066 | INFO     | __main__:run:338 —   Women Safety Product — Production Pipeline (Days 1–5)
+2026-04-15 23:42:14.066 | INFO     | __main__:run:338 —   Women Safety Product — Production Pipeline (Days 1–5)
+2026-04-15 23:42:14.066 | INFO     | __main__:run:339 — ================================================================
+2026-04-15 23:42:14.067 | INFO     | __main__:run:339 — ================================================================
+2026-04-15 23:42:14.067 | INFO     | __main__:run:340 — ============================================================
+  Women Safety Product — Active Configuration
+============================================================
+  PROJECT_ROOT                        C:\Users\HP\OneDrive\Desktop\women-safety-product
+  CAMERA_SOURCE                       0
+  CAMERA_WIDTH                        640
+  CAMERA_HEIGHT                       480
+  CAMERA_FPS                          30
+  CAMERA_RECONNECT_DELAY              3
+  CAMERA_MAX_RECONNECT                10
+  MODEL_PATH                          models/yolov8n-pose.pt
+  MODEL_CONFIDENCE                    0.55
+  MODEL_IOU                           0.5
+  MODEL_DEVICE                        cpu
+  MODEL_IMGSZ                         640
+  EXPORT_ONNX                         False
+  TRACKER_CONFIG                      botsort.yaml
+  TRACKER_PERSIST                     True
+  THREAT_MODEL_PATH                   models/threat_xgb.json
+  THREAT_LOW                          0.22
+  THREAT_MEDIUM                       0.44
+  THREAT_HIGH                         0.62
+  THREAT_SUSTAINED_FRAMES             8
+  THREAT_MIN_GROUP_SIZE               2
+  ENABLE_INTERACTION_ANALYSIS         True
+  INTERACTION_DISTANCE_THRESHOLD      0.25
+  INTERACTION_BOOST_MAX               0.25
+  ALERT_EMAIL_ENABLED                 False
+  ALERT_EMAIL_SMTP                    smtp.gmail.com
+  ALERT_EMAIL_PORT                    587
+  ALERT_EMAIL_SENDER                  your@gmail.com
+  ALERT_EMAIL_PASSWORD                ***
+  ALERT_EMAIL_RECEIVER                emergency@example.com
+  ALERT_SOUND_ENABLED                 True
+  ALERT_COOLDOWN                      60
+  LOCATION_GOOGLE_API_KEY             ***
+  LOCATION_IP_FALLBACK                True
+  COORDINATOR_URL                     http://localhost:8000
+  EDGE_OFFLINE_MODE                   False
+  DASHBOARD_PORT                      8501
+  DASHBOARD_REFRESH_MS                100
+  LOG_MAX_ROWS                        200
+  LOG_LEVEL                           DEBUG
+  LOG_DIR                             logs
+  LOG_ROTATION                        10 MB
+  LOG_RETENTION                       7 days
+============================================================
+2026-04-15 23:42:14.067 | INFO     | __main__:run:340 — ============================================================
+  Women Safety Product — Active Configuration
+============================================================
+  PROJECT_ROOT                        C:\Users\HP\OneDrive\Desktop\women-safety-product
+  CAMERA_SOURCE                       0
+  CAMERA_WIDTH                        640
+  CAMERA_HEIGHT                       480
+  CAMERA_FPS                          30
+  CAMERA_RECONNECT_DELAY              3
+  CAMERA_MAX_RECONNECT                10
+  MODEL_PATH                          models/yolov8n-pose.pt
+  MODEL_CONFIDENCE                    0.55
+  MODEL_IOU                           0.5
+  MODEL_DEVICE                        cpu
+  MODEL_IMGSZ                         640
+  EXPORT_ONNX                         False
+  TRACKER_CONFIG                      botsort.yaml
+  TRACKER_PERSIST                     True
+  THREAT_MODEL_PATH                   models/threat_xgb.json
+  THREAT_LOW                          0.22
+  THREAT_MEDIUM                       0.44
+  THREAT_HIGH                         0.62
+  THREAT_SUSTAINED_FRAMES             8
+  THREAT_MIN_GROUP_SIZE               2
+  ENABLE_INTERACTION_ANALYSIS         True
+  INTERACTION_DISTANCE_THRESHOLD      0.25
+  INTERACTION_BOOST_MAX               0.25
+  ALERT_EMAIL_ENABLED                 False
+  ALERT_EMAIL_SMTP                    smtp.gmail.com
+  ALERT_EMAIL_PORT                    587
+  ALERT_EMAIL_SENDER                  your@gmail.com
+  ALERT_EMAIL_PASSWORD                ***
+  ALERT_EMAIL_RECEIVER                emergency@example.com
+  ALERT_SOUND_ENABLED                 True
+  ALERT_COOLDOWN                      60
+  LOCATION_GOOGLE_API_KEY             ***
+  LOCATION_IP_FALLBACK                True
+  COORDINATOR_URL                     http://localhost:8000
+  EDGE_OFFLINE_MODE                   False
+  DASHBOARD_PORT                      8501
+  DASHBOARD_REFRESH_MS                100
+  LOG_MAX_ROWS                        200
+  LOG_LEVEL                           DEBUG
+  LOG_DIR                             logs
+  LOG_ROTATION                        10 MB
+  LOG_RETENTION                       7 days
+============================================================
+2026-04-15 23:42:14.069 | INFO     | __main__:run:388 — Initialising camera (source=http://192.168.1.158:8080/video)…
+2026-04-15 23:42:14.069 | INFO     | __main__:run:388 — Initialising camera (source=http://192.168.1.202:8080/video)…
+2026-04-15 23:42:14.069 | INFO     | core.camera:__init__:78 — Camera created | source=http://192.168.1.202:8080/video | 640x480 @ 30fps
+2026-04-15 23:42:14.070 | INFO     | core.camera:__init__:78 — Camera created | source=http://192.168.1.158:8080/video | 640x480 @ 30fps
+2026-04-15 23:42:14.070 | DEBUG    | core.camera:_open:156 — Opening camera source: http://192.168.1.202:8080/video
+2026-04-15 23:42:14.070 | DEBUG    | core.camera:_open:156 — Opening camera source: http://192.168.1.158:8080/video
+2026-04-15 23:42:14.148 | INFO     | core.camera:_open:174 — Camera opened | actual 1440x1440 @ 25.0fps
+2026-04-15 23:42:14.151 | DEBUG    | core.camera:_reader_loop:202 — Camera reader loop entered.
+2026-04-15 23:42:14.151 | INFO     | core.camera:start:101 — Camera reader thread started.
+2026-04-15 23:42:14.508 | INFO     | __main__:run:397 — Frame resolution: 1440×1440
+2026-04-15 23:42:14.509 | INFO     | __main__:run:403 — Initialising Detector (skip=0)…
+2026-04-15 23:42:14.509 | INFO     | core.detector:_load_model:118 — Loading YOLO model from: C:\Users\HP\OneDrive\Desktop\women-safety-product\models\yolov8n-pose.pt
+2026-04-15 23:42:14.878 | INFO     | core.detector:_load_model:132 — YOLO model loaded and warmed up. Device: cpu (FP16: False)
+2026-04-15 23:42:14.880 | INFO     | __main__:run:406 — Initialising TrackManager…
+2026-04-15 23:42:14.880 | INFO     | core.tracker:__init__:179 — TrackManager initialised.
+2026-04-15 23:42:14.880 | INFO     | __main__:run:409 — Initialising ThreatEngine (1440×1440)…
+2026-04-15 23:42:14.882 | INFO     | core.features:__init__:115 — FeatureExtractor ready | 1440x1440 | diag=2036.5px | features=20
+2026-04-15 23:42:17.049 | SUCCESS  | core.threat:_load_xgb_model:139 — XGBoost model loaded from C:\Users\HP\OneDrive\Desktop\women-safety-product\models\threat_xgb.json.
+2026-04-15 23:42:17.050 | INFO     | core.threat:__init__:112 — ThreatEngine ready | xgb=True | diag=2036px | thresholds=(0.22,0.44,0.62) | sustained=8
+2026-04-15 23:42:17.050 | INFO     | __main__:run:412 — Initialising AlertDispatcher…
+2026-04-15 23:42:17.050 | INFO     | utils.alerts:__init__:115 — AlertDispatcher ready | email=False | sound=True | cooldown=60s
+2026-04-15 23:42:17.050 | INFO     | __main__:run:415 — Initialising MultiChannelAlerter (Twilio/AT)…
+2026-04-15 23:42:17.052 | ERROR    | utils.twilio_alerts:_init_client:101 — twilio package not installed. Run: pip install twilio
+2026-04-15 23:42:17.052 | INFO     | __main__:run:418 — Initialising LocationProvider…
+2026-04-15 23:42:17.053 | INFO     | utils.location:__init__:99 — LocationProvider | google=False | ip_fallback=True | ttl=300s
+2026-04-15 23:42:17.054 | DEBUG    | utils.location:_refresh_loop:156 — Location refresh loop: interval=150s
+2026-04-15 23:42:17.054 | INFO     | utils.location:start_background_refresh:138 — Location background refresh thread started.
+2026-04-15 23:42:17.682 | INFO     | __main__:run:422 — Location: Kolkata, West Bengal, India (22.5643°, 88.3693°)
+2026-04-15 23:42:17.682 | INFO     | utils.performance:__init__:207 — FrameSkipTuner | target=25.0fps ±2.0 window=30 init_skip=0
+2026-04-15 23:42:19.726 | INFO     | __main__:run:463 — Pipeline ready | auto_tuner=True | target_fps=25.0 | device=cpu
+2026-04-15 23:42:19.726 | INFO     | __main__:run:467 — Controls: q=quit  s=snapshot  p=pause  +=skip+  -=skip-
+2026-04-15 23:42:19.864 | DEBUG    | core.detector:detect:204 — Frame 1 | 0 persons | inference 141.0ms
+2026-04-15 23:42:27.657 | DEBUG    | core.detector:detect:204 — Frame 60 | 0 persons | inference 156.0ms
+2026-04-15 23:42:28.112 | DEBUG    | core.detector:detect:204 — Frame 2 | 0 persons | inference 110.0ms
+2026-04-15 23:42:33.743 | ERROR    | core.camera:_open:160 — cv2.VideoCapture failed to open source: http://192.168.1.202:8080/video
+2026-04-15 23:42:33.744 | ERROR    | __main__:run:451 — Pipeline init failed. Aborting.
+Traceback (most recent call last):
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 707, in <module>
+    code = run(args)
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 390, in run
+    camera.start()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\core\camera.py", line 90, in start
+    raise RuntimeError(
+RuntimeError: Failed to open camera source 'http://192.168.1.202:8080/video' on first attempt.
+2026-04-15 23:42:33.769 | INFO     | core.camera:stop:106 — Camera stopping…
+2026-04-15 23:42:33.771 | INFO     | core.camera:stop:111 — Camera stopped. Total frames captured: 0
+2026-04-15 23:42:34.370 | DEBUG    | core.detector:detect:204 — Frame 3 | 0 persons | inference 141.0ms
+2026-04-15 23:42:40.592 | DEBUG    | core.detector:detect:204 — Frame 4 | 0 persons | inference 110.0ms
+2026-04-15 23:42:46.865 | DEBUG    | core.detector:detect:204 — Frame 5 | 0 persons | inference 172.0ms
+2026-04-15 23:42:53.090 | DEBUG    | core.detector:detect:204 — Frame 6 | 0 persons | inference 110.0ms
+2026-04-15 23:43:01.379 | DEBUG    | core.detector:detect:204 — Frame 7 | 0 persons | inference 156.0ms
+2026-04-15 23:43:06.573 | DEBUG    | core.detector:detect:204 — Frame 66 | 0 persons | inference 156.0ms
+2026-04-15 23:43:07.636 | DEBUG    | core.detector:detect:204 — Frame 8 | 0 persons | inference 140.0ms
+2026-04-15 23:43:13.887 | DEBUG    | core.detector:detect:204 — Frame 9 | 0 persons | inference 125.0ms
+2026-04-15 23:43:20.148 | DEBUG    | core.detector:detect:204 — Frame 10 | 0 persons | inference 125.0ms
+2026-04-15 23:43:24.232 | INFO     | utils.performance:tick:248 — FrameSkipTuner ▲ increased skip 0→1 | fps=0.5 target=25.0
+2026-04-15 23:43:29.286 | DEBUG    | utils.location:_refresh_loop:161 — Location refreshed: Kolkata, West Bengal, India (22.5643°, 88.3693°)
+2026-04-15 23:58:15.212 | INFO     | utils.logger:setup_logging:107 — Logging initialised | level=DEBUG | dir=C:\Users\HP\OneDrive\Desktop\women-safety-product\logs | rotation=10 MB | retention=7 days
+2026-04-15 23:58:15.217 | INFO     | __main__:run:337 — ================================================================
+2026-04-15 23:58:15.217 | INFO     | __main__:run:338 —   Women Safety Product — Production Pipeline (Days 1–5)
+2026-04-15 23:58:15.217 | INFO     | __main__:run:339 — ================================================================
+2026-04-15 23:58:15.218 | INFO     | __main__:run:340 — ============================================================
+  Women Safety Product — Active Configuration
+============================================================
+  PROJECT_ROOT                        C:\Users\HP\OneDrive\Desktop\women-safety-product
+  CAMERA_SOURCE                       0
+  CAMERA_WIDTH                        640
+  CAMERA_HEIGHT                       480
+  CAMERA_FPS                          30
+  CAMERA_RECONNECT_DELAY              3
+  CAMERA_MAX_RECONNECT                10
+  MODEL_PATH                          models/yolov8n-pose.pt
+  MODEL_CONFIDENCE                    0.55
+  MODEL_IOU                           0.5
+  MODEL_DEVICE                        cpu
+  MODEL_IMGSZ                         640
+  EXPORT_ONNX                         False
+  TRACKER_CONFIG                      botsort.yaml
+  TRACKER_PERSIST                     True
+  THREAT_MODEL_PATH                   models/threat_xgb.json
+  THREAT_LOW                          0.22
+  THREAT_MEDIUM                       0.44
+  THREAT_HIGH                         0.62
+  THREAT_SUSTAINED_FRAMES             8
+  THREAT_MIN_GROUP_SIZE               2
+  ENABLE_INTERACTION_ANALYSIS         True
+  INTERACTION_DISTANCE_THRESHOLD      0.25
+  INTERACTION_BOOST_MAX               0.25
+  ALERT_EMAIL_ENABLED                 False
+  ALERT_EMAIL_SMTP                    smtp.gmail.com
+  ALERT_EMAIL_PORT                    587
+  ALERT_EMAIL_SENDER                  your@gmail.com
+  ALERT_EMAIL_PASSWORD                ***
+  ALERT_EMAIL_RECEIVER                emergency@example.com
+  ALERT_SOUND_ENABLED                 True
+  ALERT_COOLDOWN                      60
+  LOCATION_GOOGLE_API_KEY             ***
+  LOCATION_IP_FALLBACK                True
+  COORDINATOR_URL                     http://localhost:8000
+  EDGE_OFFLINE_MODE                   False
+  DASHBOARD_PORT                      8501
+  DASHBOARD_REFRESH_MS                100
+  LOG_MAX_ROWS                        200
+  LOG_LEVEL                           DEBUG
+  LOG_DIR                             logs
+  LOG_ROTATION                        10 MB
+  LOG_RETENTION                       7 days
+============================================================
+2026-04-15 23:58:15.221 | INFO     | __main__:run:388 — Initialising camera (source=http://192.168.1.202:8080/video)…
+2026-04-15 23:58:15.221 | INFO     | core.camera:__init__:79 — Camera created | source=http://192.168.1.202:8080/video | 640x480 @ 30fps
+2026-04-15 23:58:15.221 | DEBUG    | core.camera:_open:157 — Opening camera source: http://192.168.1.202:8080/video
+2026-04-15 23:58:15.223 | INFO     | core.camera:_open:161 — Applying low-latency FFMPEG optimisations for URL source.
+2026-04-15 23:58:15.240 | INFO     | utils.logger:setup_logging:107 — Logging initialised | level=DEBUG | dir=C:\Users\HP\OneDrive\Desktop\women-safety-product\logs | rotation=10 MB | retention=7 days
+2026-04-15 23:58:15.244 | INFO     | __main__:run:337 — ================================================================
+2026-04-15 23:58:15.245 | INFO     | __main__:run:338 —   Women Safety Product — Production Pipeline (Days 1–5)
+2026-04-15 23:58:15.246 | INFO     | __main__:run:339 — ================================================================
+2026-04-15 23:58:15.247 | INFO     | __main__:run:340 — ============================================================
+  Women Safety Product — Active Configuration
+============================================================
+  PROJECT_ROOT                        C:\Users\HP\OneDrive\Desktop\women-safety-product
+  CAMERA_SOURCE                       0
+  CAMERA_WIDTH                        640
+  CAMERA_HEIGHT                       480
+  CAMERA_FPS                          30
+  CAMERA_RECONNECT_DELAY              3
+  CAMERA_MAX_RECONNECT                10
+  MODEL_PATH                          models/yolov8n-pose.pt
+  MODEL_CONFIDENCE                    0.55
+  MODEL_IOU                           0.5
+  MODEL_DEVICE                        cpu
+  MODEL_IMGSZ                         640
+  EXPORT_ONNX                         False
+  TRACKER_CONFIG                      botsort.yaml
+  TRACKER_PERSIST                     True
+  THREAT_MODEL_PATH                   models/threat_xgb.json
+  THREAT_LOW                          0.22
+  THREAT_MEDIUM                       0.44
+  THREAT_HIGH                         0.62
+  THREAT_SUSTAINED_FRAMES             8
+  THREAT_MIN_GROUP_SIZE               2
+  ENABLE_INTERACTION_ANALYSIS         True
+  INTERACTION_DISTANCE_THRESHOLD      0.25
+  INTERACTION_BOOST_MAX               0.25
+  ALERT_EMAIL_ENABLED                 False
+  ALERT_EMAIL_SMTP                    smtp.gmail.com
+  ALERT_EMAIL_PORT                    587
+  ALERT_EMAIL_SENDER                  your@gmail.com
+  ALERT_EMAIL_PASSWORD                ***
+  ALERT_EMAIL_RECEIVER                emergency@example.com
+  ALERT_SOUND_ENABLED                 True
+  ALERT_COOLDOWN                      60
+  LOCATION_GOOGLE_API_KEY             ***
+  LOCATION_IP_FALLBACK                True
+  COORDINATOR_URL                     http://localhost:8000
+  EDGE_OFFLINE_MODE                   False
+  DASHBOARD_PORT                      8501
+  DASHBOARD_REFRESH_MS                100
+  LOG_MAX_ROWS                        200
+  LOG_LEVEL                           DEBUG
+  LOG_DIR                             logs
+  LOG_ROTATION                        10 MB
+  LOG_RETENTION                       7 days
+============================================================
+2026-04-15 23:58:15.248 | INFO     | __main__:run:388 — Initialising camera (source=http://192.168.1.158:8080/video)…
+2026-04-15 23:58:15.249 | INFO     | core.camera:__init__:79 — Camera created | source=http://192.168.1.158:8080/video | 640x480 @ 30fps
+2026-04-15 23:58:15.250 | DEBUG    | core.camera:_open:157 — Opening camera source: http://192.168.1.158:8080/video
+2026-04-15 23:58:15.251 | INFO     | core.camera:_open:161 — Applying low-latency FFMPEG optimisations for URL source.
+2026-04-15 23:58:15.376 | INFO     | core.camera:_open:188 — Camera opened | actual 1280x720 @ 25.0fps
+2026-04-15 23:58:15.377 | DEBUG    | core.camera:_reader_loop:216 — Camera reader loop entered.
+2026-04-15 23:58:15.377 | INFO     | core.camera:start:102 — Camera reader thread started.
+2026-04-15 23:58:15.893 | INFO     | __main__:run:409 — Frame resolution: 1280×720
+2026-04-15 23:58:15.894 | INFO     | __main__:run:415 — Initialising Detector (skip=0)…
+2026-04-15 23:58:15.895 | INFO     | core.detector:_load_model:118 — Loading YOLO model from: C:\Users\HP\OneDrive\Desktop\women-safety-product\models\yolov8n-pose.pt
+2026-04-15 23:58:16.216 | INFO     | core.detector:_load_model:132 — YOLO model loaded and warmed up. Device: cpu (FP16: False)
+2026-04-15 23:58:16.216 | INFO     | __main__:run:418 — Initialising TrackManager…
+2026-04-15 23:58:16.216 | INFO     | core.tracker:__init__:179 — TrackManager initialised.
+2026-04-15 23:58:16.218 | INFO     | __main__:run:421 — Initialising ThreatEngine (1280×720)…
+2026-04-15 23:58:16.218 | INFO     | core.features:__init__:115 — FeatureExtractor ready | 1280x720 | diag=1468.6px | features=20
+2026-04-15 23:58:18.215 | SUCCESS  | core.threat:_load_xgb_model:139 — XGBoost model loaded from C:\Users\HP\OneDrive\Desktop\women-safety-product\models\threat_xgb.json.
+2026-04-15 23:58:18.216 | INFO     | core.threat:__init__:112 — ThreatEngine ready | xgb=True | diag=1469px | thresholds=(0.22,0.44,0.62) | sustained=8
+2026-04-15 23:58:18.216 | INFO     | __main__:run:424 — Initialising AlertDispatcher…
+2026-04-15 23:58:18.217 | INFO     | utils.alerts:__init__:115 — AlertDispatcher ready | email=False | sound=True | cooldown=60s
+2026-04-15 23:58:18.217 | INFO     | __main__:run:427 — Initialising MultiChannelAlerter (Twilio/AT)…
+2026-04-15 23:58:18.218 | ERROR    | utils.twilio_alerts:_init_client:101 — twilio package not installed. Run: pip install twilio
+2026-04-15 23:58:18.219 | INFO     | __main__:run:430 — Initialising LocationProvider…
+2026-04-15 23:58:18.219 | INFO     | utils.location:__init__:99 — LocationProvider | google=False | ip_fallback=True | ttl=300s
+2026-04-15 23:58:18.220 | DEBUG    | utils.location:_refresh_loop:156 — Location refresh loop: interval=150s
+2026-04-15 23:58:18.220 | INFO     | utils.location:start_background_refresh:138 — Location background refresh thread started.
+2026-04-15 23:58:18.836 | INFO     | __main__:run:434 — Location: Kolkata, West Bengal, India (22.5643°, 88.3693°)
+2026-04-15 23:58:18.837 | INFO     | utils.performance:__init__:207 — FrameSkipTuner | target=25.0fps ±2.0 window=30 init_skip=0
+2026-04-15 23:58:20.663 | ERROR    | core.camera:_open:173 — cv2.VideoCapture failed to open source: http://192.168.1.202:8080/video
+2026-04-15 23:58:20.664 | WARNING  | __main__:run:400 — Camera init failed (attempt 1/3). Retrying in 2s...
+2026-04-15 23:58:20.887 | INFO     | __main__:run:475 — Pipeline ready | auto_tuner=True | target_fps=25.0 | device=cpu
+2026-04-15 23:58:20.888 | INFO     | __main__:run:479 — Controls: q=quit  s=snapshot  p=pause  +=skip+  -=skip-
+2026-04-15 23:58:21.030 | DEBUG    | core.detector:detect:204 — Frame 1 | 0 persons | inference 141.0ms
+2026-04-15 23:58:22.670 | DEBUG    | core.camera:_open:157 — Opening camera source: http://192.168.1.202:8080/video
+2026-04-15 23:58:22.670 | INFO     | core.camera:_open:161 — Applying low-latency FFMPEG optimisations for URL source.
+2026-04-15 23:58:28.223 | ERROR    | core.camera:_open:173 — cv2.VideoCapture failed to open source: http://192.168.1.202:8080/video
+2026-04-15 23:58:28.224 | WARNING  | __main__:run:400 — Camera init failed (attempt 2/3). Retrying in 2s...
+2026-04-15 23:58:29.266 | DEBUG    | core.detector:detect:204 — Frame 2 | 0 persons | inference 93.0ms
+2026-04-15 23:58:30.228 | DEBUG    | core.camera:_open:157 — Opening camera source: http://192.168.1.202:8080/video
+2026-04-15 23:58:30.228 | INFO     | core.camera:_open:161 — Applying low-latency FFMPEG optimisations for URL source.
+2026-04-15 23:58:35.484 | DEBUG    | core.detector:detect:204 — Frame 3 | 0 persons | inference 94.0ms
+2026-04-15 23:58:35.679 | ERROR    | core.camera:_open:173 — cv2.VideoCapture failed to open source: http://192.168.1.202:8080/video
+2026-04-15 23:58:35.679 | ERROR    | __main__:run:463 — Pipeline init failed. Aborting.
+Traceback (most recent call last):
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 719, in <module>
+    code = run(args)
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 395, in run
+    camera.start()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\core\camera.py", line 91, in start
+    raise RuntimeError(
+RuntimeError: Failed to open camera source 'http://192.168.1.202:8080/video' on first attempt.
+2026-04-15 23:58:35.681 | INFO     | core.camera:stop:107 — Camera stopping…
+2026-04-15 23:58:35.681 | INFO     | core.camera:stop:112 — Camera stopped. Total frames captured: 0

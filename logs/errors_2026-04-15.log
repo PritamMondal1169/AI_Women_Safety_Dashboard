@@ -1,0 +1,50 @@
+2026-04-15 16:40:52.009 | ERROR    | utils.twilio_alerts:_init_client:101 — twilio package not installed. Run: pip install twilio
+2026-04-15 16:41:10.450 | ERROR    | __main__:<module>:697 — Unhandled top-level exception.
+Traceback (most recent call last):
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 692, in <module>
+    code = run(args)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 512, in run
+    edge_client.report_departure(p_state.track_id)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\core\edge_client.py", line 249, in report_departure
+    return self._request("POST", f"/api/v1/cameras/{self.camera_id}/transit-departure", json=payload)
+TypeError: EdgeClient._request() got an unexpected keyword argument 'json'
+2026-04-15 23:35:56.443 | ERROR    | utils.twilio_alerts:_init_client:101 — twilio package not installed. Run: pip install twilio
+2026-04-15 23:35:56.444 | ERROR    | utils.twilio_alerts:_init_client:101 — twilio package not installed. Run: pip install twilio
+2026-04-15 23:36:01.522 | ERROR    | utils.location:_fetch:180 — All location providers failed.
+2026-04-15 23:40:24.584 | ERROR    | core.camera:_open:160 — cv2.VideoCapture failed to open source: http://192.168.1.202:8080/video
+2026-04-15 23:40:46.634 | ERROR    | core.camera:_open:160 — cv2.VideoCapture failed to open source: http://192.168.1.202:8080/video
+2026-04-15 23:41:13.935 | ERROR    | core.camera:_open:160 — cv2.VideoCapture failed to open source: http://192.168.1.202:8080/video
+2026-04-15 23:41:41.065 | ERROR    | core.camera:_open:160 — cv2.VideoCapture failed to open source: http://192.168.1.202:8080/video
+2026-04-15 23:41:53.451 | ERROR    | __main__:<module>:712 — Unhandled top-level exception.
+Traceback (most recent call last):
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 707, in <module>
+    code = run(args)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 527, in run
+    edge_client.report_departure(p_state.track_id)
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\core\edge_client.py", line 249, in report_departure
+    return self._request("POST", f"/api/v1/cameras/{self.camera_id}/transit-departure", json=payload)
+TypeError: EdgeClient._request() got an unexpected keyword argument 'json'
+2026-04-15 23:42:17.052 | ERROR    | utils.twilio_alerts:_init_client:101 — twilio package not installed. Run: pip install twilio
+2026-04-15 23:42:33.743 | ERROR    | core.camera:_open:160 — cv2.VideoCapture failed to open source: http://192.168.1.202:8080/video
+2026-04-15 23:42:33.744 | ERROR    | __main__:run:451 — Pipeline init failed. Aborting.
+Traceback (most recent call last):
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 707, in <module>
+    code = run(args)
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 390, in run
+    camera.start()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\core\camera.py", line 90, in start
+    raise RuntimeError(
+RuntimeError: Failed to open camera source 'http://192.168.1.202:8080/video' on first attempt.
+2026-04-15 23:58:18.218 | ERROR    | utils.twilio_alerts:_init_client:101 — twilio package not installed. Run: pip install twilio
+2026-04-15 23:58:20.663 | ERROR    | core.camera:_open:173 — cv2.VideoCapture failed to open source: http://192.168.1.202:8080/video
+2026-04-15 23:58:28.223 | ERROR    | core.camera:_open:173 — cv2.VideoCapture failed to open source: http://192.168.1.202:8080/video
+2026-04-15 23:58:35.679 | ERROR    | core.camera:_open:173 — cv2.VideoCapture failed to open source: http://192.168.1.202:8080/video
+2026-04-15 23:58:35.679 | ERROR    | __main__:run:463 — Pipeline init failed. Aborting.
+Traceback (most recent call last):
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 719, in <module>
+    code = run(args)
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 395, in run
+    camera.start()
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\core\camera.py", line 91, in start
+    raise RuntimeError(
+RuntimeError: Failed to open camera source 'http://192.168.1.202:8080/video' on first attempt.

@@ -73,7 +73,7 @@ class Config:
     MODEL_CONFIDENCE: float = field(default_factory=lambda: _float("MODEL_CONFIDENCE", 0.45))
     MODEL_IOU: float = field(default_factory=lambda: _float("MODEL_IOU", 0.5))
     MODEL_DEVICE: str = field(default_factory=lambda: _env("MODEL_DEVICE", "cpu"))
-    MODEL_IMGSZ: int = field(default_factory=lambda: _int("MODEL_IMGSZ", 640))
+    MODEL_IMGSZ: int = field(default_factory=lambda: _int("MODEL_IMGSZ", 320))
     EXPORT_ONNX: bool = field(default_factory=lambda: _bool("EXPORT_ONNX", False))
 
     # --- Tracking ---
@@ -123,6 +123,14 @@ class Config:
     )
     LOCATION_IP_FALLBACK: bool = field(
         default_factory=lambda: _bool("LOCATION_IP_FALLBACK", True)
+    )
+
+    # --- Cloud API (Phase 4 Bridge) ---
+    COORDINATOR_URL: str = field(
+        default_factory=lambda: _env("COORDINATOR_URL", "http://localhost:8000")
+    )
+    EDGE_OFFLINE_MODE: bool = field(
+        default_factory=lambda: _bool("EDGE_OFFLINE_MODE", False)
     )
 
     # --- Dashboard ---
@@ -192,8 +200,8 @@ if __name__ == "__main__":
 class AlertConfig:
     # --- Twilio ---
     TWILIO_ENABLED: bool = field(default_factory=lambda: _bool("TWILIO_ENABLED", False))
-    TWILIO_ACCOUNT_SID: str = field(default_factory=lambda: _env("TWILIO_ACCOUNT_SID", "ACxxx"))
-    TWILIO_AUTH_TOKEN: str = field(default_factory=lambda: _env("TWILIO_AUTH_TOKEN", "your_auth_token_here"))
+    TWILIO_ACCOUNT_SID: str = field(default_factory=lambda: _env("TWILIO_ACCOUNT_SID", ""))
+    TWILIO_AUTH_TOKEN: str = field(default_factory=lambda: _env("TWILIO_AUTH_TOKEN", ""))
     TWILIO_FROM_NUMBER: str = field(default_factory=lambda: _env("TWILIO_FROM_NUMBER", ""))
     TWILIO_TO_NUMBERS: str = field(default_factory=lambda: _env("TWILIO_TO_NUMBERS", ""))   # comma-separated
 
@@ -227,11 +235,18 @@ class AlertConfig:
         default_factory=lambda: _env("AFRICASTALKING_USERNAME", "sandbox")
     )
     AFRICASTALKING_API_KEY: str = field(
-        default_factory=lambda: _env("AFRICASTALKING_API_KEY", "your_api_key_here")
+        default_factory=lambda: _env("AFRICASTALKING_API_KEY", "")
     )
     AFRICASTALKING_FROM: str = field(
         default_factory=lambda: _env("AFRICASTALKING_FROM", "")
     )
+
+    # ── Cloud Deployment Overrides ──────────────────────────────────────────────
+    # In Cloud Run / Render, the port is provided by the $PORT environment variable
+    PORT = int(os.environ.get("PORT", "8000"))
+
+    # Allowed origins for CORS (Mobile app + Cloud Dashboard)
+    CORS_ORIGINS = os.environ.get("CORS_ORIGINS", "*").split(",")
 
     # ── Computed helpers ──────────────────────────────────────────────────────
 

@@ -25,24 +25,48 @@ standard laptop CPU** with zero cloud dependency.
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        main.py  (frame loop)                    │
-│                                                                 │
-│  Camera ──► Detector ──► TrackManager ──► ThreatEngine          │
-│  (thread)   YOLOv8n      per-track         XGBoost +            │
-│             BoT-SORT     state history     heuristic blend      │
-│                │                │                │              │
-│                ▼                ▼                ▼              │
-│          PerformanceMonitor  FeatureExtractor  AlertDispatcher  │
-│          FrameSkipTuner      12 features/track  email + sound   │
-│                                                                 │
-│  ──────────── shared files in data/ ──────────────────────────  │
-│  dashboard_state.json  ◄──► frontend/dashboard.py (Streamlit)  │
-│  alert_log.json        ◄──► 4-tab live dashboard               │
-│  latest_frame.jpg      ◄──► runtime config hot-reload          │
-│  runtime_config.json   ◄──►                                    │
-└─────────────────────────────────────────────────────────────────┘
+```mermaid
+graph LR
+    subgraph Background CV Loop
+        Cam[Camera Thread] --> Main[Main Pipeline]
+        Main -- "Writes (Every 5/15 frames)" --> State
+        Main -- "Writes Annotated Frame" --> Frame
+        Main --> TM[TrackManager]
+        TM --> TE[ThreatEngine]
+        TE --> AD[AlertDispatcher]
+    end
+
+    subgraph Shared JSON & Image States data
+        State[dashboard_state.json]
+        Frame[latest_frame.jpg]
+        Logs[alert_log.json]
+        Config[runtime_config.json]
+    end
+
+    subgraph Streamlit Dashboard
+        Dash[frontend/dashboard.py]
+    end
+
+    AD -- "Appends" --> Logs
+    Config -- "Polls" --> Main
+
+    State -. "Reads" .-> Dash
+    Frame -. "Reads" .-> Dash
+    Logs -. "Reads" .-> Dash
+    Dash -. "Writes Runtime Updates" .-> Config
+    
+    style Cam fill:#fdfdfd,stroke:#333,stroke-width:1px
+    style Main fill:#fff7ed,stroke:#ea580c,stroke-width:2px
+    style TM fill:#fff7ed,stroke:#ea580c,stroke-width:1px
+    style TE fill:#fff7ed,stroke:#ea580c,stroke-width:1px
+    style AD fill:#fff7ed,stroke:#ea580c,stroke-width:1px
+    
+    style State fill:#ecfeff,stroke:#0891b2,stroke-width:2px
+    style Frame fill:#ecfeff,stroke:#0891b2,stroke-width:2px
+    style Logs fill:#ecfeff,stroke:#0891b2,stroke-width:2px
+    style Config fill:#ecfeff,stroke:#0891b2,stroke-width:2px
+    
+    style Dash fill:#faf5ff,stroke:#9333ea,stroke-width:2px
 ```
 
 ### Component responsibilities

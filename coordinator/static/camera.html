@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>SafeSphere — Camera Feed</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0e1a;
+      --card: rgba(26, 31, 53, 0.85);
+      --border: rgba(99, 130, 255, 0.15);
+      --blue: #6366f1;
+      --cyan: #22d3ee;
+      --emerald: #10b981;
+      --red: #ef4444;
+      --amber: #f59e0b;
+      --text: #f1f5f9;
+      --muted: #64748b;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 0%, rgba(99,102,241,0.10) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 100%, rgba(34,211,238,0.07) 0%, transparent 50%);
+      z-index: -1;
+    }
+
+    /* Header */
+    .header {
+      width: 100%;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--card);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      box-shadow: 0 4px 12px rgba(99,102,241,0.25);
+    }
+    .header h1 {
+      font-size: 1.15rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--text), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .header small { font-size: 0.65rem; color: var(--muted); -webkit-text-fill-color: var(--muted); display: block; }
+
+    /* Status bar */
+    .status-bar {
+      width: 100%;
+      padding: 8px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+    }
+    .status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+    }
+    .status-dot.connected { background: var(--emerald); box-shadow: 0 0 8px rgba(16,185,129,0.4); animation: pulse 2s infinite; }
+    .status-dot.disconnected { background: var(--red); }
+    .status-dot.connecting { background: var(--amber); animation: pulse 1s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    /* Video container */
+    .video-container {
+      width: 100%;
+      max-width: 640px;
+      position: relative;
+      background: #000;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #cameraVideo {
+      width: 100%;
+      height: auto;
+      display: block;
+      transform: scaleX(-1); /* mirror for selfie feel */
+    }
+    #captureCanvas { display: none; }
+
+    /* Overlay stats */
+    .video-overlay {
+      position: absolute;
+      top: 8px; left: 8px;
+      background: rgba(0,0,0,0.6);
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.7rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--cyan);
+      backdrop-filter: blur(4px);
+    }
+
+    /* Controls */
+    .controls {
+      width: 100%;
+      max-width: 640px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn-row { display: flex; gap: 10px; }
+
+    .btn {
+      flex: 1;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-start {
+      background: linear-gradient(135deg, var(--blue), #818cf8);
+      color: white;
+      box-shadow: 0 4px 16px rgba(99,102,241,0.3);
+    }
+    .btn-start:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(99,102,241,0.4); }
+    .btn-start:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .btn-stop {
+      background: linear-gradient(135deg, var(--red), #f87171);
+      color: white;
+    }
+
+    .btn-switch {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-switch:hover { border-color: var(--blue); }
+
+    /* Info */
+    .info-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin: 0 20px 20px;
+      max-width: 600px;
+    }
+    .info-card h3 { font-size: 0.8rem; color: var(--cyan); margin-bottom: 6px; }
+    .info-card p { font-size: 0.75rem; color: var(--muted); line-height: 1.5; }
+    .info-card .mono { font-family: monospace; color: var(--amber); }
+
+    /* Stats grid */
+    .stats-row {
+      display: flex;
+      gap: 8px;
+      padding: 0 20px;
+      width: 100%;
+      max-width: 640px;
+      margin-bottom: 12px;
+    }
+    .stat-mini {
+      flex: 1;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+    }
+    .stat-mini .val { font-size: 1.2rem; font-weight: 800; }
+    .stat-mini .lbl { font-size: 0.6rem; color: var(--muted); text-transform: uppercase; }
+    .val.blue { color: var(--blue); }
+    .val.cyan { color: var(--cyan); }
+    .val.emerald { color: var(--emerald); }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-icon">🛡️</div>
+    <div>
+      <h1>SafeSphere</h1>
+      <small>Mobile Camera Feed</small>
+    </div>
+  </div>
+
+  <!-- Status bar -->
+  <div class="status-bar">
+    <span><span class="status-dot disconnected" id="statusDot"></span><span id="statusText">Disconnected</span></span>
+    <span id="fpsDisplay">0 FPS</span>
+  </div>
+
+  <!-- Video preview -->
+  <div class="video-container">
+    <video id="cameraVideo" autoplay playsinline muted></video>
+    <canvas id="captureCanvas"></canvas>
+    <div class="video-overlay" id="overlay">Waiting for camera…</div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-mini">
+      <div class="val blue" id="framesSent">0</div>
+      <div class="lbl">Frames Sent</div>
+    </div>
+    <div class="stat-mini">
+      <div class="val cyan" id="sendFps">0</div>
+      <div class="lbl">Send FPS</div>
+    </div>
+    <div class="stat-mini">
+      <div class="val emerald" id="kbSent">0</div>
+      <div class="lbl">KB Sent</div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <div class="btn-row">
+      <button class="btn btn-start" id="btnStart" onclick="startStream()">
+        ▶ Start Streaming
+      </button>
+      <button class="btn btn-stop" id="btnStop" onclick="stopStream()" style="display:none">
+        ⏹ Stop
+      </button>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-switch" onclick="switchCamera()">🔄 Switch Camera</button>
+    </div>
+  </div>
+
+  <!-- Info -->
+  <div class="info-card">
+    <h3>How it works</h3>
+    <p>This page captures your phone camera and streams video frames to the SafeSphere AI pipeline for real-time threat detection. Point your camera at a scene — the AI will detect persons, track movement, and score threats.</p>
+    <p style="margin-top:8px">Connection: <span class="mono" id="wsUrl">—</span></p>
+  </div>
+
+<script>
+  // ── Config ──────────────────────────────────────────────────────────────────
+  const TARGET_FPS = 10;             // frames per second to send
+  const JPEG_QUALITY = 0.65;         // JPEG compression (0-1)
+  const CAPTURE_WIDTH = 640;
+  const CAPTURE_HEIGHT = 480;
+
+  // ── State ───────────────────────────────────────────────────────────────────
+  let ws = null;
+  let stream = null;
+  let sendInterval = null;
+  let useFront = false;
+  let frameCount = 0;
+  let totalBytes = 0;
+  let fpsCounter = 0;
+  let lastFpsTime = Date.now();
+
+  const video = document.getElementById('cameraVideo');
+  const canvas = document.getElementById('captureCanvas');
+  const ctx = canvas.getContext('2d');
+
+  // ── WebSocket URL (same host as this page) ─────────────────────────────────
+  const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+  const wsBaseUrl = `${wsProtocol}//${location.host}`;
+  document.getElementById('wsUrl').textContent = `${wsBaseUrl}/ws/camera-feed`;
+
+  // ── Camera ──────────────────────────────────────────────────────────────────
+
+  async function getCamera() {
+    if (stream) {
+      stream.getTracks().forEach(t => t.stop());
+    }
+
+    const constraints = {
+      video: {
+        facingMode: useFront ? 'user' : 'environment',
+        width: { ideal: CAPTURE_WIDTH },
+        height: { ideal: CAPTURE_HEIGHT },
+      },
+      audio: false,
+    };
+
+    try {
+      stream = await navigator.mediaDevices.getUserMedia(constraints);
+      video.srcObject = stream;
+
+      const track = stream.getVideoTracks()[0];
+      const settings = track.getSettings();
+      canvas.width = settings.width || CAPTURE_WIDTH;
+      canvas.height = settings.height || CAPTURE_HEIGHT;
+
+      document.getElementById('overlay').textContent =
+        `${settings.width}×${settings.height} | ${useFront ? 'Front' : 'Rear'}`;
+
+      return true;
+    } catch (err) {
+      console.error('Camera error:', err);
+      document.getElementById('overlay').textContent = `Camera error: ${err.message}`;
+      return false;
+    }
+  }
+
+  function switchCamera() {
+    useFront = !useFront;
+    if (stream) getCamera();
+  }
+
+  // ── WebSocket ───────────────────────────────────────────────────────────────
+
+  function connectWs() {
+    const url = `${wsBaseUrl}/ws/camera-feed`;
+    ws = new WebSocket(url);
+
+    ws.onopen = () => {
+      setStatus('connected', 'Connected');
+      console.log('WebSocket connected');
+    };
+
+    ws.onclose = () => {
+      setStatus('disconnected', 'Disconnected');
+      // Auto-reconnect while streaming
+      if (sendInterval) {
+        setTimeout(connectWs, 2000);
+      }
+    };
+
+    ws.onerror = (err) => {
+      console.error('WebSocket error:', err);
+      setStatus('disconnected', 'Error — retrying…');
+    };
+
+    ws.onmessage = (event) => {
+      // Server can send back detection results
+      try {
+        const data = JSON.parse(event.data);
+        if (data.persons !== undefined) {
+          document.getElementById('overlay').textContent =
+            `${canvas.width}×${canvas.height} | Persons: ${data.persons} | Threat: ${data.max_threat || 'NONE'}`;
+        }
+      } catch { /* binary or non-JSON — ignore */ }
+    };
+  }
+
+  // ── Frame capture + send ────────────────────────────────────────────────────
+
+  function captureAndSend() {
+    if (!ws || ws.readyState !== WebSocket.OPEN) return;
+    if (video.readyState < 2) return; // video not ready
+
+    // Draw video frame to canvas
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    // Convert to JPEG blob
+    canvas.toBlob((blob) => {
+      if (!blob || !ws || ws.readyState !== WebSocket.OPEN) return;
+
+      ws.send(blob);
+
+      frameCount++;
+      totalBytes += blob.size;
+      fpsCounter++;
+
+      // Update stats every second
+      const now = Date.now();
+      if (now - lastFpsTime >= 1000) {
+        const fps = fpsCounter;
+        fpsCounter = 0;
+        lastFpsTime = now;
+
+        document.getElementById('framesSent').textContent = frameCount;
+        document.getElementById('sendFps').textContent = fps;
+        document.getElementById('kbSent').textContent = Math.round(totalBytes / 1024);
+        document.getElementById('fpsDisplay').textContent = `${fps} FPS`;
+      }
+    }, 'image/jpeg', JPEG_QUALITY);
+  }
+
+  // ── Start / Stop ────────────────────────────────────────────────────────────
+
+  async function startStream() {
+    const ok = await getCamera();
+    if (!ok) return;
+
+    connectWs();
+
+    // Start frame capture interval
+    const intervalMs = Math.round(1000 / TARGET_FPS);
+    sendInterval = setInterval(captureAndSend, intervalMs);
+
+    document.getElementById('btnStart').style.display = 'none';
+    document.getElementById('btnStop').style.display = 'flex';
+    setStatus('connecting', 'Connecting…');
+  }
+
+  function stopStream() {
+    if (sendInterval) {
+      clearInterval(sendInterval);
+      sendInterval = null;
+    }
+    if (ws) {
+      ws.close();
+      ws = null;
+    }
+    if (stream) {
+      stream.getTracks().forEach(t => t.stop());
+      stream = null;
+    }
+
+    document.getElementById('btnStart').style.display = 'flex';
+    document.getElementById('btnStop').style.display = 'none';
+    setStatus('disconnected', 'Stopped');
+    document.getElementById('overlay').textContent = 'Camera stopped';
+  }
+
+  function setStatus(state, text) {
+    const dot = document.getElementById('statusDot');
+    dot.className = `status-dot ${state}`;
+    document.getElementById('statusText').textContent = text;
+  }
+</script>
+</body>
+</html>

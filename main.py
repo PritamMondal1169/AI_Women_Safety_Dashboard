@@ -65,12 +65,12 @@ log = get_logger(__name__)
 # ---------------------------------------------------------------------------
 # Shared data directory (Streamlit dashboard reads these)
 # ---------------------------------------------------------------------------
-_DATA_DIR        = Path("data")
-_STATE_FILE      = _DATA_DIR / "dashboard_state.json"
-_ALERT_LOG_FILE  = _DATA_DIR / "alert_log.json"
-_FRAME_FILE      = _DATA_DIR / "latest_frame.jpg"
-_HISTORY_FILE    = _DATA_DIR / "dashboard_history.json"
-_RT_CONFIG_FILE  = _DATA_DIR / "runtime_config.json"
+_DATA_ROOT        = Path("data")
+_STATE_FILE      = _DATA_ROOT / "dashboard_state.json"
+_ALERT_LOG_FILE  = _DATA_ROOT / "alert_log.json"
+_FRAME_FILE      = _DATA_ROOT / "latest_frame.jpg"
+_HISTORY_FILE    = _DATA_ROOT / "dashboard_history.json"
+_RT_CONFIG_FILE  = _DATA_ROOT / "runtime_config.json"
 
 # Write intervals (frames between disk writes)
 _STATE_INTERVAL   = 15
@@ -171,7 +171,7 @@ def _write_state(
             "resolution":        resolution,
             **summary,   # spread HIGH/MEDIUM/LOW/NONE as top-level for chart queries
         }
-        _DATA_DIR.mkdir(parents=True, exist_ok=True)
+        _DATA_ROOT.mkdir(parents=True, exist_ok=True)
         _STATE_FILE.write_text(json.dumps(payload))
     except Exception:
         log.debug("State write failed (non-critical).")
@@ -179,7 +179,7 @@ def _write_state(
 
 def _write_frame(frame: np.ndarray) -> None:
     try:
-        _DATA_DIR.mkdir(parents=True, exist_ok=True)
+        _DATA_ROOT.mkdir(parents=True, exist_ok=True)
         tmp_path = str(_FRAME_FILE) + ".tmp"
         cv2.imwrite(tmp_path, frame, [cv2.IMWRITE_JPEG_QUALITY, 80])
         import os
@@ -190,7 +190,7 @@ def _write_frame(frame: np.ndarray) -> None:
 
 def _append_alert(event: AlertEvent) -> None:
     try:
-        _DATA_DIR.mkdir(parents=True, exist_ok=True)
+        _DATA_ROOT.mkdir(parents=True, exist_ok=True)
         alerts: list = []
         if _ALERT_LOG_FILE.exists():
             try:
@@ -323,6 +323,9 @@ def _parse_args() -> argparse.Namespace:
     p.add_argument("--dashboard",   action="store_true",   help="Launch Streamlit subprocess")
     p.add_argument("--export-onnx", action="store_true",   help="Export ONNX on startup then run")
     p.add_argument("--save-dir",    default="data",        help="Snapshot save directory")
+    # Multi-Camera support
+    p.add_argument("--cam-id",      default=None,         help="Unique camera ID for cloud sync")
+    p.add_argument("--cam-name",    default="Main Node",   help="Human-readable camera name")
     return p.parse_args()
 
 
@@ -341,9 +344,20 @@ def run(args: argparse.Namespace) -> int:
     if isinstance(source, str) and source.lstrip("-").isdigit():
         source = int(source)
 
-    save_dir = Path(args.save_dir)
+    # Resolve camera ID and isolate data directory
+    cam_id = args.cam_id if args.cam_id else "node_01"
+    
+    global _DATA_ROOT, _STATE_FILE, _ALERT_LOG_FILE, _FRAME_FILE, _HISTORY_FILE, _RT_CONFIG_FILE
+    _DATA_ROOT     = Path("data") / cam_id
+    _STATE_FILE    = _DATA_ROOT / "dashboard_state.json"
+    _ALERT_LOG_FILE = _DATA_ROOT / "alert_log.json"
+    _FRAME_FILE     = _DATA_ROOT / "latest_frame.jpg"
+    _HISTORY_FILE   = _DATA_ROOT / "dashboard_history.json"
+    _RT_CONFIG_FILE = _DATA_ROOT / "runtime_config.json"
+
+    save_dir = Path(args.save_dir) / cam_id
     save_dir.mkdir(parents=True, exist_ok=True)
-    _DATA_DIR.mkdir(parents=True, exist_ok=True)
+    _DATA_ROOT.mkdir(parents=True, exist_ok=True)
 
     # ── Optional ONNX export before pipeline start ────────────────────────────
     if args.export_onnx or cfg.EXPORT_ONNX:
@@ -373,8 +387,20 @@ def run(args: argparse.Namespace) -> int:
     try:
         log.info("Initialising camera (source={s})…", s=source)
         camera = Camera(source=source)
-        camera.start()
-        time.sleep(0.35)   # let the reader thread grab the first frame
+        
+        # 🔗 Resilient Startup Loop
+        max_init_attempts = 3
+        for attempt in range(1, max_init_attempts + 1):
+            try:
+                camera.start()
+                break
+            except RuntimeError as e:
+                if attempt == max_init_attempts:
+                    raise
+                log.warning("Camera init failed (attempt {a}/{m}). Retrying in 2s...", a=attempt, m=max_init_attempts)
+                time.sleep(2)
+        
+        time.sleep(0.5)   # let the reader thread grab the first frame
 
         _, probe = camera.read()
         fh, fw = (probe.shape[:2] if probe is not None
@@ -416,6 +442,22 @@ def run(args: argparse.Namespace) -> int:
             verbose=True,
         )
         rt_cfg    = RuntimeConfig()
+        
+        # ── Cloud Bridge ────────────────────────────────────────────────────────
+        from core.edge_client import EdgeClient
+        edge_client = EdgeClient(
+            coordinator_url=cfg.COORDINATOR_URL,
+            camera_id=args.cam_id,
+            timeout_s=2.0,
+            max_retries=1
+        )
+        # Register the camera on startup
+        edge_client.register_camera(
+            name=args.cam_name,
+            latitude=location_fix.lat,
+            longitude=location_fix.lon,
+            source_url=str(source),
+        )
 
     except Exception:
         log.exception("Pipeline init failed. Aborting.")
@@ -429,6 +471,7 @@ def run(args: argparse.Namespace) -> int:
     snap_idx       = 0
     threat_results: Dict[int, ThreatResult] = {}
     summary: Dict[str, int] = {"NONE":0, "LOW":0, "MEDIUM":0, "HIGH":0}
+    active_journey: Optional[Dict] = None
 
     log.info(
         "Pipeline ready | auto_tuner={at} | target_fps={t} | device={d}",
@@ -461,19 +504,45 @@ def run(args: argparse.Namespace) -> int:
         fc = monitor.total_frames
         if fc % _STATE_INTERVAL == 0:
             rt_cfg.poll()
+            # Fetch active journeys from coordinator (Phase 2 sensitivity boost)
+            journeys = edge_client.get_active_journeys()
+            active_journey = journeys[0] if journeys else None
+            if active_journey:
+                log.debug("Active journey detected for sensitivity boost: %s", active_journey.get("id")[:8])
 
         # ── Full frame pipeline (timed) ───────────────────────────────────────
         with monitor.frame_timer():
-
-            # Detection
+            # Detection (adaptive skipping and internal scaling handled by Detector)
             persons = detector.detect(frame)
+            
             monitor.record_inference(detector.avg_inference_ms)
 
-            # Tracking
-            active_tracks = track_manager.update(persons)
+            # Tracking (always update with whatever we have)
+            active_tracks, pruned_tracks = track_manager.update(persons)
 
-            # Threat scoring
-            threat_results = threat_engine.score_all(list(active_tracks.values()))
+            # ── Blind Spot: Departure detection ──────────────────────────────
+            for p_state in pruned_tracks:
+                if p_state.history:
+                    cx, cy, _ = p_state.history[-1]
+                    # If last seen near vertical edges (left/right)
+                    if cx < fw * 0.05 or cx > fw * 0.95:
+                        log.info("Blind Spot: Departure detected for track {id}", id=p_state.track_id)
+                        edge_client.report_departure(p_state.track_id)
+
+            # ── Blind Spot: Arrival detection ────────────────────────────────
+            # Check for new tracks that just appeared at the edges
+            for tid, state in active_tracks.items():
+                if len(state.history) == 1 and state.missing_frames == 0:
+                    cx, cy, _ = state.history[-1]
+                    if cx < fw * 0.05 or cx > fw * 0.95:
+                        log.info("Blind Spot: Arrival detected for track {id}", id=tid)
+                        edge_client.report_arrival(tid)
+
+            # Threat scoring (with journey boost if available)
+            threat_results = threat_engine.score_all(
+                list(active_tracks.values()),
+                journey_id=active_journey.get("id") if active_journey else None
+            )
             summary = ThreatEngine.summarise(threat_results)
 
         # ── Auto-tuner ────────────────────────────────────────────────────────
@@ -517,9 +586,24 @@ def run(args: argparse.Namespace) -> int:
                         track_id      = tid,
                         snapshot_path = str(snap_path) if snap_path else None,
                     )
+                    
+                    # ── Cloud Bridge Notification ───────────────────────────
+                    try:
+                        edge_client.post_alert(
+                            threat_level=result.threat_level,
+                            threat_score=result.threat_score,
+                            track_id=tid,
+                            latitude=location_fix.latitude,
+                            longitude=location_fix.longitude,
+                            location_name=location_fix.display,
+                            snapshot_path=str(snap_path) if snap_path else None,
+                        )
+                    except Exception as e:
+                        log.debug(f"Failed to post alert to cloud: {e}")
 
-        # ── Dashboard state writes ─────────────────────────────────────────────
+        # ── Heartbeat and Dashboard state writes ──────────────────────────────
         if fc % _STATE_INTERVAL == 0:
+            edge_client.heartbeat(fps=monitor.fps, person_count=len(persons))
             _write_state(
                 monitor, tuner, len(persons), track_manager.active_count,
                 summary, dispatcher.total_alerts, location_fix,
@@ -531,6 +615,10 @@ def run(args: argparse.Namespace) -> int:
                 monitor, tuner, summary, location_fix.display,
             )
             _write_frame(annotated_for_dash)
+            # Push to Cloud WebSocket relay
+            success, enc_img = cv2.imencode('.jpg', annotated_for_dash, [cv2.IMWRITE_JPEG_QUALITY, 80])
+            if success:
+                edge_client.push_frame(enc_img.tobytes())
         if fc % _HISTORY_INTERVAL == 0:
             _update_history(monitor, summary)
 

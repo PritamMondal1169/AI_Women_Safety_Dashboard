@@ -180,7 +180,7 @@ class TrackManager:
 
     # ── Public API ────────────────────────────────────────────────────────────
 
-    def update(self, persons: List[TrackedPerson]) -> Dict[int, TrackState]:
+    def update(self, persons: List[TrackedPerson]) -> Tuple[Dict[int, TrackState], List[TrackState]]:
         """
         Ingest a list of TrackedPerson from the current frame.
 
@@ -188,7 +188,9 @@ class TrackManager:
             persons: Output of Detector.detect() for the current frame.
 
         Returns:
-            The full current track registry (active + recently missing).
+            A tuple (active_tracks, pruned_tracks).
+            active_tracks: The full current track registry.
+            pruned_tracks: List of TrackState objects that were just deleted from registry.
         """
         self._frame_count += 1
         seen_ids = {p.track_id for p in persons}
@@ -210,11 +212,13 @@ class TrackManager:
                 if state.is_stale:
                     stale_ids.append(tid)
 
+        pruned_states = []
         for tid in stale_ids:
             log.debug(
                 "Pruning stale track ID={id} (missing {n} frames).",
                 id=tid, n=self._tracks[tid].missing_frames,
             )
+            pruned_states.append(self._tracks[tid])
             del self._tracks[tid]
 
         # ── Refresh alert cooldowns ───────────────────────────────────────────
@@ -229,7 +233,7 @@ class TrackManager:
                 f=self._frame_count,
             )
 
-        return self._tracks
+        return self._tracks, pruned_states
 
     def get(self, track_id: int) -> Optional[TrackState]:
         """Return the TrackState for a given ID, or None if not tracked."""

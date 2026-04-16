@@ -1,0 +1,363 @@
+2026-04-14 02:40:12.925 | INFO     | utils.logger:setup_logging:107 — Logging initialised | level=DEBUG | dir=C:\Users\HP\OneDrive\Desktop\women-safety-product\logs | rotation=10 MB | retention=7 days
+2026-04-14 02:40:12.927 | INFO     | __main__:main:357 — ================================================================
+2026-04-14 02:40:12.927 | INFO     | __main__:main:358 —   SafeSphere Mobile Edge Processor
+2026-04-14 02:40:12.927 | INFO     | __main__:main:359 — ================================================================
+2026-04-14 02:40:12.928 | INFO     | __main__:main:360 — Coordinator: http://localhost:8000
+2026-04-14 02:40:12.928 | INFO     | __main__:main:361 — Camera page: http://localhost:8000/camera
+2026-04-14 02:40:12.929 | INFO     | __main__:main:362 — 
+2026-04-14 02:40:12.929 | INFO     | __main__:main:363 — Open the camera page on your phone to start streaming!
+2026-04-14 02:40:12.929 | INFO     | __main__:main:364 — 
+2026-04-14 02:40:12.930 | INFO     | __main__:main:370 — Initialising Detector (skip=0)...
+2026-04-14 02:40:12.930 | INFO     | core.detector:_load_model:118 — Loading YOLO model from: C:\Users\HP\OneDrive\Desktop\women-safety-product\models\yolov8n-pose.pt
+2026-04-14 02:40:13.445 | INFO     | core.detector:_load_model:132 — YOLO model loaded and warmed up. Device: cpu (FP16: False)
+2026-04-14 02:40:13.446 | INFO     | __main__:main:373 — Initialising TrackManager...
+2026-04-14 02:40:13.446 | INFO     | core.tracker:__init__:179 — TrackManager initialised.
+2026-04-14 02:40:13.446 | INFO     | __main__:main:380 — Initialising AlertDispatcher...
+2026-04-14 02:40:13.446 | INFO     | utils.alerts:__init__:115 — AlertDispatcher ready | email=False | sound=True | cooldown=60s
+2026-04-14 02:40:13.447 | INFO     | utils.performance:__init__:207 — FrameSkipTuner | target=25.0fps ±2.0 window=30 init_skip=0
+2026-04-14 02:40:13.449 | INFO     | __main__:start:174 — Frame receiver started | url=ws://localhost:8000/ws/edge-feed
+2026-04-14 02:40:13.450 | INFO     | __main__:main:406 — Pipeline ready. Waiting for frames from phone camera...
+2026-04-14 02:40:13.455 | INFO     | __main__:_ws_loop:202 — Connecting to ws://localhost:8000/ws/edge-feed...
+2026-04-14 02:40:17.582 | DEBUG    | __main__:_ws_loop:227 — WebSocket connection failed: [WinError 1225] The remote computer refused the network connection — retrying in 2s
+2026-04-14 02:40:19.592 | INFO     | __main__:_ws_loop:202 — Connecting to ws://localhost:8000/ws/edge-feed...
+2026-04-14 02:40:23.665 | DEBUG    | __main__:_ws_loop:227 — WebSocket connection failed: [WinError 1225] The remote computer refused the network connection — retrying in 2s
+2026-04-14 02:40:25.669 | INFO     | __main__:_ws_loop:202 — Connecting to ws://localhost:8000/ws/edge-feed...
+2026-04-14 02:40:29.763 | DEBUG    | __main__:_ws_loop:227 — WebSocket connection failed: [WinError 1225] The remote computer refused the network connection — retrying in 2s
+2026-04-14 02:40:31.776 | INFO     | __main__:_ws_loop:202 — Connecting to ws://localhost:8000/ws/edge-feed...
+2026-04-14 02:40:35.853 | DEBUG    | __main__:_ws_loop:227 — WebSocket connection failed: [WinError 1225] The remote computer refused the network connection — retrying in 2s
+2026-04-14 02:40:37.861 | INFO     | __main__:_ws_loop:202 — Connecting to ws://localhost:8000/ws/edge-feed...
+2026-04-14 02:40:41.950 | DEBUG    | __main__:_ws_loop:227 — WebSocket connection failed: [WinError 1225] The remote computer refused the network connection — retrying in 2s
+2026-04-14 02:40:43.961 | INFO     | __main__:_ws_loop:202 — Connecting to ws://localhost:8000/ws/edge-feed...
+2026-04-14 02:40:48.042 | DEBUG    | __main__:_ws_loop:227 — WebSocket connection failed: [WinError 1225] The remote computer refused the network connection — retrying in 2s
+2026-04-14 02:40:50.046 | INFO     | __main__:_ws_loop:202 — Connecting to ws://localhost:8000/ws/edge-feed...
+2026-04-14 02:40:54.126 | DEBUG    | __main__:_ws_loop:227 — WebSocket connection failed: [WinError 1225] The remote computer refused the network connection — retrying in 2s
+2026-04-14 02:40:56.139 | INFO     | __main__:_ws_loop:202 — Connecting to ws://localhost:8000/ws/edge-feed...
+2026-04-14 02:41:00.238 | DEBUG    | __main__:_ws_loop:227 — WebSocket connection failed: [WinError 1225] The remote computer refused the network connection — retrying in 2s
+2026-04-14 02:41:02.246 | INFO     | __main__:_ws_loop:202 — Connecting to ws://localhost:8000/ws/edge-feed...
+2026-04-14 03:04:41.680 | INFO     | utils.logger:setup_logging:107 — Logging initialised | level=DEBUG | dir=C:\Users\HP\OneDrive\Desktop\women-safety-product\logs | rotation=10 MB | retention=7 days
+2026-04-14 03:04:41.681 | INFO     | __main__:run:334 — ================================================================
+2026-04-14 03:04:41.681 | INFO     | __main__:run:335 —   Women Safety Product — Production Pipeline (Days 1–5)
+2026-04-14 03:04:41.682 | INFO     | __main__:run:336 — ================================================================
+2026-04-14 03:04:41.682 | INFO     | __main__:run:337 — ============================================================
+  Women Safety Product — Active Configuration
+============================================================
+  PROJECT_ROOT                        C:\Users\HP\OneDrive\Desktop\women-safety-product
+  CAMERA_SOURCE                       0
+  CAMERA_WIDTH                        640
+  CAMERA_HEIGHT                       480
+  CAMERA_FPS                          30
+  CAMERA_RECONNECT_DELAY              3
+  CAMERA_MAX_RECONNECT                10
+  MODEL_PATH                          models/yolov8n-pose.pt
+  MODEL_CONFIDENCE                    0.55
+  MODEL_IOU                           0.5
+  MODEL_DEVICE                        cpu
+  MODEL_IMGSZ                         640
+  EXPORT_ONNX                         False
+  TRACKER_CONFIG                      botsort.yaml
+  TRACKER_PERSIST                     True
+  THREAT_MODEL_PATH                   models/threat_xgb.json
+  THREAT_LOW                          0.22
+  THREAT_MEDIUM                       0.44
+  THREAT_HIGH                         0.62
+  THREAT_SUSTAINED_FRAMES             8
+  THREAT_MIN_GROUP_SIZE               2
+  ENABLE_INTERACTION_ANALYSIS         True
+  INTERACTION_DISTANCE_THRESHOLD      0.25
+  INTERACTION_BOOST_MAX               0.25
+  ALERT_EMAIL_ENABLED                 False
+  ALERT_EMAIL_SMTP                    smtp.gmail.com
+  ALERT_EMAIL_PORT                    587
+  ALERT_EMAIL_SENDER                  your@gmail.com
+  ALERT_EMAIL_PASSWORD                ***
+  ALERT_EMAIL_RECEIVER                emergency@example.com
+  ALERT_SOUND_ENABLED                 True
+  ALERT_COOLDOWN                      60
+  LOCATION_GOOGLE_API_KEY             ***
+  LOCATION_IP_FALLBACK                True
+  DASHBOARD_PORT                      8501
+  DASHBOARD_REFRESH_MS                100
+  LOG_MAX_ROWS                        200
+  LOG_LEVEL                           DEBUG
+  LOG_DIR                             logs
+  LOG_ROTATION                        10 MB
+  LOG_RETENTION                       7 days
+============================================================
+2026-04-14 03:04:41.683 | INFO     | __main__:run:374 — Initialising camera (source=0)…
+2026-04-14 03:04:41.683 | INFO     | core.camera:__init__:78 — Camera created | source=0 | 640x480 @ 30fps
+2026-04-14 03:04:41.684 | DEBUG    | core.camera:_open:156 — Opening camera source: 0
+2026-04-14 03:06:52.304 | INFO     | utils.logger:setup_logging:107 — Logging initialised | level=DEBUG | dir=C:\Users\HP\OneDrive\Desktop\women-safety-product\logs | rotation=10 MB | retention=7 days
+2026-04-14 03:06:52.305 | INFO     | __main__:run:334 — ================================================================
+2026-04-14 03:06:52.305 | INFO     | __main__:run:335 —   Women Safety Product — Production Pipeline (Days 1–5)
+2026-04-14 03:06:52.306 | INFO     | __main__:run:336 — ================================================================
+2026-04-14 03:06:52.306 | INFO     | __main__:run:337 — ============================================================
+  Women Safety Product — Active Configuration
+============================================================
+  PROJECT_ROOT                        C:\Users\HP\OneDrive\Desktop\women-safety-product
+  CAMERA_SOURCE                       0
+  CAMERA_WIDTH                        640
+  CAMERA_HEIGHT                       480
+  CAMERA_FPS                          30
+  CAMERA_RECONNECT_DELAY              3
+  CAMERA_MAX_RECONNECT                10
+  MODEL_PATH                          models/yolov8n-pose.pt
+  MODEL_CONFIDENCE                    0.55
+  MODEL_IOU                           0.5
+  MODEL_DEVICE                        cpu
+  MODEL_IMGSZ                         640
+  EXPORT_ONNX                         False
+  TRACKER_CONFIG                      botsort.yaml
+  TRACKER_PERSIST                     True
+  THREAT_MODEL_PATH                   models/threat_xgb.json
+  THREAT_LOW                          0.22
+  THREAT_MEDIUM                       0.44
+  THREAT_HIGH                         0.62
+  THREAT_SUSTAINED_FRAMES             8
+  THREAT_MIN_GROUP_SIZE               2
+  ENABLE_INTERACTION_ANALYSIS         True
+  INTERACTION_DISTANCE_THRESHOLD      0.25
+  INTERACTION_BOOST_MAX               0.25
+  ALERT_EMAIL_ENABLED                 False
+  ALERT_EMAIL_SMTP                    smtp.gmail.com
+  ALERT_EMAIL_PORT                    587
+  ALERT_EMAIL_SENDER                  your@gmail.com
+  ALERT_EMAIL_PASSWORD                ***
+  ALERT_EMAIL_RECEIVER                emergency@example.com
+  ALERT_SOUND_ENABLED                 True
+  ALERT_COOLDOWN                      60
+  LOCATION_GOOGLE_API_KEY             ***
+  LOCATION_IP_FALLBACK                True
+  COORDINATOR_URL                     http://localhost:8000
+  EDGE_OFFLINE_MODE                   False
+  DASHBOARD_PORT                      8501
+  DASHBOARD_REFRESH_MS                100
+  LOG_MAX_ROWS                        200
+  LOG_LEVEL                           DEBUG
+  LOG_DIR                             logs
+  LOG_ROTATION                        10 MB
+  LOG_RETENTION                       7 days
+============================================================
+2026-04-14 03:06:52.307 | INFO     | __main__:run:374 — Initialising camera (source=0)…
+2026-04-14 03:06:52.307 | INFO     | core.camera:__init__:78 — Camera created | source=0 | 640x480 @ 30fps
+2026-04-14 03:06:52.307 | DEBUG    | core.camera:_open:156 — Opening camera source: 0
+2026-04-14 16:29:02.983 | INFO     | utils.logger:setup_logging:107 — Logging initialised | level=DEBUG | dir=C:\Users\HP\OneDrive\Desktop\women-safety-product\logs | rotation=10 MB | retention=7 days
+2026-04-14 16:30:12.862 | INFO     | utils.logger:setup_logging:107 — Logging initialised | level=DEBUG | dir=C:\Users\HP\OneDrive\Desktop\women-safety-product\logs | rotation=10 MB | retention=7 days
+2026-04-14 16:30:12.864 | INFO     | __main__:run:334 — ================================================================
+2026-04-14 16:30:12.864 | INFO     | __main__:run:335 —   Women Safety Product — Production Pipeline (Days 1–5)
+2026-04-14 16:30:12.864 | INFO     | __main__:run:336 — ================================================================
+2026-04-14 16:30:12.865 | INFO     | __main__:run:337 — ============================================================
+  Women Safety Product — Active Configuration
+============================================================
+  PROJECT_ROOT                        C:\Users\HP\OneDrive\Desktop\women-safety-product
+  CAMERA_SOURCE                       0
+  CAMERA_WIDTH                        640
+  CAMERA_HEIGHT                       480
+  CAMERA_FPS                          30
+  CAMERA_RECONNECT_DELAY              3
+  CAMERA_MAX_RECONNECT                10
+  MODEL_PATH                          models/yolov8n-pose.pt
+  MODEL_CONFIDENCE                    0.55
+  MODEL_IOU                           0.5
+  MODEL_DEVICE                        cpu
+  MODEL_IMGSZ                         640
+  EXPORT_ONNX                         False
+  TRACKER_CONFIG                      botsort.yaml
+  TRACKER_PERSIST                     True
+  THREAT_MODEL_PATH                   models/threat_xgb.json
+  THREAT_LOW                          0.22
+  THREAT_MEDIUM                       0.44
+  THREAT_HIGH                         0.62
+  THREAT_SUSTAINED_FRAMES             8
+  THREAT_MIN_GROUP_SIZE               2
+  ENABLE_INTERACTION_ANALYSIS         True
+  INTERACTION_DISTANCE_THRESHOLD      0.25
+  INTERACTION_BOOST_MAX               0.25
+  ALERT_EMAIL_ENABLED                 False
+  ALERT_EMAIL_SMTP                    smtp.gmail.com
+  ALERT_EMAIL_PORT                    587
+  ALERT_EMAIL_SENDER                  your@gmail.com
+  ALERT_EMAIL_PASSWORD                ***
+  ALERT_EMAIL_RECEIVER                emergency@example.com
+  ALERT_SOUND_ENABLED                 True
+  ALERT_COOLDOWN                      60
+  LOCATION_GOOGLE_API_KEY             ***
+  LOCATION_IP_FALLBACK                True
+  COORDINATOR_URL                     http://localhost:8000
+  EDGE_OFFLINE_MODE                   False
+  DASHBOARD_PORT                      8501
+  DASHBOARD_REFRESH_MS                100
+  LOG_MAX_ROWS                        200
+  LOG_LEVEL                           DEBUG
+  LOG_DIR                             logs
+  LOG_ROTATION                        10 MB
+  LOG_RETENTION                       7 days
+============================================================
+2026-04-14 16:30:12.866 | INFO     | __main__:run:374 — Initialising camera (source=0)…
+2026-04-14 16:30:12.866 | INFO     | core.camera:__init__:78 — Camera created | source=0 | 640x480 @ 30fps
+2026-04-14 16:30:12.867 | DEBUG    | core.camera:_open:156 — Opening camera source: 0
+2026-04-14 16:30:32.235 | INFO     | core.camera:_open:174 — Camera opened | actual 640x480 @ 30.0fps
+2026-04-14 16:30:32.237 | DEBUG    | core.camera:_reader_loop:202 — Camera reader loop entered.
+2026-04-14 16:30:32.237 | INFO     | core.camera:start:101 — Camera reader thread started.
+2026-04-14 16:30:32.592 | INFO     | __main__:run:383 — Frame resolution: 640×480
+2026-04-14 16:30:32.592 | INFO     | __main__:run:389 — Initialising Detector (skip=0)…
+2026-04-14 16:30:32.593 | INFO     | core.detector:_load_model:118 — Loading YOLO model from: C:\Users\HP\OneDrive\Desktop\women-safety-product\models\yolov8n-pose.pt
+2026-04-14 16:30:33.168 | INFO     | core.detector:_load_model:132 — YOLO model loaded and warmed up. Device: cpu (FP16: False)
+2026-04-14 16:30:33.169 | INFO     | __main__:run:392 — Initialising TrackManager…
+2026-04-14 16:30:33.169 | INFO     | core.tracker:__init__:179 — TrackManager initialised.
+2026-04-14 16:30:33.169 | INFO     | __main__:run:395 — Initialising ThreatEngine (640×480)…
+2026-04-14 16:30:33.170 | INFO     | core.features:__init__:115 — FeatureExtractor ready | 640x480 | diag=800.0px | features=20
+2026-04-14 16:30:46.896 | SUCCESS  | core.threat:_load_xgb_model:139 — XGBoost model loaded from C:\Users\HP\OneDrive\Desktop\women-safety-product\models\threat_xgb.json.
+2026-04-14 16:30:46.897 | INFO     | core.threat:__init__:112 — ThreatEngine ready | xgb=True | diag=800px | thresholds=(0.22,0.44,0.62) | sustained=8
+2026-04-14 16:30:46.897 | INFO     | __main__:run:398 — Initialising AlertDispatcher…
+2026-04-14 16:30:46.898 | INFO     | utils.alerts:__init__:115 — AlertDispatcher ready | email=False | sound=True | cooldown=60s
+2026-04-14 16:30:46.898 | INFO     | __main__:run:401 — Initialising MultiChannelAlerter (Twilio/AT)…
+2026-04-14 16:30:46.900 | ERROR    | utils.twilio_alerts:_init_client:101 — twilio package not installed. Run: pip install twilio
+2026-04-14 16:30:46.901 | INFO     | __main__:run:404 — Initialising LocationProvider…
+2026-04-14 16:30:46.901 | INFO     | utils.location:__init__:99 — LocationProvider | google=False | ip_fallback=True | ttl=300s
+2026-04-14 16:30:46.903 | DEBUG    | utils.location:_refresh_loop:156 — Location refresh loop: interval=150s
+2026-04-14 16:30:46.903 | INFO     | utils.location:start_background_refresh:138 — Location background refresh thread started.
+2026-04-14 16:30:47.392 | INFO     | __main__:run:408 — Location: Kolkata, West Bengal, India (22.5643°, 88.3693°)
+2026-04-14 16:30:47.393 | INFO     | utils.performance:__init__:207 — FrameSkipTuner | target=30.0fps ±2.0 window=30 init_skip=0
+2026-04-14 16:30:47.462 | ERROR    | __main__:run:436 — Pipeline init failed. Aborting.
+Traceback (most recent call last):
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 677, in <module>
+    code = run(args)
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 430, in run
+    latitude=location_fix.latitude,
+AttributeError: 'LocationFix' object has no attribute 'latitude'
+2026-04-14 16:30:47.467 | INFO     | core.camera:stop:106 — Camera stopping…
+2026-04-14 16:30:47.473 | DEBUG    | core.camera:_reader_loop:258 — Camera reader loop exited.
+2026-04-14 16:30:47.759 | INFO     | core.camera:stop:111 — Camera stopped. Total frames captured: 390
+2026-04-14 16:31:29.584 | INFO     | utils.logger:setup_logging:107 — Logging initialised | level=DEBUG | dir=C:\Users\HP\OneDrive\Desktop\women-safety-product\logs | rotation=10 MB | retention=7 days
+2026-04-14 16:31:29.586 | INFO     | __main__:run:334 — ================================================================
+2026-04-14 16:31:29.586 | INFO     | __main__:run:335 —   Women Safety Product — Production Pipeline (Days 1–5)
+2026-04-14 16:31:29.587 | INFO     | __main__:run:336 — ================================================================
+2026-04-14 16:31:29.587 | INFO     | __main__:run:337 — ============================================================
+  Women Safety Product — Active Configuration
+============================================================
+  PROJECT_ROOT                        C:\Users\HP\OneDrive\Desktop\women-safety-product
+  CAMERA_SOURCE                       0
+  CAMERA_WIDTH                        640
+  CAMERA_HEIGHT                       480
+  CAMERA_FPS                          30
+  CAMERA_RECONNECT_DELAY              3
+  CAMERA_MAX_RECONNECT                10
+  MODEL_PATH                          models/yolov8n-pose.pt
+  MODEL_CONFIDENCE                    0.55
+  MODEL_IOU                           0.5
+  MODEL_DEVICE                        cpu
+  MODEL_IMGSZ                         640
+  EXPORT_ONNX                         False
+  TRACKER_CONFIG                      botsort.yaml
+  TRACKER_PERSIST                     True
+  THREAT_MODEL_PATH                   models/threat_xgb.json
+  THREAT_LOW                          0.22
+  THREAT_MEDIUM                       0.44
+  THREAT_HIGH                         0.62
+  THREAT_SUSTAINED_FRAMES             8
+  THREAT_MIN_GROUP_SIZE               2
+  ENABLE_INTERACTION_ANALYSIS         True
+  INTERACTION_DISTANCE_THRESHOLD      0.25
+  INTERACTION_BOOST_MAX               0.25
+  ALERT_EMAIL_ENABLED                 False
+  ALERT_EMAIL_SMTP                    smtp.gmail.com
+  ALERT_EMAIL_PORT                    587
+  ALERT_EMAIL_SENDER                  your@gmail.com
+  ALERT_EMAIL_PASSWORD                ***
+  ALERT_EMAIL_RECEIVER                emergency@example.com
+  ALERT_SOUND_ENABLED                 True
+  ALERT_COOLDOWN                      60
+  LOCATION_GOOGLE_API_KEY             ***
+  LOCATION_IP_FALLBACK                True
+  COORDINATOR_URL                     http://localhost:8000
+  EDGE_OFFLINE_MODE                   False
+  DASHBOARD_PORT                      8501
+  DASHBOARD_REFRESH_MS                100
+  LOG_MAX_ROWS                        200
+  LOG_LEVEL                           DEBUG
+  LOG_DIR                             logs
+  LOG_ROTATION                        10 MB
+  LOG_RETENTION                       7 days
+============================================================
+2026-04-14 16:31:29.588 | INFO     | __main__:run:374 — Initialising camera (source=0)…
+2026-04-14 16:31:29.588 | INFO     | core.camera:__init__:78 — Camera created | source=0 | 640x480 @ 30fps
+2026-04-14 16:31:29.589 | DEBUG    | core.camera:_open:156 — Opening camera source: 0
+2026-04-14 16:31:46.485 | INFO     | core.camera:_open:174 — Camera opened | actual 640x480 @ 30.0fps
+2026-04-14 16:31:46.485 | DEBUG    | core.camera:_reader_loop:202 — Camera reader loop entered.
+2026-04-14 16:31:46.485 | INFO     | core.camera:start:101 — Camera reader thread started.
+2026-04-14 16:31:46.846 | INFO     | __main__:run:383 — Frame resolution: 640×480
+2026-04-14 16:31:46.846 | INFO     | __main__:run:389 — Initialising Detector (skip=0)…
+2026-04-14 16:31:46.847 | INFO     | core.detector:_load_model:118 — Loading YOLO model from: C:\Users\HP\OneDrive\Desktop\women-safety-product\models\yolov8n-pose.pt
+2026-04-14 16:31:47.181 | INFO     | core.detector:_load_model:132 — YOLO model loaded and warmed up. Device: cpu (FP16: False)
+2026-04-14 16:31:47.181 | INFO     | __main__:run:392 — Initialising TrackManager…
+2026-04-14 16:31:47.181 | INFO     | core.tracker:__init__:179 — TrackManager initialised.
+2026-04-14 16:31:47.182 | INFO     | __main__:run:395 — Initialising ThreatEngine (640×480)…
+2026-04-14 16:31:47.182 | INFO     | core.features:__init__:115 — FeatureExtractor ready | 640x480 | diag=800.0px | features=20
+2026-04-14 16:31:49.169 | SUCCESS  | core.threat:_load_xgb_model:139 — XGBoost model loaded from C:\Users\HP\OneDrive\Desktop\women-safety-product\models\threat_xgb.json.
+2026-04-14 16:31:49.170 | INFO     | core.threat:__init__:112 — ThreatEngine ready | xgb=True | diag=800px | thresholds=(0.22,0.44,0.62) | sustained=8
+2026-04-14 16:31:49.170 | INFO     | __main__:run:398 — Initialising AlertDispatcher…
+2026-04-14 16:31:49.171 | INFO     | utils.alerts:__init__:115 — AlertDispatcher ready | email=False | sound=True | cooldown=60s
+2026-04-14 16:31:49.171 | INFO     | __main__:run:401 — Initialising MultiChannelAlerter (Twilio/AT)…
+2026-04-14 16:31:49.172 | ERROR    | utils.twilio_alerts:_init_client:101 — twilio package not installed. Run: pip install twilio
+2026-04-14 16:31:49.173 | INFO     | __main__:run:404 — Initialising LocationProvider…
+2026-04-14 16:31:49.173 | INFO     | utils.location:__init__:99 — LocationProvider | google=False | ip_fallback=True | ttl=300s
+2026-04-14 16:31:49.174 | DEBUG    | utils.location:_refresh_loop:156 — Location refresh loop: interval=150s
+2026-04-14 16:31:49.174 | INFO     | utils.location:start_background_refresh:138 — Location background refresh thread started.
+2026-04-14 16:31:49.742 | INFO     | __main__:run:408 — Location: Kolkata, West Bengal, India (22.5643°, 88.3693°)
+2026-04-14 16:31:49.743 | INFO     | utils.performance:__init__:207 — FrameSkipTuner | target=30.0fps ±2.0 window=30 init_skip=0
+2026-04-14 16:31:51.786 | INFO     | __main__:run:448 — Pipeline ready | auto_tuner=True | target_fps=30.0 | device=cpu
+2026-04-14 16:31:51.787 | INFO     | __main__:run:452 — Controls: q=quit  s=snapshot  p=pause  +=skip+  -=skip-
+2026-04-14 16:31:51.799 | INFO     | __main__:poll:121 — Runtime config updated: ['THREAT_LOW', 'THREAT_MEDIUM', 'THREAT_HIGH', 'THREAT_SUSTAINED_FRAMES', 'ALERT_COOLDOWN', 'MODEL_CONFIDENCE', 'SKIP_FRAMES', '_updated_at']
+2026-04-14 16:31:52.053 | DEBUG    | core.detector:detect:204 — Frame 1 | 0 persons | inference 250.0ms
+2026-04-14 16:31:56.314 | DEBUG    | core.detector:detect:204 — Frame 2 | 0 persons | inference 141.0ms
+2026-04-14 16:31:58.434 | DEBUG    | core.detector:detect:204 — Frame 3 | 0 persons | inference 109.0ms
+2026-04-14 16:32:00.554 | DEBUG    | core.detector:detect:204 — Frame 4 | 0 persons | inference 94.0ms
+2026-04-14 16:32:02.676 | DEBUG    | core.detector:detect:204 — Frame 5 | 0 persons | inference 109.0ms
+2026-04-14 16:32:04.819 | DEBUG    | core.detector:detect:204 — Frame 6 | 0 persons | inference 109.0ms
+2026-04-14 16:32:06.984 | DEBUG    | core.detector:detect:204 — Frame 7 | 1 persons | inference 125.0ms
+2026-04-14 16:32:06.985 | DEBUG    | core.tracker:update:204 — New track ID=2 detected.
+2026-04-14 16:32:07.013 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.000 h=0.000 IA=0.00 level=NONE prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:09.162 | DEBUG    | core.detector:detect:204 — Frame 8 | 0 persons | inference 110.0ms
+2026-04-14 16:32:09.177 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:11.306 | DEBUG    | core.detector:detect:204 — Frame 9 | 0 persons | inference 109.0ms
+2026-04-14 16:32:11.308 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:13.430 | DEBUG    | core.detector:detect:204 — Frame 10 | 0 persons | inference 94.0ms
+2026-04-14 16:32:13.432 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:15.549 | DEBUG    | core.detector:detect:204 — Frame 11 | 0 persons | inference 93.0ms
+2026-04-14 16:32:15.551 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:17.784 | DEBUG    | core.detector:detect:204 — Frame 12 | 0 persons | inference 203.0ms
+2026-04-14 16:32:17.787 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:19.925 | DEBUG    | core.detector:detect:204 — Frame 13 | 0 persons | inference 109.0ms
+2026-04-14 16:32:19.927 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:22.064 | DEBUG    | core.detector:detect:204 — Frame 14 | 1 persons | inference 109.0ms
+2026-04-14 16:32:22.068 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:24.194 | DEBUG    | core.detector:detect:204 — Frame 15 | 0 persons | inference 94.0ms
+2026-04-14 16:32:24.197 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:26.341 | DEBUG    | core.detector:detect:204 — Frame 16 | 0 persons | inference 109.0ms
+2026-04-14 16:32:26.343 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:30.513 | DEBUG    | core.detector:detect:204 — Frame 17 | 0 persons | inference 94.0ms
+2026-04-14 16:32:30.514 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:32.649 | DEBUG    | core.detector:detect:204 — Frame 18 | 0 persons | inference 110.0ms
+2026-04-14 16:32:32.650 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:34.769 | DEBUG    | core.detector:detect:204 — Frame 19 | 0 persons | inference 94.0ms
+2026-04-14 16:32:34.771 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:36.904 | DEBUG    | core.detector:detect:204 — Frame 20 | 0 persons | inference 125.0ms
+2026-04-14 16:32:36.907 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:39.027 | DEBUG    | core.detector:detect:204 — Frame 21 | 0 persons | inference 94.0ms
+2026-04-14 16:32:39.028 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:41.259 | DEBUG    | core.detector:detect:204 — Frame 22 | 0 persons | inference 203.0ms
+2026-04-14 16:32:41.262 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:43.405 | DEBUG    | core.detector:detect:204 — Frame 23 | 0 persons | inference 125.0ms
+2026-04-14 16:32:43.408 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:45.555 | DEBUG    | core.detector:detect:204 — Frame 24 | 0 persons | inference 141.0ms
+2026-04-14 16:32:45.556 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:47.757 | DEBUG    | core.detector:detect:204 — Frame 25 | 0 persons | inference 187.0ms
+2026-04-14 16:32:47.760 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:49.902 | DEBUG    | core.detector:detect:204 — Frame 26 | 1 persons | inference 110.0ms
+2026-04-14 16:32:49.905 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.340 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:52.027 | DEBUG    | core.detector:detect:204 — Frame 27 | 1 persons | inference 110.0ms
+2026-04-14 16:32:52.029 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:54.189 | DEBUG    | core.detector:detect:204 — Frame 28 | 0 persons | inference 125.0ms
+2026-04-14 16:32:54.191 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0
+2026-04-14 16:32:56.344 | DEBUG    | core.detector:detect:204 — Frame 29 | 0 persons | inference 125.0ms
+2026-04-14 16:32:56.346 | DEBUG    | core.threat:_score_one:229 — Track=2 score=0.339 h=0.000 IA=0.00 level=LOW prox_n=1.000 enc=0.000 surr=0

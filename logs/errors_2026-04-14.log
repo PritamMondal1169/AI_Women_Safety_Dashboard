@@ -1,0 +1,9 @@
+2026-04-14 16:30:46.900 | ERROR    | utils.twilio_alerts:_init_client:101 — twilio package not installed. Run: pip install twilio
+2026-04-14 16:30:47.462 | ERROR    | __main__:run:436 — Pipeline init failed. Aborting.
+Traceback (most recent call last):
+  File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 677, in <module>
+    code = run(args)
+> File "C:\Users\HP\OneDrive\Desktop\women-safety-product\main.py", line 430, in run
+    latitude=location_fix.latitude,
+AttributeError: 'LocationFix' object has no attribute 'latitude'
+2026-04-14 16:31:49.172 | ERROR    | utils.twilio_alerts:_init_client:101 — twilio package not installed. Run: pip install twilio
