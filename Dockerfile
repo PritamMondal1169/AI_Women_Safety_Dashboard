@@ -19,10 +19,10 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install runtime dependencies for Postgres and OpenCV
+# Install runtime dependencies for Postgres and OpenCV (libgl1 is the newer replacement for libgl1-mesa-glx)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq5 \
-    libgl1-mesa-glx \
+    libgl1 \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
