@@ -52,22 +52,6 @@ logger = logging.getLogger("safesphere.coordinator")
 from coordinator.state import _dashboard_ws, _user_ws
 
 
-# ── Health Check (for Cloud Run / Kubernetes) ────────────────────────────
-
-@app.get("/health")
-async def health_check():
-    """Returns 200 if the service is alive and the DB is reachable."""
-    from coordinator.database import engine
-    try:
-        # Quick check if DB is alive
-        async with engine.connect() as conn:
-            await conn.execute(select(1))
-        return {"status": "healthy", "timestamp": datetime.now(timezone.utc).isoformat()}
-    except Exception as e:
-        logger.error(f"Health check failed: {e}")
-        return {"status": "unhealthy", "error": str(e)}, 503
-
-
 # ── Blind Spot Monitor Task ──────────────────────────────────────────────
 
 async def blind_spot_monitor():
@@ -154,6 +138,23 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.get("/health")
+async def health_check():
+    """Returns 200 if the service is alive and the DB is reachable."""
+    from coordinator.database import engine
+    from sqlalchemy import select
+    from datetime import datetime, timezone
+    try:
+        # Quick check if DB is alive
+        async with engine.connect() as conn:
+            await conn.execute(select(1))
+        return {"status": "healthy", "timestamp": datetime.now(timezone.utc).isoformat()}
+    except Exception as e:
+        logger.error(f"Health check failed: {e}")
+        return {"status": "unhealthy", "error": str(e)}, 503
+
 
 # ── Routes ───────────────────────────────────────────────────────────────
 
